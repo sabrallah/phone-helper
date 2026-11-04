@@ -1,27 +1,35 @@
-# 📱 Phone Helper - Marquephone Smartphones Maroc
+# 📱 PhoneHelper Pro — Baromètre smartphones Maroc
 
-Page HTML autonome pour lister les smartphones du Baromètre des prix MarocPhone (https://marocphone.com/barometre-prix-tech-maroc).
+Dashboard HTML autonome consacré aux smartphones neufs et reconditionnés A+ de [MarocPhone](https://marocphone.com/neuf/smartphones).
 
 ## 📄 Contenu
 
-- **Liste complète** : 30 modèles (22 neufs + 8 reconditionnés A+) avec prix, remises, liens produits
-- **🔥 Meilleurs vendus au Maroc 2026** : Top 10 + Top 2 A+
-- **🛠️ Guide Technicien** : quoi stocker, seuils de rentabilité, check-list réparation (imprimable)
-- **⟳ Mise à jour auto** : bouton qui récupère les prix actuels via 6 proxys CORS
+- **Catalogue complet** : 30 modèles (22 neufs + 8 reconditionnés A+) avec prix, anciens prix, remises, disponibilité et liens produits
+- **Dashboard KPI** : prix moyens neuf/A+, fourchette, meilleure remise, ruptures, marques
+- **📈 Statistiques marché** : 3 graphiques Chart.js (marques, distribution des prix, remises) + barres de gammes et taux de pannes
+- **🔥 Top ventes Maroc 2026** : 10 neufs + 2 reconditionnés A+
+- **🛠️ Guide technicien** : stock prioritaire, pannes fréquentes, seuils de rentabilité, check-list imprimable
+- **🧮 Calculateur de rentabilité** : verdict immédiat selon le prix neuf, la pièce et la main d'œuvre
+
+## ⟳ Mise à jour en 1 clic
+
+Le bouton **Mise à jour** importe les données de MarocPhone via 6 proxys CORS et actualise **toute la page** :
+
+- prix actuels, anciens prix barrés et statut rupture / prix sur demande ;
+- nouveaux produits éventuels ajoutés au catalogue ;
+- KPIs, insights, barres, graphiques, Top ventes, tableau technicien, calculateur et catalogue.
+
+La dernière synchronisation est conservée dans le `localStorage` du navigateur.
 
 ## 🚀 Déploiement
 
-Ce repo est déployé automatiquement sur **GitHub Pages** via GitHub Actions (`.github/workflows/pages.yml`).
+Le repo est déployé automatiquement sur **GitHub Pages** via GitHub Actions (`.github/workflows/pages.yml`).
 Chaque push sur `main` déclenche un nouveau déploiement.
 
 URL publique : https://sabrallah.github.io/phone-helper/
 
-> Le fichier principal est `liste-smartphones-marocphone.html` à la racine.
-
-## 🔧 Mise à jour des prix
-
-Cliquez sur le bouton **Mise à jour** en haut de la page. La page essaie 6 proxys CORS et met à jour les prix, moyennes et date du baromètre.
+> Le fichier principal est `index.html` à la racine du repo.
 
 ## ©
 
-sabrallah - sabrallah1991@gmail.com
+sabrallah — sabrallah1991@gmail.com

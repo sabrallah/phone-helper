@@ -139,7 +139,7 @@ footer{text-align:center;color:#94a3b8;font-size:12px;margin-top:8px}
     <p>Prix neufs & reconditionnés A+ MarocPhone, meilleures ventes, statistiques de pannes, seuils de rentabilité et stock prioritaire — pour réparer au bon prix, au bon moment.</p>
     <div class="update-bar">
       <button id="btnUpdate" class="btn"><span class="spin">⟳</span> Mise à jour</button>
-      <a class="btn btn-ghost" href="https://marocphone.com/smartphones" target="_blank" rel="noopener">↗ Ouvrir MarocPhone</a>
+      <a class="btn btn-ghost" href="https://marocphone.com/neuf/smartphones" target="_blank" rel="noopener">↗ Ouvrir MarocPhone</a>
       <span id="updateStatus" class="status">Dernière synchro : <span id="lastSync">—</span> • Cliquez sur "Mise à jour" pour synchroniser les prix (6 proxys CORS).</span>
     </div>
     <details class="log-details" id="logDetails" style="display:none"><summary>voir les détails techniques</summary><div id="updateLog"></div></details>
@@ -147,26 +147,26 @@ footer{text-align:center;color:#94a3b8;font-size:12px;margin-top:8px}
 
   <!-- DASHBOARD -->
   <div class="kpi-grid" id="dashboard">
-    <div class="kpi"><small>Modèles</small><div class="v" id="kpiTotal">30</div><div class="d">22 neufs • 8 A+</div></div>
-    <div class="kpi"><small>Prix moyen neuf</small><div class="v" id="avgNeuf">5 986 DH</div><div class="d">▼ 4,9% en 24h (baromètre)</div></div>
-    <div class="kpi"><small>Prix moyen A+</small><div class="v" id="avgA">5 462 DH</div><div class="d">Écart moyen : -524 DH (-8,8%)</div></div>
-    <div class="kpi"><small>Fourchette neuf</small><div class="v" id="kpiRange">1 299 – 17 999 DH</div><div class="d">Rupture : 3 modèles</div></div>
-    <div class="kpi"><small>Meilleure remise</small><div class="v">-33%</div><div class="d">Galaxy S22 A+ • 2 500 DH économisés</div></div>
-    <div class="kpi"><small>Marques</small><div class="v">9</div><div class="d">Xiaomi leader volume (7 neufs)</div></div>
+    <div class="kpi"><small>Modèles</small><div class="v" id="kpiTotal">30</div><div class="d" id="kpiModelsDetail">22 neufs • 8 A+</div></div>
+    <div class="kpi"><small>Prix moyen neuf</small><div class="v" id="avgNeuf">5 986 DH</div><div class="d" id="kpiAvgNeufDetail">22 modèles neufs • remise moyenne —</div></div>
+    <div class="kpi"><small>Prix moyen A+</small><div class="v" id="avgA">5 462 DH</div><div class="d" id="kpiEcart">Écart moyen : -524 DH (-8,8%)</div></div>
+    <div class="kpi"><small>Fourchette neuf</small><div class="v" id="kpiRange">1 299 – 17 999 DH</div><div class="d" id="kpiRupture">Rupture : 3 modèles</div></div>
+    <div class="kpi"><small>Meilleure remise</small><div class="v" id="kpiBestRemise">-33%</div><div class="d" id="kpiBestRemiseDetail">Galaxy S22 A+ • 2 500 DH économisés</div></div>
+    <div class="kpi"><small>Marques</small><div class="v" id="kpiBrands">9</div><div class="d" id="kpiBrandsDetail">Xiaomi leader volume (7 neufs)</div></div>
   </div>
 
   <!-- STATS MARCHE -->
   <div class="section" id="stats">
-    <div class="section-head"><div><span class="num-tag">01 • STATISTIQUES MARCHÉ</span><h2>Statistiques du marché Maroc</h2><p>Ce qui se vend, à quel prix, et où le technicien doit se positionner. Données calculées en direct depuis le catalogue (30 modèles).</p></div></div>
+    <div class="section-head"><div><span class="num-tag">01 • STATISTIQUES MARCHÉ</span><h2>Statistiques du marché Maroc</h2><p>Ce qui se vend, à quel prix, et où le technicien doit se positionner. Données calculées en direct depuis le catalogue (<span id="statsCount">30</span> modèles).</p></div></div>
     <div class="charts">
-      <div class="chart-box"><h3>📊 Répartition des modèles par marque (neuf + A+)</h3><canvas id="chartBrand" height="220"></canvas><p>Xiaomi domine le volume neuf (7/22), Apple/Samsung dominent le reconditionné (4+4/8).</p></div>
-      <div class="chart-box"><h3>💰 Distribution des prix neufs par gamme</h3><canvas id="chartPrice" height="220"></canvas><p>12 modèles entre 2 000 et 5 500 DH = cœur du marché réparable (rentabilité maximale).</p></div>
-      <div class="chart-box"><h3>🏷️ Remise moyenne par marque</h3><canvas id="chartRemise" height="220"></canvas><p>Reconditionné : -27% à -33%. Neuf : -5% à -13%. Stocker les pièces des marques à forte remise = tickets élevés.</p></div>
+      <div class="chart-box"><h3>📊 Répartition des modèles par marque (neuf + A+)</h3><canvas id="chartBrand" height="220"></canvas><p id="descBrand">Xiaomi domine le volume neuf (7/22), Apple/Samsung dominent le reconditionné (4+4/8).</p></div>
+      <div class="chart-box"><h3>💰 Distribution des prix neufs par gamme</h3><canvas id="chartPrice" height="220"></canvas><p id="descPrice">12 modèles entre 2 000 et 5 500 DH = cœur du marché réparable (rentabilité maximale).</p></div>
+      <div class="chart-box"><h3>🏷️ Remise moyenne par marque</h3><canvas id="chartRemise" height="220"></canvas><p id="descRemise">Reconditionné : -27% à -33%. Neuf : -5% à -13%. Stocker les pièces des marques à forte remise = tickets élevés.</p></div>
     </div>
     <div class="insight-grid">
       <div class="insight"><strong>🎯 80/20 du business réparation</strong><span>Xiaomi Redmi/Note 25% + Samsung Galaxy A 20% + iPhone 11-14 A+ et Samsung S A+ = 80% des réparations attendues.</span></div>
-      <div class="insight"><strong>📉 Neuf en baisse (-4,9%)</strong><span>Quand le neuf baisse, la réparation des anciens modèles augmente. C'est le signal pour vendre écrans/batteries en masse.</span></div>
-      <div class="insight"><strong>⚠️ Ruptures = demande de pièces</strong><span>Tecno Spark 50, iPhone 15 Pro Max, Foning en rupture → ces clients réparent l'ancien au lieu d'acheter.</span></div>
+      <div class="insight"><strong id="insightNeufTitle">📉 Neuf : remises en cours</strong><span id="insightNeuf">Prix neufs et remises recalculés depuis MarocPhone à chaque mise à jour.</span></div>
+      <div class="insight"><strong>⚠️ Ruptures = demande de pièces</strong><span id="insightRupture">Tecno Spark 50, iPhone 15 Pro Max, Foning en rupture → ces clients réparent l'ancien au lieu d'acheter.</span></div>
       <div class="insight"><strong>♻️ A+ = risque + marge</strong><span>Batterie ≥85% mais déjà usée, déjà ouvert, garantie 3-6 mois. Check-list + photos obligatoires avant toute réparation.</span></div>
     </div>
     <div style="padding:4px 20px 6px;font-weight:800;font-size:13px">Poids des gammes de prix (neufs)</div>
@@ -222,13 +222,13 @@ footer{text-align:center;color:#94a3b8;font-size:12px;margin-top:8px}
 
   <!-- TOP VENTES -->
   <div class="section" id="top">
-    <div class="section-head"><div><span class="num-tag">04 • TOP VENTES</span><h2>🔥 Meilleurs smartphones vendus au Maroc 2026</h2><p>Top basé sur volume + rapport qualité/prix.</p></div></div>
+    <div class="section-head"><div><span class="num-tag">04 • TOP VENTES</span><h2>🔥 Meilleurs smartphones vendus au Maroc 2026</h2><p id="descTop">Top basé sur volume + rapport qualité/prix.</p></div></div>
     <div class="best-grid" id="bestGrid"></div>
   </div>
 
   <!-- CATALOGUE -->
   <div class="section" id="catalogue">
-    <div class="section-head"><div><span class="num-tag">05 • CATALOGUE</span><h2>Catalogue complet — 30 modèles</h2><p>Recherchez, filtrez par marque / état / disponibilité. Prix TTC, paiement à la livraison.</p></div></div>
+    <div class="section-head"><div><span class="num-tag">05 • CATALOGUE</span><h2 id="catTitle">Catalogue complet — 30 modèles</h2><p>Recherchez, filtrez par marque / état / disponibilité. Prix TTC, paiement à la livraison.</p></div></div>
     <div class="controls">
       <input id="search" type="text" placeholder="Rechercher un modèle ou une marque... ex: Xiaomi, iPhone, Samsung">
       <select id="filter"><option value="all">Tous les modèles</option><option value="neuf">Neufs uniquement</option><option value="a">Reconditionnés A+ uniquement</option><option value="dispo">Disponibles uniquement</option></select>
@@ -303,11 +303,72 @@ const TECH = [
 
 /* ===== RENDU ===== */
 const fmt = n => n==null ? "Prix sur demande" : n.toLocaleString("fr-FR").replace(/\u202F/g," ") + " DH";
+const slugOf = u => (u||"").split("?")[0].replace(/\/+$/,"").split("/").pop().toLowerCase();
+const normName = s => (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");
+function findModel(ref){
+  if(!ref) return null;
+  const slug = slugOf(ref);
+  if(slug){
+    const byUrl = MODELS.find(x=>slugOf(x.u)===slug);
+    if(byUrl) return byUrl;
+  }
+  const target = normName(ref);
+  if(!target) return null;
+  let best=null, bestScore=0;
+  MODELS.forEach(x=>{
+    const n = normName(x.n);
+    let score = 0;
+    if(n===target) score = 10000;
+    else if(n.startsWith(target) || target.startsWith(n)) score = Math.min(n.length,target.length);
+    else { let i=0; while(i<n.length && i<target.length && n[i]===target[i]) i++; if(i>=10) score = i; }
+    if(score>bestScore){ bestScore=score; best=x; }
+  });
+  return bestScore>=10 ? best : null;
+}
+function getP(ref){
+  const m = findModel(ref);
+  return m ? m.p : null;
+}
+function getOld(ref, fallback){
+  const m = findModel(ref);
+  return m ? m.old : fallback;
+}
+function getRange(a,b){
+  const x=getP(a), y=getP(b);
+  if(!x||!y) return null;
+  return fmt(Math.min(x,y)).replace(" DH","")+" – "+fmt(Math.max(x,y));
+}
 function renderBest(){
-  document.getElementById("bestGrid").innerHTML = BEST.map(c=>`<div class="card-best ${c.t==="a"?"a-plus":""}"><div class="rank">${c.r}</div><div class="t"><a class="model" href="${c.u}" target="_blank" rel="noopener">${c.n}</a></div><div class="p">${fmt(c.p)} ${c.old?`<span class="old">${fmt(c.old)}</span>`:""}</div><div class="w">${c.w}</div><span class="tag">${c.tag}</span></div>`).join("");
+  document.getElementById("bestGrid").innerHTML = BEST.map(c=>{
+    const m = findModel(c.u) || findModel(c.n);
+    const p = m ? m.p : c.p;
+    const oldPrice = m ? m.old : c.old;
+    const rem = (p && oldPrice) ? Math.round((1-p/oldPrice)*100) : null;
+    const remText = rem ? `<span class="remise">-${rem}%</span>` : "";
+    return `<div class="card-best ${c.t==="a"?"a-plus":""}"><div class="rank">${c.r}</div><div class="t"><a class="model" href="${c.u}" target="_blank" rel="noopener">${c.n}</a></div><div class="p">${fmt(p)} ${oldPrice&&p?`<span class="old">${fmt(oldPrice)}</span>${remText}`:""}</div><div class="w">${c.w}</div><span class="tag">${c.tag}</span></div>`;
+  }).join("");
+  const topPrice = getP("Xiaomi Redmi 13C");
+  const desc = document.getElementById("descTop");
+  if(desc) desc.textContent = `Top basé sur le volume + rapport qualité/prix — prix du jour (Redmi 13C à ${fmt(topPrice)}).`;
 }
 function renderTech(){
-  document.getElementById("techTable").innerHTML = TECH.map(r=>`<tr><td><b>${r[0]}</b></td><td>${r[1]}</td><td>${r[2]}</td><td>${r[3]}</td><td><span class="badge b-a">${r[4]}</span></td><td>${r[5]}</td></tr>`).join("");
+  // TECH contient une colonne prix en dur → on la remplace par le prix actuel du modèle correspondant
+  const prixMap = {
+    "Xiaomi Redmi 13C": getP("Xiaomi Redmi 13C"),
+    "Infinix Hot 40 Pro": getP("Infinix Hot 40 Pro"),
+    "Samsung Galaxy A16 / A17": getRange("Samsung Galaxy A16","Samsung Galaxy A17"),
+    "Xiaomi Redmi Note 13 Pro / Note 17": getRange("Xiaomi Redmi Note 13 Pro","Xiaomi Redmi Note 17"),
+    "Honor X9b 5G": getP("Honor X9b 5G"),
+    "Xiaomi Note 17 Pro 5G": getP("Xiaomi Redmi Note 17 Pro 5G 256 Go"),
+    "iPhone 11-14 A+": getRange("Apple iPhone 11","Apple iPhone 14"),
+    "Samsung S22-S25 Plus A+": getRange("Samsung Galaxy S23 Plus","Samsung Galaxy S25 Plus"),
+    "iPhone 15 / S24 Ultra": getRange("Apple iPhone 15 6.1","Samsung Galaxy S24 Ultra"),
+  };
+  document.getElementById("techTable").innerHTML = TECH.map(r=>{
+    const prix = prixMap[r[0]] || r[1];
+    const prixTexte = (typeof prix === "string") ? prix : (prix ? fmt(prix) : r[1]);
+    return `<tr><td><b>${r[0]}</b></td><td>${prixTexte}</td><td>${r[2]}</td><td>${r[3]}</td><td><span class="badge b-a">${r[4]}</span></td><td>${r[5]}</td></tr>`;
+  }).join("");
 }
 function renderCatalog(){
   const q=(document.getElementById("search").value||"").toLowerCase(), f=document.getElementById("filter").value, br=document.getElementById("brand").value;
@@ -320,18 +381,28 @@ function renderCatalog(){
     if(f==="dispo" && !m.dispo) show=false;
     if(br!=="all" && m.b!==br) show=false;
     if(!show) return; vis++;
-    const rem = m.old? Math.round((1-m.p/m.old)*100):null;
-    html+=`<tr><td>${i+1}</td><td><a class="model" href="${m.u}" target="_blank" rel="noopener">${m.n}</a> ${!m.dispo?'<span class="badge b-rup">Rupture</span>':""}</td><td>${m.b}</td><td><span class="badge ${m.t==="neuf"?"b-neuf":"b-a"}">${m.t==="neuf"?"Neuf":"A+"}</span></td><td class="price">${fmt(m.p)}${m.old?`<span class="old">${fmt(m.old)}</span><span class="remise">-${rem}%</span>`:""}</td><td>${m.panne}</td></tr>`;
+    const rem = (m.old && m.p) ? Math.round((1-m.p/m.old)*100) : null;
+    html+=`<tr><td>${i+1}</td><td><a class="model" href="${m.u}" target="_blank" rel="noopener">${m.n}</a> ${!m.dispo?'<span class="badge b-rup">Rupture</span>':""}</td><td>${m.b}</td><td><span class="badge ${m.t==="neuf"?"b-neuf":"b-a"}">${m.t==="neuf"?"Neuf":"A+"}</span></td><td class="price">${fmt(m.p)}${(m.old && m.p)?`<span class="old">${fmt(m.old)}</span><span class="remise">-${rem}%</span>`:""}</td><td>${m.panne}</td></tr>`;
   });
   document.getElementById("catBody").innerHTML=html;
   document.getElementById("empty").style.display = vis===0?"block":"none";
 }
 function renderBars(){
-  const gammes=[["< 2 000 DH",4],["2 000 – 3 500 DH",8],["3 500 – 5 500 DH",4],["5 500 – 10 000 DH",1],[" > 10 000 DH",5]];
-  const maxP=Math.max(...gammes.map(g=>g[1]));
-  document.getElementById("priceBars").innerHTML=gammes.map(g=>`<div class="bar-row"><span>${g[0]}</span><div class="bar-track"><div class="bar-fill" style="width:${g[1]/maxP*100}%"></div></div><b>${g[1]} modèles</b></div>`).join("");
+  // Calculé depuis MODELS (prix réels) — plus de valeurs figées
+  const neufs = MODELS.filter(m=>m.t==="neuf"&&m.p);
+  const gammes = [
+    ["< 2 000 DH", neufs.filter(m=>m.p<2000).length],
+    ["2 000 – 3 500 DH", neufs.filter(m=>m.p>=2000&&m.p<3500).length],
+    ["3 500 – 5 500 DH", neufs.filter(m=>m.p>=3500&&m.p<5500).length],
+    ["5 500 – 10 000 DH", neufs.filter(m=>m.p>=5500&&m.p<10000).length],
+    ["> 10 000 DH", neufs.filter(m=>m.p>=10000).length]
+  ];
+  const maxP = Math.max(...gammes.map(g=>g[1]),1);
+  document.getElementById("priceBars").innerHTML = gammes.map(g=>`<div class="bar-row"><span>${g[0]}</span><div class="bar-track"><div class="bar-fill" style="width:${g[1]/maxP*100}%"></div></div><b>${g[1]} modèles</b></div>`).join("");
   const pannes=[["Écran / tactile",45,""],["Batterie",25,"g"],["Charge USB-C",15,"b"],["Logiciel / chauffe",10,""],["Boutons",5,""]];
   document.getElementById("panneBars").innerHTML=pannes.map(p=>`<div class="bar-row"><span>${p[0]}</span><div class="bar-track"><div class="bar-fill ${p[2]}" style="width:${p[1]}%"></div></div><b>${p[1]}%</b></div>`).join("");
+  const descPrice=document.getElementById("descPrice");
+  if(descPrice) descPrice.textContent = `Cœur réparable : ${gammes[1][1]+gammes[2][1]} modèles entre 2 000 et 5 500 DH (rentabilité maximale) — recalculé après synchro.`;
 }
 let c1,c2,c3;
 function renderCharts(){
@@ -340,23 +411,79 @@ function renderCharts(){
   const labels=Object.keys(byBrand), data=Object.values(byBrand);
   if(c1) c1.destroy(); if(c2) c2.destroy(); if(c3) c3.destroy();
   c1=new Chart(document.getElementById("chartBrand"),{type:"doughnut",data:{labels,datasets:[{data,backgroundColor:["#2563eb","#f59e0b","#16a34a","#7c3aed","#e11d48","#0891b2","#65a30d","#ea580c","#64748b"]}]},options:{plugins:{legend:{position:"bottom",labels:{boxWidth:10,font:{size:11}}}}}});
-  c2=new Chart(document.getElementById("chartPrice"),{type:"bar",data:{labels:["<2k","2-3,5k","3,5-5,5k","5,5-10k",">10k"],datasets:[{label:"Modèles neufs",data:[4,8,4,1,5],backgroundColor:"#2563eb",borderRadius:8}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:2}}}}});
+  // Distribution neufs calculée depuis MODELS
+  const neufs = MODELS.filter(m=>m.t==="neuf"&&m.p);
+  const dist = [neufs.filter(m=>m.p<2000).length, neufs.filter(m=>m.p>=2000&&m.p<3500).length, neufs.filter(m=>m.p>=3500&&m.p<5500).length, neufs.filter(m=>m.p>=5500&&m.p<10000).length, neufs.filter(m=>m.p>=10000).length];
+  c2=new Chart(document.getElementById("chartPrice"),{type:"bar",data:{labels:["<2k","2-3,5k","3,5-5,5k","5,5-10k",">10k"],datasets:[{label:"Modèles neufs",data:dist,backgroundColor:"#2563eb",borderRadius:8}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:2}}}}});
   const remises={}; MODELS.forEach(m=>{ if(m.old&&m.p){ const r=Math.round((1-m.p/m.old)*100); remises[m.b]=remises[m.b]||[]; remises[m.b].push(r);} });
   const rLabels=Object.keys(remises), rData=rLabels.map(k=>Math.round(remises[k].reduce((a,b)=>a+b,0)/remises[k].length));
   c3=new Chart(document.getElementById("chartRemise"),{type:"bar",data:{labels:rLabels,datasets:[{label:"Remise moyenne %",data:rData,backgroundColor:"#f59e0b",borderRadius:8}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:35}}}});
+  // Descriptions dynamiques
+  const topBrand = Object.entries(byBrand).sort((a,b)=>b[1]-a[1])[0];
+  const descBrand=document.getElementById("descBrand");
+  if(descBrand&&topBrand) descBrand.textContent=`${topBrand[0]} en tête avec ${topBrand[1]} modèles • ${MODELS.length} modèles au total • recalculé après synchro.`;
+  const descRemise=document.getElementById("descRemise");
+  if(descRemise&&rData.length){ const maxR=Math.max(...rData); descRemise.textContent=`Plus forte remise moyenne : ${maxR}% • recalculé après synchro.`; }
 }
 function renderKPIs(){
   const neufs=MODELS.filter(m=>m.t==="neuf"&&m.p), as=MODELS.filter(m=>m.t==="a"&&m.p);
-  const avg=a=>Math.round(a.reduce((s,m)=>s+m.p,0)/a.length);
+  const avg=a=>a.length?Math.round(a.reduce((s,m)=>s+m.p,0)/a.length):0;
   document.getElementById("avgNeuf").textContent=fmt(avg(neufs));
   document.getElementById("avgA").textContent=fmt(avg(as));
   document.getElementById("kpiTotal").textContent=MODELS.length;
   const ps=neufs.map(m=>m.p);
-  document.getElementById("kpiRange").textContent=fmt(Math.min(...ps)).replace(" DH","")+" – "+fmt(Math.max(...ps));
+  document.getElementById("kpiRange").textContent=ps.length?fmt(Math.min(...ps)).replace(" DH","")+" – "+fmt(Math.max(...ps)):"—";
+  // Détails dynamiques
+  const nbNeufs = MODELS.filter(m=>m.t==="neuf").length, nbA = MODELS.filter(m=>m.t==="a").length;
+  document.getElementById("kpiModelsDetail").textContent = `${nbNeufs} neufs • ${nbA} A+`;
+  const ecart = avg(as)-avg(neufs);
+  const pct = avg(neufs)? Math.round(ecart/avg(neufs)*100):0;
+  document.getElementById("kpiEcart").textContent = `Écart moyen : ${ecart>=0?"+":""}${ecart} DH (${pct}%)`;
+  const rupCount = MODELS.filter(m=>!m.dispo).length;
+  document.getElementById("kpiRupture").textContent = `Rupture : ${rupCount} modèles`;
+  // Remise moyenne des neufs (ancien prix barré)
+  const remisesNeuf = neufs.filter(m=>m.old).map(m=>Math.round((1-m.p/m.old)*100)).filter(r=>r>0);
+  const remMoy = remisesNeuf.length?Math.round(remisesNeuf.reduce((a,b)=>a+b,0)/remisesNeuf.length):0;
+  document.getElementById("kpiAvgNeufDetail").textContent = `${neufs.length} modèles neufs • remise moyenne -${remMoy}%`;
+  // Meilleure remise calculée
+  let best=null;
+  MODELS.forEach(m=>{ if(m.old&&m.p){ const r=Math.round((1-m.p/m.old)*100); const eco=m.old-m.p; if(!best||r>best.r||r===best.r&&eco>best.eco) best={r,eco,n:m.n}; }});
+  if(best){ document.getElementById("kpiBestRemise").textContent=`-${best.r}%`; document.getElementById("kpiBestRemiseDetail").textContent=`${best.n} • ${fmt(best.eco)} économisés`; }
+  const brands = new Set(MODELS.map(m=>m.b));
+  document.getElementById("kpiBrands").textContent = brands.size;
+  const byBrandCount={}; MODELS.forEach(m=>byBrandCount[m.b]=(byBrandCount[m.b]||0)+1);
+  const topB=Object.entries(byBrandCount).sort((a,b)=>b[1]-a[1])[0];
+  document.getElementById("kpiBrandsDetail").textContent = topB?`${topB[0]} leader volume (${topB[1]} modèles)`:"—";
+  document.getElementById("catTitle").textContent = `Catalogue complet — ${MODELS.length} modèles`;
+  document.getElementById("statsCount").textContent = MODELS.length;
+  // Insights marché
+  const iNeufT=document.getElementById("insightNeufTitle"), iNeuf=document.getElementById("insightNeuf");
+  if(iNeufT) iNeufT.textContent = `📉 Neuf : ${neufs.length} modèles, remise moyenne -${remMoy}%`;
+  if(iNeuf) iNeuf.textContent = remisesNeuf.length
+    ? `${remisesNeuf.length} modèles neufs affichent un ancien prix barré. Quand le neuf baisse, la réparation des anciens modèles augmente : c'est le signal pour vendre écrans/batteries.`
+    : `Aucune remise affichée sur les neufs aujourd'hui. Surveillez les baisses de prix à chaque mise à jour.`;
+  const ruptures=MODELS.filter(m=>!m.dispo);
+  const iRup=document.getElementById("insightRupture");
+  if(iRup) iRup.textContent = ruptures.length
+    ? `${ruptures.map(m=>m.n).join(", ")} en rupture → ces clients réparent l'ancien au lieu d'acheter.`
+    : `Aucune rupture détectée aujourd'hui : surveillez les stocks à chaque mise à jour.`;
 }
 function renderCalcOptions(){
   const sel=document.getElementById("calcModel");
+  const prevIndex=sel.selectedIndex;
   sel.innerHTML='<option value="">— Choisir un modèle —</option>'+MODELS.filter(m=>m.p).map(m=>`<option value="${m.p}">${m.n} (${fmt(m.p)})</option>`).join("");
+  if(prevIndex>0 && sel.options[prevIndex]){
+    sel.selectedIndex=prevIndex;
+    const v=sel.options[prevIndex].value;
+    if(v) document.getElementById("calcNew").value=v;
+  }
+}
+function renderBrandOptions(){
+  const sel=document.getElementById("brand");
+  const prev=sel.value;
+  const brands=[...new Set(MODELS.map(m=>m.b))].sort((a,b)=>a.localeCompare(b,"fr"));
+  sel.innerHTML='<option value="all">Toutes les marques</option>'+brands.map(b=>`<option>${b}</option>`).join("");
+  sel.value=brands.includes(prev)?prev:"all";
 }
 function calc(){
   const N=+document.getElementById("calcNew").value||0, P=+document.getElementById("calcPart").value||0, L=+document.getElementById("calcLabour").value||0, S=+document.getElementById("calcSeuil").value||35;
@@ -373,7 +500,19 @@ function calc(){
 ["calcNew","calcPart","calcLabour","calcSeuil"].forEach(id=>document.getElementById(id).addEventListener("input",calc));
 document.getElementById("calcModel").addEventListener("change",e=>{ if(e.target.value) document.getElementById("calcNew").value=e.target.value; calc(); });
 document.getElementById("btnPrintTech").addEventListener("click",()=>window.print());
-renderBest(); renderTech(); renderCatalog(); renderBars(); renderKPIs(); renderCalcOptions(); renderCharts(); calc();
+function renderAll(){
+  renderBrandOptions();
+  renderBest();
+  renderTech();
+  renderCatalog();
+  renderBars();
+  renderKPIs();
+  renderCalcOptions();
+  renderCharts();
+  calc();
+  document.getElementById("baroDate2").textContent=new Date().toLocaleDateString("fr-FR");
+}
+renderAll();
 
 /* ===== MISE À JOUR ===== */
 const btnUpdate=document.getElementById("btnUpdate"), statusEl=document.getElementById("updateStatus"), lastSyncEl=document.getElementById("lastSync"), logEl=document.getElementById("updateLog");
@@ -384,16 +523,33 @@ function log(m){document.getElementById("logDetails").style.display="block";logE
 function parseProducts(html){
   const doc=new DOMParser().parseFromString(html,"text/html"), byHref=new Map();
   [...doc.querySelectorAll('a[href*="/smartphones/"]')].forEach(a=>{
-    const href=(a.getAttribute("href")||"").trim(); if(href.split("/").length<5||byHref.has(href))return;
+    const rawHref=(a.getAttribute("href")||"").trim();
+    const href=rawHref.split("?")[0].replace(/\/+$/,"");
+    if(href.split("/").filter(Boolean).length<4||byHref.has(href))return;
     const name=(a.textContent||"").trim().replace(/\s+/g," "); if(!name||name.length<8)return;
-    let card=a.closest("li,article,.product,[class*=\"card\"],tr")||a.parentElement, priceText="", node=card;
-    for(let i=0;i<3&&node;i++){priceText=node.textContent||""; if(/[\d\s\.]+\s*DH/.test(priceText))break; node=node.parentElement;}
-    if(/Prix sur demande/i.test(priceText)){byHref.set(href,{name:name+" (Prix sur demande)",price:null,href:"https://marocphone.com"+href});return;}
-    const pm=priceText.match(/([\d\s\.]{4,7})\s*DH/); if(!pm)return;
-    const price=parseInt(pm[1].replace(/[^\d]/g,""),10); if(!price)return;
-    byHref.set(href,{name,price,href:"https://marocphone.com"+href});
+    const slug=slugOf(href);
+    // Carte produit = ancêtre qui contient les 2 liens du même produit (image + titre)
+    let card=null, node=a.parentElement;
+    for(let i=0;i<5&&node;i++){
+      const same=[...node.querySelectorAll('a[href*="/smartphones/"]')].filter(x=>slugOf(x.getAttribute("href"))===slug);
+      const txt=node.textContent||"";
+      if(same.length>=2 && (/[\d\s\.]+\s*DH/i.test(txt)||/Prix sur demande/i.test(txt))){card=node;break;}
+      node=node.parentElement;
+    }
+    if(!card){
+      node=a.parentElement;
+      for(let i=0;i<4&&node;i++){const txt=node.textContent||""; if(/[\d\s\.]+\s*DH/i.test(txt)||/Prix sur demande/i.test(txt)){card=node;break;} node=node.parentElement;}
+    }
+    if(!card) return;
+    const text=card.textContent||"";
+    const dispo=/Rupture|Indisponible/i.test(text)?0:1;
+    const prices=[...text.matchAll(/([\d][\d\s\.]{2,8})\s*DH/gi)].map(m=>parseInt(m[1].replace(/[^\d]/g,""),10)).filter(n=>n>=100&&n<200000);
+    if(!prices.length && !/Prix sur demande|Indisponible/i.test(text)) return;
+    const price=prices.length?prices[0]:null;
+    const old=(prices.length>1 && prices[1]>price)?prices[1]:null;
+    byHref.set(href,{name,price,old,dispo:price===null?0:dispo,href:href.startsWith("http")?href:"https://marocphone.com"+href});
   });
-  return [...byHref.values()].slice(0,40);
+  return [...byHref.values()].slice(0,80);
 }
 async function fetchVia(proxy,url){
   log("→ Essai "+proxy.name+" : "+url);
@@ -416,23 +572,65 @@ btnUpdate.addEventListener("click",async()=>{
   }
   const rawN=parseProducts(htmlNeuf), rawA=parseProducts(htmlA);
   const itemsN=rawN.filter(i=>i.price!==null), itemsA=rawA.filter(i=>i.price!==null);
-  log("Parser : "+rawN.length+" détectés ("+itemsN.length+" avec prix), "+rawA.length+" A+ ("+itemsA.length+" avec prix)");
-  const norm=s=>s.toLowerCase().replace(/[^a-z0-9]/g,"").slice(0,14);
-  let updated=0, skipped=0;
-  MODELS.forEach(row=>{
-    const target=[...itemsN,...itemsA].find(p=>norm(p.name).includes(norm(row.n).slice(0,10))||norm(row.n).includes(norm(p.name).slice(0,10)));
-    if(target){ if(row.p===null){skipped++;return;} row.p=target.price; updated++; }
+  const all=[...rawN.map(i=>({...i,type:"neuf"})),...rawA.map(i=>({...i,type:"a"}))];
+  log("Parser : "+rawN.length+" neufs ("+itemsN.length+" avec prix), "+rawA.length+" A+ ("+itemsA.length+" avec prix)");
+  let updated=0, added=0, ruptures=0, remises=0;
+  all.forEach(item=>{
+    const row=MODELS.find(m=>slugOf(m.u)===slugOf(item.href)) || MODELS.find(m=>normName(m.n)===normName(item.name));
+    if(!row) return;
+    row.p=item.price;
+    row.old=item.old;
+    row.dispo=item.dispo;
+    if(item.old) remises++;
+    if(!item.dispo) ruptures++;
+    updated++;
   });
-  document.getElementById("baroDate2").textContent=new Date().toLocaleDateString("fr-FR");
+  // Nouveaux produits détectés sur MarocPhone → ajoutés au catalogue
+  const known=new Set(MODELS.map(m=>slugOf(m.u)));
+  const brandFromHref=h=>{
+    const parts=(h||"").split("?")[0].split("/").filter(Boolean);
+    const i=parts.indexOf("smartphones");
+    const raw=(i>=0?parts[i+1]:"")||"";
+    const map={apple:"Apple",samsung:"Samsung",xiaomi:"Xiaomi",honor:"Honor",oppo:"Oppo",realme:"Realme",infinix:"Infinix",tecno:"Tecno",foning:"Foning",google:"Google",oneplus:"OnePlus",huawei:"Huawei",nokia:"Nokia",motorola:"Motorola"};
+    return map[raw.toLowerCase()]||(raw?raw.charAt(0).toUpperCase()+raw.slice(1):null);
+  };
+  all.forEach(item=>{
+    const slug=slugOf(item.href);
+    if(!slug||known.has(slug)||item.price===null||!item.name||item.name.length<10) return;
+    MODELS.push({n:item.name,b:brandFromHref(item.href)||item.name.split(" ")[0],t:item.type,p:item.price,old:item.old,dispo:item.dispo,u:item.href,panne:"À diagnostiquer"});
+    known.add(slug); added++;
+  });
   lastSyncEl.textContent=new Date().toLocaleTimeString("fr-FR");
   statusEl.className="status ok";
-  statusEl.textContent="✅ Mise à jour réussie via "+used+" ! "+updated+" prix actualisés • "+itemsN.length+" neufs • "+itemsA.length+" A+ • "+new Date().toLocaleTimeString("fr-FR")+(skipped?" • "+skipped+" « Prix sur demande » inchangés":"");
-  log("SUCCÈS : "+updated+" prix mis à jour");
-  try{localStorage.setItem("marocSyncPro",JSON.stringify({date:new Date().toISOString(),updated,models:MODELS}));}catch(e){}
-  renderCatalog(); renderKPIs(); renderCharts(); renderCalcOptions();
+  statusEl.textContent="✅ Mise à jour réussie via "+used+" — "+updated+" modèles synchronisés"+(added?" • "+added+" nouveauté(s)":"")+" • "+ruptures+" en rupture • "+remises+" remises • "+new Date().toLocaleTimeString("fr-FR");
+  log("SUCCÈS : "+updated+" modèles synchronisés, "+added+" ajoutés, "+ruptures+" en rupture");
+  try{localStorage.setItem("marocSyncPro",JSON.stringify({date:new Date().toISOString(),updated,added,models:MODELS}));}catch(e){}
+  renderAll();
   btnUpdate.disabled=false; btnUpdate.classList.remove("loading");
 });
-(function(){ try{ const s=localStorage.getItem("marocSyncPro"); if(s){const d=JSON.parse(s); lastSyncEl.textContent=new Date(d.date).toLocaleString("fr-FR"); statusEl.className="status ok"; statusEl.textContent="Dernière synchro restaurée : "+new Date(d.date).toLocaleString("fr-FR")+" — cliquez sur « Mise à jour » pour actualiser.";}}catch(e){} })();
+(function(){
+  try{
+    const s=localStorage.getItem("marocSyncPro");
+    if(!s) return;
+    const d=JSON.parse(s);
+    if(Array.isArray(d.models)){
+      d.models.forEach(saved=>{
+        const row=MODELS.find(m=>slugOf(m.u)===slugOf(saved.u)) || MODELS.find(m=>normName(m.n)===normName(saved.n));
+        if(row){
+          if("p" in saved) row.p=saved.p;
+          if("old" in saved) row.old=saved.old;
+          if("dispo" in saved) row.dispo=saved.dispo;
+        } else if(saved.n && saved.u && typeof saved.p==="number"){
+          MODELS.push(saved);
+        }
+      });
+    }
+    renderAll();
+    lastSyncEl.textContent=new Date(d.date).toLocaleString("fr-FR");
+    statusEl.className="status ok";
+    statusEl.textContent="Dernière synchro restaurée : "+new Date(d.date).toLocaleString("fr-FR")+" — cliquez sur « Mise à jour » pour actualiser.";
+  }catch(e){}
+})();
 </script>
 </body>
 </html>
