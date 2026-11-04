@@ -1,0 +1,563 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Liste des Smartphones - MarocPhone</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Arial, sans-serif; background: #f6f7f9; color: #1a1a1a; line-height: 1.5; }
+  .container { max-width: 1100px; margin: 0 auto; padding: 24px 16px 48px; }
+  header { text-align: center; margin-bottom: 24px; }
+  header h1 { font-size: 28px; margin-bottom: 6px; }
+  header p { color: #666; font-size: 14px; }
+  .meta { display: flex; gap: 12px; justify-content: center; flex-wrap: wrap; margin: 18px 0 24px; }
+  .meta span { background: #fff; border: 1px solid #e5e7eb; padding: 8px 14px; border-radius: 999px; font-size: 13px; font-weight: 600; }
+  .controls { display: flex; gap: 10px; flex-wrap: wrap; margin-bottom: 20px; }
+  .controls input, .controls select { flex: 1; min-width: 180px; padding: 10px 12px; border: 1px solid #ddd; border-radius: 8px; font-size: 14px; background: #fff; }
+  .section { background: #fff; border: 1px solid #e5e7eb; border-radius: 12px; overflow: hidden; margin-bottom: 24px; }
+  .section-header { padding: 16px 18px; border-bottom: 1px solid #eee; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 8px; }
+  .section-header h2 { font-size: 18px; }
+  .section-header small { color: #777; }
+  table { width: 100%; border-collapse: collapse; font-size: 14px; }
+  th { text-align: left; background: #fafafa; padding: 10px 14px; color: #555; font-weight: 600; font-size: 12px; text-transform: uppercase; letter-spacing: .04em; }
+  td { padding: 12px 14px; border-top: 1px solid #f0f0f0; vertical-align: middle; }
+  tr:hover { background: #fafcff; }
+  .badge { display: inline-block; padding: 3px 9px; border-radius: 999px; font-size: 11px; font-weight: 700; white-space: nowrap; }
+  .badge-neuf { background: #e8f6ed; color: #137333; }
+  .badge-a { background: #fef3c7; color: #92400e; }
+  .badge-rupture { background: #ffe4e6; color: #9f1239; }
+  .price { font-weight: 700; white-space: nowrap; }
+  .old { color: #999; text-decoration: line-through; font-size: 12px; margin-left: 6px; }
+  .remise { color: #137333; font-size: 12px; font-weight: 700; margin-left: 6px; }
+  a.model { color: #111; text-decoration: none; font-weight: 600; }
+  a.model:hover { text-decoration: underline; }
+  .num { color: #999; width: 36px; }
+  .empty { padding: 24px; text-align: center; color: #888; }
+  footer { text-align: center; color: #999; font-size: 12px; margin-top: 12px; }
+  .best-grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr)); gap: 12px; padding: 16px; }
+  .card { border: 1px solid #fde68a; border-radius: 10px; padding: 14px; background: #fffbeb; position: relative; }
+  .card .rank { font-size: 24px; font-weight: 800; color: #b45309; line-height: 1; }
+  .card .title { font-weight: 700; font-size: 14px; margin: 8px 0 4px; }
+  .card .title a { color: #111; text-decoration: none; }
+  .card .title a:hover { text-decoration: underline; }
+  .card .price2 { font-weight: 800; font-size: 16px; color: #137333; }
+  .card .why { font-size: 12px; color: #666; margin-top: 6px; }
+  .card .tag { display: inline-block; background: #f59e0b; color: #fff; font-size: 10px; font-weight: 700; padding: 2px 8px; border-radius: 999px; margin-top: 8px; text-transform: uppercase; letter-spacing: .04em; }
+  .card.a-plus { background: #f0fdf4; border-color: #bbf7d0; }
+  .card.a-plus .rank { color: #15803d; }
+  .card.a-plus .tag { background: #16a34a; }
+  /* Technicien + Update */
+  .update-bar { display:flex; gap:10px; align-items:center; justify-content:center; flex-wrap:wrap; margin: 16px 0 24px; }
+  .btn-update { background:#111827; color:#fff; border:none; padding:11px 22px; border-radius:999px; font-size:14px; font-weight:700; cursor:pointer; display:inline-flex; align-items:center; gap:8px; }
+  .btn-update:hover { background:#030712; }
+  .btn-update:disabled { opacity:.6; cursor:wait; }
+  .btn-update .spin { display:inline-block; }
+  .btn-update.loading .spin { animation: rot 1s linear infinite; }
+  @keyframes rot { from{transform:rotate(0)} to{transform:rotate(360deg)} }
+  .update-status { font-size:12px; color:#666; }
+  .update-status.ok { color:#137333; font-weight:700; }
+  .update-status.err { color:#9f1239; }
+  .tech-grid { display:grid; grid-template-columns:repeat(auto-fit,minmax(280px,1fr)); gap:14px; padding:16px; }
+  .tech-card { border:1px solid #e5e7eb; border-radius:10px; padding:14px; background:#fff; }
+  .tech-card h3 { font-size:14px; margin-bottom:8px; }
+  .tech-card p, .tech-card li { font-size:13px; color:#374151; }
+  .tech-card ul { padding-left:18px; margin-top:6px; }
+  .tech-card li { margin:4px 0; }
+  .tech-table-wrap { overflow:auto; padding:0 16px 16px; }
+  .tech-table-wrap table { font-size:13px; }
+  .seuil { background:#fef3c7; color:#92400e; padding:2px 8px; border-radius:999px; font-size:11px; font-weight:700; white-space:nowrap; }
+  .check { background:#f0fdf4; border:1px dashed #86efac; border-radius:10px; padding:14px 16px; margin:0 16px 16px; }
+  .check h3 { font-size:14px; margin-bottom:8px; }
+  .check li { font-size:13px; margin:4px 0; color:#374151; }
+  .check ul { padding-left:18px; }
+  /* Log masqué + impression */
+  details.log-details { text-align:center; margin:-8px 0 20px; font-size:12px; color:#6b7280; }
+  details.log-details summary { cursor:pointer; list-style:none; display:inline-block; padding:4px 10px; border:1px solid #e5e7eb; border-radius:999px; background:#fff; }
+  details.log-details summary::-webkit-details-marker { display:none; }
+  #updateLog { text-align:left; font-family:monospace; font-size:11px; color:#6b7280; background:#f9fafb; border:1px solid #e5e7eb; border-radius:8px; padding:10px 12px; margin:10px auto 0; max-width:800px; max-height:220px; overflow:auto; white-space:pre-wrap; word-break:break-word; }
+  .print-bar { display:flex; justify-content:flex-end; gap:8px; padding:0 16px 12px; }
+  .btn-print { background:#fff; color:#111827; border:1px solid #d1d5db; padding:8px 16px; border-radius:999px; font-size:13px; font-weight:700; cursor:pointer; }
+  .btn-print:hover { background:#f3f4f6; }
+  @media print {
+    body { background:#fff; }
+    .update-bar, .controls, #btnOpenSite, details.log-details, .print-bar, footer { display:none !important; }
+    header h1 { font-size:20px; }
+    .section { break-inside: avoid; }
+  }
+  @media (max-width: 720px) {
+    table, thead, tbody, th, td, tr { display: block; }
+    thead { display: none; }
+    tr { border-top: 1px solid #eee; padding: 8px 0; }
+    td { border: none; padding: 6px 14px; }
+  }
+</style>
+</head>
+<body>
+<div class="container">
+
+  <header>
+    <h1>📱 Smartphones - MarocPhone</h1>
+    <p>Liste complète des modèles - Source : marocphone.com/barometre-prix-tech-maroc</p>
+    <p>Mise à jour du baromètre : <span id="baroDate">15/09/2026</span> • Prix TTC, paiement à la livraison</p>
+  </header>
+
+  <div class="update-bar">
+    <button id="btnUpdate" class="btn-update"><span class="spin">⟳</span> Mise à jour</button>
+    <a id="btnOpenSite" class="btn-update" style="background:#fff;color:#111827;border:1px solid #d1d5db;text-decoration:none" href="https://marocphone.com/smartphones" target="_blank" rel="noopener">↗ Ouvrir MarocPhone</a>
+    <span id="updateStatus" class="update-status">Dernière synchro : <span id="lastSync">—</span> • Cliquez sur "Mise à jour" pour récupérer les prix actuels chez MarocPhone. Le bouton essaie 6 proxys CORS automatiquement quand vous êtes en fichier local (file://).</span>
+  </div>
+  <details class="log-details" id="logDetails" style="display:none">
+    <summary>voir les détails techniques</summary>
+    <div id="updateLog"></div>
+  </details>
+
+  <div class="meta">
+    <span>30 modèles au total</span>
+    <span>22 Neufs</span>
+    <span>8 Reconditionnés A+</span>
+    <span>9 marques</span>
+    <span>Prix moyen neuf : <span id="avgNeuf">5.986 DH</span></span>
+    <span>Prix moyen A+ : <span id="avgA">5.462 DH</span></span>
+  </div>
+
+  <!-- BEST SELLERS MAROC -->
+  <div class="section">
+    <div class="section-header">
+      <h2>🔥 Meilleurs Smartphones Vendus au Maroc 2026</h2>
+      <small>Top basé sur volume + rapport qualité/prix sur le marché marocain</small>
+    </div>
+    <div class="best-grid">
+
+      <div class="card">
+        <div class="rank">#1</div>
+        <div class="title"><a href="https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-13c-128-go">Xiaomi Redmi 13C 128 Go</a></div>
+        <div class="price2">1.299 DH <span class="old">1.499 DH</span><span class="remise">-13%</span></div>
+        <div class="why">Le plus vendu en entrée de gamme au Maroc. Le moins cher du catalogue, parfait pour premier smartphone.</div>
+        <span class="tag">Top Ventes Entrée de gamme</span>
+      </div>
+
+      <div class="card">
+        <div class="rank">#2</div>
+        <div class="title"><a href="https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-13-pro-256-go">Xiaomi Redmi Note 13 Pro 256 Go</a></div>
+        <div class="price2">2.799 DH <span class="old">3.199 DH</span><span class="remise">-13%</span></div>
+        <div class="why">Le best-seller historique Xiaomi au Maroc. 256 Go + 200MP photo, meilleur rapport qualité/prix.</div>
+        <span class="tag">Meilleur Rapport Q/P</span>
+      </div>
+
+      <div class="card">
+        <div class="rank">#3</div>
+        <div class="title"><a href="https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a17-4g-128-go-4-go-ram">Samsung Galaxy A17 4G 128 Go</a></div>
+        <div class="price2">2.099 DH</div>
+        <div class="why">Le Samsung le plus demandé au Maroc, fiabilité Samsung + prix très accessible.</div>
+        <span class="tag">Marque Samsung N°1</span>
+      </div>
+
+      <div class="card">
+        <div class="rank">#4</div>
+        <div class="title"><a href="https://marocphone.com/neuf/smartphones/infinix/infinix-hot-40-pro-256-go">Infinix Hot 40 Pro 256 Go</a></div>
+        <div class="price2">1.499 DH <span class="old">1.699 DH</span></div>
+        <div class="why">Volume énorme chez les jeunes. 256 Go pour 1.499 DH, imbattable en stockage.</div>
+        <span class="tag">Meilleur Stockage / Prix</span>
+      </div>
+
+      <div class="card">
+        <div class="rank">#5</div>
+        <div class="title"><a href="https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a16-128-go">Samsung Galaxy A16 128 Go</a></div>
+        <div class="price2">1.899 DH <span class="old">2.099 DH</span><span class="remise">-10%</span></div>
+        <div class="why">Le successeur de l'A15, encore plus populaire. Écran AMOLED, 5G.</div>
+        <span class="tag">Milieu de gamme N°1</span>
+      </div>
+
+      <div class="card">
+        <div class="rank">#6</div>
+        <div class="title"><a href="https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-256-go-6-go-ram">Xiaomi Redmi Note 17 256 Go 6 Go RAM</a></div>
+        <div class="price2">2.699 DH</div>
+        <div class="why">Nouvelle génération 2026, déjà en top ventes. Successeur direct du Note 13 Pro.</div>
+        <span class="tag">Nouveauté 2026</span>
+      </div>
+
+      <div class="card">
+        <div class="rank">#7</div>
+        <div class="title"><a href="https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-5g-256-go-8-go-ram">Xiaomi Redmi Note 17 Pro 5G 256 Go</a></div>
+        <div class="price2">3.890 DH</div>
+        <div class="why">Le Pro 5G le plus vendu de la série Note 17. 8 Go RAM + 256 Go.</div>
+        <span class="tag">Pro 5G Populaire</span>
+      </div>
+
+      <div class="card">
+        <div class="rank">#8</div>
+        <div class="title"><a href="https://marocphone.com/neuf/smartphones/honor/honor-x9b-5g-256-go">Honor X9b 5G 256 Go</a></div>
+        <div class="price2">2.999 DH <span class="old">3.299 DH</span></div>
+        <div class="why">Batterie 5400mAh, très demandé pour autonomie au Maroc.</div>
+        <span class="tag">Meilleure Autonomie</span>
+      </div>
+
+      <div class="card">
+        <div class="rank">#9</div>
+        <div class="title"><a href="https://marocphone.com/neuf/smartphones/apple/iphone-15-6-1-256-go-6-go-ram-noir">Apple iPhone 15 256 Go Noir</a></div>
+        <div class="price2">11.999 DH <span class="old">12.999 DH</span></div>
+        <div class="why">L'iPhone neuf le plus vendu au Maroc. Statut + revente excellente.</div>
+        <span class="tag">Premium N°1 Neuf</span>
+      </div>
+
+      <div class="card">
+        <div class="rank">#10</div>
+        <div class="title"><a href="https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-s24-ultra-256-go">Samsung Galaxy S24 Ultra 256 Go</a></div>
+        <div class="price2">14.499 DH <span class="old">15.499 DH</span></div>
+        <div class="why">Le flagship Android le plus vendu au Maroc, S Pen inclus.</div>
+        <span class="tag">Flagship Android</span>
+      </div>
+
+      <div class="card a-plus">
+        <div class="rank">A+ #1</div>
+        <div class="title"><a href="https://marocphone.com/occasion/smartphones/apple/apple-iphone-13-128-go-reconditionne-a">Apple iPhone 13 128 Go A+</a></div>
+        <div class="price2">6.499 DH <span class="old">8.999 DH</span><span class="remise">-28%</span></div>
+        <div class="why">Le reconditionné le plus vendu au Maroc. Prix iPhone 13 neuf divisé par 2.</div>
+        <span class="tag">Top Vente Reconditionné</span>
+      </div>
+
+      <div class="card a-plus">
+        <div class="rank">A+ #2</div>
+        <div class="title"><a href="https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s23-plus-5g-256-go-8-go-ram">Samsung Galaxy S23 Plus 5G A+</a></div>
+        <div class="price2">4.100 DH</div>
+        <div class="why">Flagship Samsung 2023 à 4.100 DH seulement. Meilleure affaire A+.</div>
+        <span class="tag">Meilleure Affaire A+</span>
+      </div>
+
+    </div>
+  </div>
+
+  <div class="controls">
+    <input id="search" type="text" placeholder="Rechercher un modèle ou une marque... ex: Xiaomi, iPhone, Samsung">
+    <select id="filter">
+      <option value="all">Tous les modèles</option>
+      <option value="neuf">Neufs uniquement</option>
+      <option value="a">Reconditionnés A+ uniquement</option>
+      <option value="dispo">Disponibles uniquement</option>
+    </select>
+    <select id="brand">
+      <option value="all">Toutes les marques</option>
+      <option>Apple</option>
+      <option>Samsung</option>
+      <option>Xiaomi</option>
+      <option>Honor</option>
+      <option>Oppo</option>
+      <option>Realme</option>
+      <option>Infinix</option>
+      <option>Tecno</option>
+      <option>Foning</option>
+    </select>
+  </div>
+
+  <!-- NEUF -->
+  <div class="section" id="section-neuf">
+    <div class="section-header">
+      <h2>✅ Smartphones Neufs</h2>
+      <small>Prix moyen : 5.986 DH • Fourchette : 1.299 - 17.999 DH • ▼ 4,9%</small>
+    </div>
+    <table>
+      <thead><tr><th>#</th><th>Modèle</th><th>Marque</th><th>État</th><th>Prix</th></tr></thead>
+      <tbody>
+        <tr data-type="neuf" data-brand="Samsung" data-dispo="1"><td class="num">1</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a17-4g-128-go-4-go-ram">Samsung Galaxy A17 4G 128 Go 4 Go RAM</a></td><td>Samsung</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">2.099 DH</td></tr>
+        <tr data-type="neuf" data-brand="Xiaomi" data-dispo="1"><td class="num">2</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-256-go-6-go-ram">Xiaomi Redmi Note 17 256 Go 6 Go RAM</a></td><td>Xiaomi</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">2.699 DH</td></tr>
+        <tr data-type="neuf" data-brand="Xiaomi" data-dispo="1"><td class="num">3</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-max-5g-512-go-8-go-ram">Xiaomi Redmi Note 17 Pro Max 5G 512 Go 8 Go RAM</a></td><td>Xiaomi</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">5.299 DH</td></tr>
+        <tr data-type="neuf" data-brand="Xiaomi" data-dispo="1"><td class="num">4</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-max-5g-256-go-8-go-ram">Xiaomi Redmi Note 17 Pro Max 5G 256 Go 8 Go RAM</a></td><td>Xiaomi</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">4.749 DH</td></tr>
+        <tr data-type="neuf" data-brand="Xiaomi" data-dispo="1"><td class="num">5</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-5g-512-go-8-go-ram">Xiaomi Redmi Note 17 Pro 5G 512 Go 8 Go RAM</a></td><td>Xiaomi</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">4.399 DH</td></tr>
+        <tr data-type="neuf" data-brand="Xiaomi" data-dispo="1"><td class="num">6</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-5g-256-go-8-go-ram">Xiaomi Redmi Note 17 Pro 5G 256 Go 8 Go RAM</a></td><td>Xiaomi</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">3.890 DH</td></tr>
+        <tr data-type="neuf" data-brand="Tecno" data-dispo="0"><td class="num">7</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/tecno/tecno-spark-50-128-go-8-go-ram">Tecno Spark 50 128 Go 8 Go RAM</a> <span class="badge badge-rupture">Rupture</span></td><td>Tecno</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">1.600 DH</td></tr>
+        <tr data-type="neuf" data-brand="Honor" data-dispo="1"><td class="num">8</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/honor/honor-600-lite-5g-256-go-8-go-ram">Honor 600 Lite 5G — 256 Go, 8 Go RAM</a></td><td>Honor</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">3.500 DH</td></tr>
+        <tr data-type="neuf" data-brand="Foning" data-dispo="0"><td class="num">9</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/foning/foning-smartphone">Foning — Smartphone</a> <span class="badge badge-rupture">Rupture</span></td><td>Foning</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">Prix sur demande</td></tr>
+        <tr data-type="neuf" data-brand="Honor" data-dispo="1"><td class="num">10</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/honor/honor-x9b-5g-256-go">Honor X9b 5G 256 Go</a></td><td>Honor</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">2.999 DH<span class="old">3.299 DH</span><span class="remise">-9%</span></td></tr>
+        <tr data-type="neuf" data-brand="Infinix" data-dispo="1"><td class="num">11</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/infinix/infinix-hot-40-pro-256-go">Infinix Hot 40 Pro 256 Go</a></td><td>Infinix</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">1.499 DH<span class="old">1.699 DH</span><span class="remise">-12%</span></td></tr>
+        <tr data-type="neuf" data-brand="Realme" data-dispo="1"><td class="num">12</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/realme/realme-12-pro-5g-256-go">Realme 12 Pro 5G 256 Go</a></td><td>Realme</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">3.299 DH<span class="old">3.699 DH</span><span class="remise">-11%</span></td></tr>
+        <tr data-type="neuf" data-brand="Oppo" data-dispo="1"><td class="num">13</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/oppo/oppo-reno-11-f-5g-256-go">Oppo Reno 11 F 5G 256 Go</a></td><td>Oppo</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">3.999 DH<span class="old">4.299 DH</span><span class="remise">-7%</span></td></tr>
+        <tr data-type="neuf" data-brand="Xiaomi" data-dispo="1"><td class="num">14</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-13c-128-go">Xiaomi Redmi 13C 128 Go</a></td><td>Xiaomi</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">1.299 DH<span class="old">1.499 DH</span><span class="remise">-13%</span></td></tr>
+        <tr data-type="neuf" data-brand="Xiaomi" data-dispo="1"><td class="num">15</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-13-pro-256-go">Xiaomi Redmi Note 13 Pro 256 Go</a></td><td>Xiaomi</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">2.799 DH<span class="old">3.199 DH</span><span class="remise">-13%</span></td></tr>
+        <tr data-type="neuf" data-brand="Samsung" data-dispo="1"><td class="num">16</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a16-128-go">Samsung Galaxy A16 128 Go</a></td><td>Samsung</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">1.899 DH<span class="old">2.099 DH</span><span class="remise">-10%</span></td></tr>
+        <tr data-type="neuf" data-brand="Samsung" data-dispo="1"><td class="num">17</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a56-5g-256-go">Samsung Galaxy A56 5G 256 Go</a></td><td>Samsung</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">4.299 DH<span class="old">4.699 DH</span><span class="remise">-9%</span></td></tr>
+        <tr data-type="neuf" data-brand="Samsung" data-dispo="1"><td class="num">18</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-s24-ultra-256-go">Samsung Galaxy S24 Ultra 256 Go</a></td><td>Samsung</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">14.499 DH<span class="old">15.499 DH</span><span class="remise">-6%</span></td></tr>
+        <tr data-type="neuf" data-brand="Apple" data-dispo="1"><td class="num">19</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/apple/iphone-15-plus-6-7-128-go-6-go-ram-noir">Apple iPhone 15 Plus 6.7" 128 Go 6 Go RAM Noir</a></td><td>Apple</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">11.499 DH<span class="old">12.499 DH</span><span class="remise">-8%</span></td></tr>
+        <tr data-type="neuf" data-brand="Apple" data-dispo="1"><td class="num">20</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/apple/iphone-15-6-1-256-go-6-go-ram-noir">Apple iPhone 15 6.1" 256 Go 6 Go RAM Noir</a></td><td>Apple</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">11.999 DH<span class="old">12.999 DH</span><span class="remise">-8%</span></td></tr>
+        <tr data-type="neuf" data-brand="Apple" data-dispo="1"><td class="num">21</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/apple/iphone-15-pro-6-1-256-go-8-go-ram-noir">Apple iPhone 15 Pro 6.1" 256 Go 8 Go RAM Noir</a></td><td>Apple</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">15.499 DH<span class="old">16.499 DH</span><span class="remise">-6%</span></td></tr>
+        <tr data-type="neuf" data-brand="Apple" data-dispo="0"><td class="num">22</td><td><a class="model" href="https://marocphone.com/neuf/smartphones/apple/iphone-15-pro-max-256gb-noir-titanium">Apple iPhone 15 Pro Max 256 Go Titane Noir</a> <span class="badge badge-rupture">Rupture</span></td><td>Apple</td><td><span class="badge badge-neuf">Neuf</span></td><td class="price">17.999 DH<span class="old">18.999 DH</span><span class="remise">-5%</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <!-- RECONDITIONNE -->
+  <div class="section" id="section-a">
+    <div class="section-header">
+      <h2>♻️ Smartphones Reconditionnés A+</h2>
+      <small>Prix moyen : 5.462 DH • Fourchette : 3.799 - 7.999 DH • Stable</small>
+    </div>
+    <table>
+      <thead><tr><th>#</th><th>Modèle</th><th>Marque</th><th>État</th><th>Prix</th></tr></thead>
+      <tbody>
+        <tr data-type="a" data-brand="Apple" data-dispo="1"><td class="num">23</td><td><a class="model" href="https://marocphone.com/occasion/smartphones/apple/apple-iphone-11-64-go-reconditionne-a">Apple iPhone 11 64 Go Reconditionné A+</a></td><td>Apple</td><td><span class="badge badge-a">A+</span></td><td class="price">3.799 DH<span class="old">5.499 DH</span><span class="remise">-31%</span></td></tr>
+        <tr data-type="a" data-brand="Samsung" data-dispo="1"><td class="num">24</td><td><a class="model" href="https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s23-plus-5g-256-go-8-go-ram">Samsung Galaxy S23 Plus 5G 256 Go 8 Go RAM</a></td><td>Samsung</td><td><span class="badge badge-a">A+</span></td><td class="price">4.100 DH</td></tr>
+        <tr data-type="a" data-brand="Samsung" data-dispo="1"><td class="num">25</td><td><a class="model" href="https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s22-128-go-reconditionne-a">Samsung Galaxy S22 128 Go Reconditionné A+</a></td><td>Samsung</td><td><span class="badge badge-a">A+</span></td><td class="price">4.999 DH<span class="old">7.499 DH</span><span class="remise">-33%</span></td></tr>
+        <tr data-type="a" data-brand="Samsung" data-dispo="1"><td class="num">26</td><td><a class="model" href="https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s24-plus-5g-256-go-12-go-ram">Samsung Galaxy S24 Plus 5G 256 Go 12 Go RAM</a></td><td>Samsung</td><td><span class="badge badge-a">A+</span></td><td class="price">5.000 DH</td></tr>
+        <tr data-type="a" data-brand="Apple" data-dispo="1"><td class="num">27</td><td><a class="model" href="https://marocphone.com/occasion/smartphones/apple/apple-iphone-12-128-go-reconditionne-a">Apple iPhone 12 128 Go Reconditionné A+</a></td><td>Apple</td><td><span class="badge badge-a">A+</span></td><td class="price">5.299 DH<span class="old">7.499 DH</span><span class="remise">-29%</span></td></tr>
+        <tr data-type="a" data-brand="Samsung" data-dispo="1"><td class="num">28</td><td><a class="model" href="https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s25-plus-5g-256-go-12-go-ram">Samsung Galaxy S25 Plus 5G 256 Go 12 Go RAM</a></td><td>Samsung</td><td><span class="badge badge-a">A+</span></td><td class="price">6.000 DH</td></tr>
+        <tr data-type="a" data-brand="Apple" data-dispo="1"><td class="num">29</td><td><a class="model" href="https://marocphone.com/occasion/smartphones/apple/apple-iphone-13-128-go-reconditionne-a">Apple iPhone 13 128 Go Reconditionné A+</a></td><td>Apple</td><td><span class="badge badge-a">A+</span></td><td class="price">6.499 DH<span class="old">8.999 DH</span><span class="remise">-28%</span></td></tr>
+        <tr data-type="a" data-brand="Apple" data-dispo="1"><td class="num">30</td><td><a class="model" href="https://marocphone.com/occasion/smartphones/apple/apple-iphone-14-128-go-reconditionne-a">Apple iPhone 14 128 Go Reconditionné A+</a></td><td>Apple</td><td><span class="badge badge-a">A+</span></td><td class="price">7.999 DH<span class="old">10.999 DH</span><span class="remise">-27%</span></td></tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="empty" id="empty" style="display:none">Aucun modèle ne correspond à votre recherche.</div>
+
+  <!-- GUIDE TECHNICIEN -->
+  <div class="section" id="section-tech">
+    <div class="section-header">
+      <h2>🛠️ Guide Technicien de Réparation - Que Stocker et Quoi Réparer</h2>
+      <small>Basé sur les ventes réelles au Maroc - 80% de tes réparations viennent de ces modèles</small>
+    </div>
+    <div class="print-bar"><button class="btn-print" id="btnPrintTech">🖨️ Imprimer le Guide Technicien</button></div>
+    <div class="tech-grid">
+      <div class="tech-card"><h3>🎯 Règle des 80/20 - Modèles qui feront ton business</h3><p>Ne stocke pas 30 modèles. Stocke en profondeur pour ces 4 familles :</p><ul><li><b>Xiaomi Redmi / Note</b> : 25% du marché neuf</li><li><b>Samsung Galaxy A</b> : 20% du marché</li><li><b>iPhone 11-14 A+</b> : 50% du reconditionné</li><li><b>Samsung S22-S25 Plus A+</b> : 50% du reconditionné</li></ul><p style="margin-top:8px; font-size:12px; color:#6b7280;">Si tu dois choisir 5 écrans + 5 batteries en stock permanent, prends ceux-ci.</p></div>
+      <div class="tech-card"><h3>💰 Seuil de rentabilité par gamme</h3><ul><li><b>&lt; 2.000 DH</b> (Redmi 13C, Infinix) : si écran &gt; 450 DH, le client rachète neuf</li><li><b>2.000 - 5.500 DH</b> (Note 13 Pro, A17, Honor X9b) : zone la plus rentable. Réparation jusqu'à 1.800 DH acceptée.</li><li><b>&gt; 10.000 DH</b> (iPhone 15, S24 Ultra) : client accepte 2.500 - 4.000 DH de réparation</li></ul><p style="margin-top:8px; font-size:12px; color:#6b7280;">Astuce technicien : annonce toujours le prix réparation vs prix neuf MarocPhone du jour. Utilise le bouton Mise à jour avant de négocier.</p></div>
+      <div class="tech-card"><h3>⚠️ Cas spéciaux reconditionnés A+</h3><ul><li>Batterie ≥85% mais déjà bien usée</li><li>Déjà ouvert 1-2 fois : vis arrachées, colle, nappes pincées</li><li>Garantie 3-6 mois vs 12 mois en neuf = plus de retours</li><li>Pas de Xiaomi en A+ chez MarocPhone = moins de pièces dispo</li></ul></div>
+    </div>
+    <div class="tech-table-wrap">
+      <table>
+        <thead><tr><th>Modèle (Top Ventes)</th><th>Prix Neuf</th><th>Panne N°1</th><th>Stock à prévoir</th><th>Seuil rentable</th></tr></thead>
+        <tbody>
+          <tr><td><b>Xiaomi Redmi 13C</b></td><td>1.299 DH</td><td>Écran cassé, batterie</td><td>Écran LCD, batterie, USB-C</td><td><span class="seuil">&lt; 450 DH</span></td></tr>
+          <tr><td><b>Infinix Hot 40 Pro</b></td><td>1.499 DH</td><td>Écran, batterie gonflée</td><td>Écran, batterie</td><td><span class="seuil">&lt; 500 DH</span></td></tr>
+          <tr><td><b>Samsung Galaxy A16 / A17</b></td><td>1.899 - 2.099 DH</td><td>Écran AMOLED, batterie</td><td>Écran AMOLED, batterie, vitre arrière</td><td><span class="seuil">&lt; 700 DH</span></td></tr>
+          <tr><td><b>Xiaomi Redmi Note 13 Pro / Note 17</b></td><td>2.699 - 2.799 DH</td><td>Écran, charge, chauffe</td><td>Écran LCD, batterie, nappe charge</td><td><span class="seuil">1.200 - 1.500 DH</span></td></tr>
+          <tr><td><b>Honor X9b 5G</b></td><td>2.999 DH</td><td>Batterie 5400mAh, connecteur</td><td>Batterie, nappe</td><td><span class="seuil">1.000 DH</span></td></tr>
+          <tr><td><b>Xiaomi Note 17 Pro 5G</b></td><td>3.890 DH</td><td>Écran, charge rapide</td><td>Écran, nappe USB-C 67W</td><td><span class="seuil">1.500 DH</span></td></tr>
+          <tr><td><b>iPhone 11-14 A+</b></td><td>3.799 - 7.999 DH</td><td>Batterie &lt;85%, écran, Face ID</td><td>Batteries, écrans OLED, boîtier</td><td><span class="seuil">1.500 - 2.500 DH</span></td></tr>
+          <tr><td><b>Samsung S22-S25 Plus A+</b></td><td>4.100 - 6.000 DH</td><td>Batterie, AMOLED, dos verre</td><td>Écrans AMOLED, batteries, dos</td><td><span class="seuil">1.800 - 2.500 DH</span></td></tr>
+          <tr><td><b>iPhone 15 / S24 Ultra</b></td><td>11.999 - 14.499 DH</td><td>Écran OLED, dos, caméras</td><td>Écrans premium, vitres</td><td><span class="seuil">2.500 - 4.000 DH</span></td></tr>
+        </tbody>
+      </table>
+    </div>
+    <div class="check">
+      <h3>✅ Check-list avant réparation (à imprimer)</h3>
+      <ul>
+        <li>Identifier la <b>variante exacte</b> : stockage (128/256/512 Go) + RAM + région (Maroc = 2 SIM / eSIM)</li>
+        <li>Tester <b>écran tactile</b> 5 zones, <b>charge</b> 10W/67W, <b>capteur proximité</b>, <b>Face ID / empreinte</b></li>
+        <li>Relever <b>époque batterie</b> : iPhone Santé batterie, Samsung Battery, Xiaomi *#*#6485#*#*</li>
+        <li>Noter <b>IMEI</b> + photos avant/après ouverture</li>
+        <li>Pour A+ : chercher <b>traces d'ouverture</b>, vis neuves/agressées, colle, nappes, brûlures AMOLED</li>
+        <li>Annoncer prix réparation vs <b>prix neuf du jour</b> (bouton Mise à jour ci-dessus) + délai express 30min-1h</li>
+      </ul>
+    </div>
+  </div>
+
+  <footer>© 2026 MarocPhone - Page générée à partir du baromètre des prix • 30 modèles listés • Données synchronisées via bouton Mise à jour</footer>
+</div>
+
+<script>
+const search = document.getElementById('search');
+const filter = document.getElementById('filter');
+const brand = document.getElementById('brand');
+const rows = [...document.querySelectorAll('tbody tr')];
+const empty = document.getElementById('empty');
+
+function apply() {
+  const q = search.value.trim().toLowerCase();
+  let visible = 0;
+  rows.forEach(r => {
+    const text = r.textContent.toLowerCase();
+    const type = r.dataset.type;
+    const b = r.dataset.brand;
+    const dispo = r.dataset.dispo === '1';
+    let show = true;
+    if (q && !text.includes(q)) show = false;
+    if (filter.value === 'neuf' && type !== 'neuf') show = false;
+    if (filter.value === 'a' && type !== 'a') show = false;
+    if (filter.value === 'dispo' && !dispo) show = false;
+    if (brand.value !== 'all' && b !== brand.value) show = false;
+    r.style.display = show ? '' : 'none';
+    if (show) visible++;
+  });
+  empty.style.display = visible === 0 ? 'block' : 'none';
+  document.getElementById('section-neuf').style.display =
+    (filter.value === 'a') ? 'none' : '';
+  document.getElementById('section-a').style.display =
+    (filter.value === 'neuf') ? 'none' : '';
+}
+[search, filter, brand].forEach(el => el.addEventListener('input', apply));
+
+/* ===== MISE A JOUR AUTOMATIQUE - VERSION 2 CORRIGEE ===== */
+const btnUpdate = document.getElementById('btnUpdate');
+const statusEl = document.getElementById('updateStatus');
+const lastSyncEl = document.getElementById('lastSync');
+const logEl = document.getElementById('updateLog');
+const PROXIES = [
+  {name:'allorigins', fn: u => 'https://api.allorigins.win/raw?url=' + encodeURIComponent(u)},
+  {name:'corsproxy', fn: u => 'https://corsproxy.io/?url=' + encodeURIComponent(u)},
+  {name:'codetabs', fn: u => 'https://api.codetabs.com/v1/proxy?quest=' + encodeURIComponent(u)},
+  {name:'cors.lol', fn: u => 'https://api.cors.lol/?url=' + encodeURIComponent(u)},
+  {name:'proxy.cors.sh', fn: u => 'https://proxy.cors.sh/' + u},
+  {name:'cors-anywhere', fn: u => 'https://cors-anywhere.herokuapp.com/' + u}
+];
+const URLS = {
+  neuf: 'https://marocphone.com/neuf/smartphones',
+  a: 'https://marocphone.com/occasion/smartphones'
+};
+let syncTries = 0;
+
+function log(msg){
+  document.getElementById('logDetails').style.display='block';
+  logEl.textContent += msg + '\n';
+}
+
+function parseProducts(html){
+  const items = [];
+  const doc = new DOMParser().parseFromString(html, 'text/html');
+  // Dédup par href (liens produit uniques) pour éviter "iPhone 15 Pro Max" compté 2 fois (badge -5% / Rupture)
+  const byHref = new Map();
+  const links = [...doc.querySelectorAll('a[href*="/smartphones/"]')];
+  links.forEach(a=>{
+    const href = (a.getAttribute('href')||'').trim();
+    if (href.split('/').length < 5) return;
+    if (byHref.has(href)) return;
+    const name = (a.textContent||'').trim().replace(/\s+/g,' ');
+    if (!name || name.length<8) return;
+    // Foning = "Prix sur demande" : le parent contient "Indisponible" et pas de prix propre
+    // On cherche le prix dans le voisinage immédiat (même carte produit), sans traverser trop haut (évite de prendre le prix du produit suivant)
+    let card = a.closest('li, article, .product, [class*="card"], tr');
+    if (!card) card = a.parentElement;
+    let priceText = '';
+    let node = card;
+    for(let i=0;i<3 && node;i++){
+      priceText = node.textContent||'';
+      if (/[\d\s\.]+\s*DH/.test(priceText)) break;
+      node = node.parentElement;
+    }
+    // Si le texte de la carte contient "Prix sur demande", on ignore ce produit (pas de prix fiable)
+    if (/Prix sur demande/i.test(priceText)) {
+      byHref.set(href, {name: name+' (Prix sur demande)', price: null, href:'https://marocphone.com'+href});
+      return;
+    }
+    const pm = priceText.match(/([\d\s\.]{4,7})\s*DH/);
+    if (!pm) return;
+    const price = parseInt(pm[1].replace(/[^\d]/g,''),10);
+    if (!price) return;
+    byHref.set(href, {name, price, href:'https://marocphone.com'+href});
+  });
+  return [...byHref.values()].slice(0,40);
+}
+
+async function fetchViaProxy(proxy, url){
+  log('→ Essai '+proxy.name+' : '+url);
+  const ctrl = new AbortController();
+  const to = setTimeout(()=>ctrl.abort(), 12000);
+  try{
+    const res = await fetch(proxy.fn(url), {signal: ctrl.signal, cache:'no-store'});
+    clearTimeout(to);
+    if(!res.ok) throw new Error('HTTP '+res.status);
+    const txt = await res.text();
+    if(!txt || txt.length < 500) throw new Error('Réponse trop courte');
+    log('✓ '+proxy.name+' OK ('+txt.length+' caractères)');
+    return txt;
+  }catch(e){
+    clearTimeout(to);
+    log('✗ '+proxy.name+' : '+e.message);
+    throw e;
+  }
+}
+
+btnUpdate.addEventListener('click', async () => {
+  syncTries++;
+  btnUpdate.disabled = true;
+  btnUpdate.classList.add('loading');
+  statusEl.className = 'update-status';
+  statusEl.textContent = 'Connexion à MarocPhone...';
+  logEl.textContent = '===== Mise à jour #'+syncTries+' à '+new Date().toLocaleTimeString('fr-FR')+' =====\n';
+  log('Votre origine : '+location.origin+' (file:// = fichier local, CORS plus strict)');
+  log('Astuce : si vous hébergez cette page en HTTPS, la mise à jour marchera mieux.');
+
+  let htmlNeuf = '', htmlA = '', usedProxy = null;
+
+  for (const proxy of PROXIES) {
+    try {
+      htmlNeuf = await fetchViaProxy(proxy, URLS.neuf);
+      htmlA = await fetchViaProxy(proxy, URLS.a);
+      usedProxy = proxy.name;
+      break;
+    } catch(e) { /* proxy suivant */ }
+  }
+
+  if (!htmlNeuf) {
+    statusEl.className = 'update-status err';
+    statusEl.textContent = '⛔ Tous les proxys CORS ont échoué. Le site bloque fetch direct depuis un fichier local. Solutions : 1) Utilisez "Ouvrir MarocPhone" ↗ pour voir les prix actuels, 2) Hébergez cette page en HTTPS (Netlify/Vercel/GitHub Pages) puis réessayez, 3) Ou cliquez à nouveau (parfois ça passe du 2ème coup).';
+    log('ÉCHEC TOTAL - Voir solutions dans le message');
+    btnUpdate.disabled = false;
+    btnUpdate.classList.remove('loading');
+    return;
+  }
+
+  // Filtrer les "Prix sur demande" (price=null) - ex: Foning
+  const neufItemsRaw = parseProducts(htmlNeuf);
+  const aItemsRaw = parseProducts(htmlA);
+  const neufItems = neufItemsRaw.filter(i => i.price !== null);
+  const aItems = aItemsRaw.filter(i => i.price !== null);
+  log('Parser : '+neufItemsRaw.length+' détectés ('+neufItems.length+' avec prix), '+aItemsRaw.length+' A+ détectés ('+aItems.length+' avec prix)');
+  neufItemsRaw.forEach(i=>log('  NEUF '+(i.price?i.price+' DH':'Prix sur demande')+' - '+i.name));
+  aItemsRaw.forEach(i=>log('  A+ '+(i.price?i.price+' DH':'Prix sur demande')+' - '+i.name));
+
+  const allRows = [...document.querySelectorAll('tbody tr')];
+  let updated = 0, skipped = 0;
+  allRows.forEach(row => {
+    const link = row.querySelector('a.model');
+    if(!link) return;
+    const name = link.textContent.trim();
+    const norm = s => s.toLowerCase().replace(/[^a-z0-9]/g,'').slice(0,14);
+    const target = [...neufItems, ...aItems].find(p => norm(p.name).includes(norm(name).slice(0,10)) || norm(name).includes(norm(p.name).slice(0,10)));
+    if (target) {
+      const priceCell = row.querySelector('.price');
+      if (priceCell) {
+        if (priceCell.textContent.includes('Prix sur demande')) { skipped++; return; }
+        let oldHtml = priceCell.innerHTML;
+        let oldSpan = oldHtml.match(/<span class="old">[\s\S]*?<\/span>/);
+        let remise = oldHtml.match(/<span class="remise">[\s\S]*?<\/span>/);
+        priceCell.innerHTML = target.price.toLocaleString('fr-FR').replace(/\u202F/g,'.') + ' DH' + (oldSpan?oldSpan[0]:'') + (remise?remise[0]:'');
+        updated++;
+      }
+    }
+  });
+  log('Maj tableaux : '+updated+' actualisés, '+skipped+' "Prix sur demande" inchangés');
+
+  function avg(arr){ return arr.length ? Math.round(arr.reduce((a,b)=>a+(b.price||0),0)/arr.length) : 0; }
+  if (neufItems.length) document.getElementById('avgNeuf').textContent = avg(neufItems).toLocaleString('fr-FR').replace(/\u202F/g,'.') + ' DH';
+  if (aItems.length) document.getElementById('avgA').textContent = avg(aItems).toLocaleString('fr-FR').replace(/\u202F/g,'.') + ' DH';
+  document.getElementById('baroDate').textContent = new Date().toLocaleDateString('fr-FR');
+
+  lastSyncEl.textContent = new Date().toLocaleTimeString('fr-FR');
+  statusEl.className = 'update-status ok';
+  statusEl.textContent = '✅ Mise à jour réussie via '+usedProxy+' ! '+updated+' prix actualisés • '+neufItems.length+' neufs • '+aItems.length+' A+ • '+new Date().toLocaleTimeString('fr-FR')+(skipped?' • '+skipped+' "Prix sur demande" inchangés':'');
+  log('SUCCÈS : '+updated+' prix mis à jour, '+skipped+' ignorés');
+  // Sauvegarde locale
+  try{
+    localStorage.setItem('marocSync', JSON.stringify({date:new Date().toISOString(), updated, neuf:neufItems, a:aItems}));
+  }catch(e){}
+
+  btnUpdate.disabled = false;
+  btnUpdate.classList.remove('loading');
+});
+
+// Bouton Imprimer Guide Technicien
+document.getElementById('btnPrintTech').addEventListener('click', () => window.print());
+
+// Restaurer dernière synchro au chargement
+(function(){
+  try{
+    const saved = localStorage.getItem('marocSync');
+    if(saved){
+      const d = JSON.parse(saved);
+      lastSyncEl.textContent = new Date(d.date).toLocaleString('fr-FR');
+      statusEl.className='update-status ok';
+      statusEl.textContent='Dernière synchro restaurée : '+new Date(d.date).toLocaleString('fr-FR')+' ('+d.updated+' prix) — cliquez sur "Mise à jour" pour actualiser à nouveau.';
+    }
+  }catch(e){}
+})();
+</script>
+</body>
+</html>
