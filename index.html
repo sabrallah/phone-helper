@@ -3,38 +3,45 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PhoneHelper Pro — Baromètre Smartphones Maroc | Dashboard Technicien</title>
-<meta name="description" content="Dashboard professionnel des prix smartphones MarocPhone + statistiques pour techniciens de réparation">
+<title>PhoneHelper Pro — Baromètre Smartphones MarocPhone | Dashboard Officiel</title>
+<meta name="description" content="Dashboard et baromètre officiel des smartphones MarocPhone. Prix en direct, remises, stocks et analyses 100% sourcées depuis MarocPhone.">
 <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js"></script>
 <style>
 :root{
-  --bg:#0f172a; --bg2:#111827; --card:#ffffff; --muted:#64748b; --line:#e2e8f0;
+  --bg:#0f172a; --bg2:#1e293b; --card:#ffffff; --muted:#64748b; --line:#e2e8f0;
   --green:#16a34a; --greenBg:#f0fdf4; --amber:#d97706; --amberBg:#fffbeb;
-  --red:#e11d48; --redBg:#fff1f2; --blue:#2563eb; --violet:#7c3aed;
+  --red:#e11d48; --redBg:#fff1f2; --blue:#2563eb; --blueBg:#eff6ff; --violet:#7c3aed;
   --radius:14px; --shadow:0 4px 20px rgba(15,23,42,.08);
 }
 *{box-sizing:border-box;margin:0;padding:0}
 html{scroll-behavior:smooth}
 body{font-family:Inter,-apple-system,BlinkMacSystemFont,"Segoe UI",Roboto,Arial,sans-serif;background:#f1f5f9;color:#0f172a;line-height:1.55}
 a{color:inherit}
-.topbar{position:sticky;top:0;z-index:50;background:var(--bg);color:#fff;padding:0 20px}
-.topbar-in{max-width:1180px;margin:0 auto;height:62px;display:flex;align-items:center;justify-content:space-between;gap:16px}
-.logo{font-weight:900;font-size:19px;letter-spacing:-.02em}
+
+/* TOPBAR */
+.topbar{position:sticky;top:0;z-index:50;background:var(--bg);color:#fff;padding:0 20px;border-bottom:1px solid rgba(255,255,255,.08)}
+.topbar-in{max-width:1200px;margin:0 auto;height:64px;display:flex;align-items:center;justify-content:space-between;gap:16px}
+.logo{font-weight:900;font-size:20px;letter-spacing:-.02em;display:flex;align-items:center;gap:8px}
 .logo span{color:#f59e0b}
+.logo-tag{font-size:11px;font-weight:700;background:rgba(245,158,11,.15);color:#f59e0b;padding:3px 8px;border-radius:6px;letter-spacing:.04em}
 .nav{display:flex;gap:18px;font-size:13px;font-weight:600;flex-wrap:wrap}
-.nav a{text-decoration:none;color:#cbd5e1}
+.nav a{text-decoration:none;color:#cbd5e1;transition:color .15s}
 .nav a:hover{color:#fff}
-.badge-live{display:inline-flex;align-items:center;gap:7px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:6px 12px;border-radius:999px;font-size:12px}
-.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.2)}
-.container{max-width:1180px;margin:0 auto;padding:28px 16px 56px}
-.hero{background:linear-gradient(135deg,#0f172a,#1e293b 55%,#334155);color:#fff;border-radius:20px;padding:28px 26px;margin-bottom:20px;box-shadow:var(--shadow)}
-.hero h1{font-size:32px;line-height:1.1;letter-spacing:-.03em}
+.badge-live{display:inline-flex;align-items:center;gap:8px;background:rgba(255,255,255,.08);border:1px solid rgba(255,255,255,.15);padding:6px 14px;border-radius:999px;font-size:12px;font-weight:600}
+.dot{width:8px;height:8px;border-radius:50%;background:#22c55e;box-shadow:0 0 0 4px rgba(34,197,94,.25);animation:pulse 2s infinite}
+@keyframes pulse{0%,100%{transform:scale(1);opacity:1}50%{transform:scale(1.15);opacity:.8}}
+
+.container{max-width:1200px;margin:0 auto;padding:28px 16px 56px}
+
+/* HERO */
+.hero{background:linear-gradient(135deg,#0f172a,#1e293b 60%,#334155);color:#fff;border-radius:20px;padding:30px 28px;margin-bottom:24px;box-shadow:var(--shadow)}
+.hero h1{font-size:32px;line-height:1.15;letter-spacing:-.03em}
 .hero h1 em{font-style:normal;color:#f59e0b}
-.hero p{color:#cbd5e1;margin-top:10px;max-width:760px;font-size:14px}
-.update-bar{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:18px}
-.btn{border:none;cursor:pointer;padding:11px 20px;border-radius:999px;font-weight:800;font-size:13px;display:inline-flex;align-items:center;gap:8px;text-decoration:none}
-.btn-dark{background:#f59e0b;color:#111827}
-.btn-dark:hover{background:#fbbf24}
+.hero p{color:#cbd5e1;margin-top:10px;max-width:800px;font-size:14px}
+.update-bar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;margin-top:20px}
+.btn{border:none;cursor:pointer;padding:11px 22px;border-radius:999px;font-weight:800;font-size:13px;display:inline-flex;align-items:center;gap:8px;text-decoration:none;transition:all .15s}
+.btn-primary{background:#f59e0b;color:#111827}
+.btn-primary:hover{background:#fbbf24;transform:translateY(-1px)}
 .btn-ghost{background:rgba(255,255,255,.08);color:#fff;border:1px solid rgba(255,255,255,.2)}
 .btn-ghost:hover{background:rgba(255,255,255,.16)}
 .btn:disabled{opacity:.6;cursor:wait}
@@ -43,601 +50,1247 @@ a{color:inherit}
 @keyframes rot{from{transform:rotate(0)}to{transform:rotate(360deg)}}
 .status{font-size:12px;color:#cbd5e1}
 .status.ok{color:#86efac;font-weight:700}
-.status.err{color:#fda4af}
-details.log-details{text-align:center;margin-top:12px;font-size:12px;color:#94a3b8}
+.status.err{color:#fda4af;font-weight:700}
+details.log-details{margin-top:12px;font-size:12px;color:#94a3b8}
 details.log-details summary{cursor:pointer;display:inline-block;padding:5px 12px;border:1px solid rgba(255,255,255,.15);border-radius:999px;background:rgba(255,255,255,.06)}
-#updateLog{text-align:left;font-family:ui-monospace,monospace;font-size:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px;margin-top:10px;max-height:240px;overflow:auto;white-space:pre-wrap;word-break:break-word;color:#cbd5e1}
-.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(165px,1fr));gap:12px;margin-bottom:20px}
-.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:16px;box-shadow:var(--shadow)}
+#updateLog{text-align:left;font-family:ui-monospace,monospace;font-size:11px;background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.12);border-radius:10px;padding:12px;margin-top:10px;max-height:220px;overflow:auto;white-space:pre-wrap;word-break:break-word;color:#cbd5e1}
+
+/* KPI GRID */
+.kpi-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(180px,1fr));gap:14px;margin-bottom:24px}
+.kpi{background:var(--card);border:1px solid var(--line);border-radius:var(--radius);padding:18px;box-shadow:var(--shadow);display:flex;flex-col:column;justify-content:space-between}
 .kpi small{color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.06em;font-size:11px}
-.kpi .v{font-size:26px;font-weight:900;letter-spacing:-.03em;margin-top:6px}
-.kpi .d{font-size:12px;color:var(--muted);margin-top:4px}
-.section{background:var(--card);border:1px solid var(--line);border-radius:16px;overflow:hidden;margin-bottom:20px;box-shadow:var(--shadow)}
-.section-head{padding:20px 20px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
+.kpi .v{font-size:26px;font-weight:900;letter-spacing:-.03em;margin-top:6px;color:#0f172a}
+.kpi .d{font-size:12px;color:var(--muted);margin-top:6px;line-height:1.4}
+.kpi-highlight{border-color:#fde68a;background:linear-gradient(180deg,#fffdf5,#ffffff)}
+
+/* SECTIONS */
+.section{background:var(--card);border:1px solid var(--line);border-radius:18px;overflow:hidden;margin-bottom:24px;box-shadow:var(--shadow)}
+.section-head{padding:22px 22px 0;display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap;align-items:flex-start}
 .section-head h2{font-size:20px;letter-spacing:-.02em}
-.section-head p{color:var(--muted);font-size:13px;margin-top:4px;max-width:680px}
-.num-tag{background:#0f172a;color:#fff;font-size:11px;font-weight:800;padding:4px 9px;border-radius:999px;letter-spacing:.06em}
-.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;padding:16px}
-.chart-box{border:1px solid var(--line);border-radius:12px;padding:14px;background:#f8fafc}
-.chart-box h3{font-size:13px;margin-bottom:8px}
-.chart-box p{font-size:12px;color:var(--muted);margin-top:8px}
+.section-head p{color:var(--muted);font-size:13px;margin-top:4px;max-width:740px}
+.num-tag{background:#0f172a;color:#fff;font-size:11px;font-weight:800;padding:4px 10px;border-radius:999px;letter-spacing:.06em}
+
+/* CHARTS */
+.charts{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:16px;padding:20px}
+.chart-box{border:1px solid var(--line);border-radius:14px;padding:16px;background:#f8fafc}
+.chart-box h3{font-size:13px;margin-bottom:10px}
+.chart-box p{font-size:12px;color:var(--muted);margin-top:10px}
+
+/* INSIGHTS */
+.insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:14px;padding:0 20px 20px}
+.insight{border-radius:12px;padding:16px;border:1px solid var(--line);background:#f8fafc}
+.insight strong{display:block;font-size:13px;color:#0f172a}
+.insight span{font-size:12px;color:#475569;margin-top:4px;display:block;line-height:1.45}
+
+/* BARS */
+.bar-row{display:grid;grid-template-columns:160px 1fr 90px;gap:12px;align-items:center;padding:7px 20px;font-size:13px}
+.bar-track{background:#f1f5f9;border-radius:999px;height:10px;overflow:hidden}
+.bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#f59e0b,#f97316);transition:width .4s ease}
+.bar-fill.g{background:linear-gradient(90deg,#22c55e,#16a34a)}
+.bar-fill.b{background:linear-gradient(90deg,#3b82f6,#2563eb)}
+
+/* SIMULATEUR / COMPARATEUR */
+.sim-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(320px,1fr));gap:20px;padding:20px}
+.sim-controls label{font-size:12px;font-weight:800;color:#334155;display:block;margin:12px 0 6px}
+.sim-controls label:first-child{margin-top:0}
+.sim-controls select,.sim-controls input{width:100%;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;background:#fff}
+.sim-card{background:linear-gradient(135deg,#0f172a,#1e293b);color:#fff;border-radius:14px;padding:22px;display:flex;flex-direction:column;justify-content:space-between}
+.sim-card .sim-top{display:flex;align-items:center;gap:16px}
+.sim-card img{width:64px;height:64px;object-fit:contain;background:#fff;border-radius:10px;padding:4px}
+.sim-card .title{font-size:16px;font-weight:800;line-height:1.25}
+.sim-card .meta{font-size:12px;color:#94a3b8;margin-top:4px}
+.sim-card .price-row{margin:18px 0;display:flex;align-items:baseline;gap:10px;flex-wrap:wrap}
+.sim-card .price-row .cur{font-size:30px;font-weight:900;color:#f59e0b}
+.sim-card .price-row .old-p{font-size:14px;color:#94a3b8;text-decoration:line-through}
+.sim-card .price-row .badge-rem{background:#16a34a;color:#fff;font-weight:800;font-size:11px;padding:3px 8px;border-radius:6px}
+.sim-details{display:grid;grid-template-columns:1fr 1fr;gap:10px;background:rgba(255,255,255,.06);padding:12px;border-radius:10px;margin-bottom:16px}
+.sim-details div small{font-size:11px;color:#94a3b8;display:block}
+.sim-details div b{font-size:13px;color:#fff}
+.sim-cta{display:flex;gap:10px}
+.sim-cta .btn{flex:1;justify-content:center}
+
+/* TOP BONNES AFFAIRES */
+.top-tabs{display:flex;gap:8px;padding:16px 20px 0;flex-wrap:wrap}
+.tab-btn{padding:8px 16px;border-radius:999px;font-size:12px;font-weight:700;border:1px solid var(--line);background:#fff;cursor:pointer;color:#475569;transition:all .15s}
+.tab-btn.active{background:#0f172a;color:#fff;border-color:#0f172a}
+.best-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(250px,1fr));gap:14px;padding:16px 20px 20px}
+.card-best{border:1px solid var(--line);border-radius:14px;padding:16px;background:#fff;display:flex;flex-direction:column;justify-content:space-between;transition:transform .15s,box-shadow .15s}
+.card-best:hover{transform:translateY(-2px);box-shadow:0 8px 24px rgba(15,23,42,.08)}
+.card-best.promo{border-color:#fde68a;background:linear-gradient(180deg,#fffdf5,#ffffff)}
+.card-best.a-plus{border-color:#bbf7d0;background:linear-gradient(180deg,#f0fdf4,#ffffff)}
+.best-header{display:flex;justify-content:space-between;align-items:flex-start;gap:8px}
+.best-img{width:48px;height:48px;object-fit:contain;background:#f8fafc;border-radius:8px;padding:3px}
+.rank-badge{font-size:12px;font-weight:900;padding:3px 8px;border-radius:6px;background:#0f172a;color:#fff}
+.card-best.promo .rank-badge{background:#d97706}
+.card-best.a-plus .rank-badge{background:#16a34a}
+.best-title{font-weight:800;font-size:13px;margin:10px 0 6px;line-height:1.35}
+.best-price{display:flex;align-items:baseline;gap:8px;margin-top:auto;padding-top:10px}
+.best-price .now{font-size:17px;font-weight:900;color:#0f172a}
+.best-price .prev{color:#94a3b8;font-size:11px;text-decoration:line-through}
+.best-price .rem{color:var(--green);font-size:11px;font-weight:800}
+.best-tags{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+
+/* CATALOGUE TABLE & CONTROLS */
+.controls{display:flex;gap:10px;flex-wrap:wrap;padding:16px 20px}
+.controls input,.controls select{flex:1;min-width:160px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;background:#fff}
+.controls select{cursor:pointer}
 table{width:100%;border-collapse:collapse;font-size:13px}
-th{text-align:left;background:#f8fafc;padding:10px 12px;color:#475569;font-size:11px;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--line)}
-td{padding:11px 12px;border-top:1px solid #f1f5f9;vertical-align:middle}
+th{text-align:left;background:#f8fafc;padding:12px 14px;color:#475569;font-size:11px;text-transform:uppercase;letter-spacing:.05em;border-bottom:1px solid var(--line)}
+td{padding:12px 14px;border-top:1px solid #f1f5f9;vertical-align:middle}
 tr:hover{background:#f8fafc}
+.prod-cell{display:flex;align-items:center;gap:12px}
+.prod-thumb{width:40px;height:40px;object-fit:contain;background:#fff;border:1px solid var(--line);border-radius:8px;padding:2px;flex-shrink:0}
+a.model-link{text-decoration:none;font-weight:700;color:#0f172a}
+a.model-link:hover{text-decoration:underline;color:var(--blue)}
 .badge{display:inline-block;padding:3px 9px;border-radius:999px;font-size:11px;font-weight:800;white-space:nowrap}
 .b-neuf{background:var(--greenBg);color:#166534}
 .b-a{background:#fef3c7;color:#92400e}
+.b-dispo{background:var(--greenBg);color:#166534}
 .b-rup{background:var(--redBg);color:#9f1239}
-.price{font-weight:800;white-space:nowrap}
-.old{color:#94a3b8;text-decoration:line-through;font-size:11px;margin-left:6px}
-.remise{color:var(--green);font-size:11px;font-weight:800;margin-left:6px}
-a.model{text-decoration:none;font-weight:700}
-a.model:hover{text-decoration:underline}
-.controls{display:flex;gap:10px;flex-wrap:wrap;padding:16px 20px 0}
-.controls input,.controls select{flex:1;min-width:170px;padding:11px 13px;border:1px solid var(--line);border-radius:10px;font-size:13px;background:#fff}
-.best-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding:16px}
-.card-best{border:1px solid #fde68a;border-radius:12px;padding:15px;background:var(--amberBg)}
-.card-best.a-plus{background:var(--greenBg);border-color:#bbf7d0}
-.rank{font-size:24px;font-weight:900;color:var(--amber);line-height:1}
-.card-best.a-plus .rank{color:var(--green)}
-.card-best .t{font-weight:800;font-size:13px;margin:8px 0 4px}
-.card-best .p{font-weight:900;color:#166534;font-size:16px}
-.card-best .w{font-size:12px;color:#475569;margin-top:6px}
-.tag{display:inline-block;background:#f59e0b;color:#fff;font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;margin-top:9px;text-transform:uppercase;letter-spacing:.04em}
-.card-best.a-plus .tag{background:var(--green)}
-.bar-row{display:grid;grid-template-columns:150px 1fr 62px;gap:10px;align-items:center;padding:7px 20px;font-size:13px}
-.bar-track{background:#f1f5f9;border-radius:999px;height:9px;overflow:hidden}
-.bar-fill{height:100%;border-radius:999px;background:linear-gradient(90deg,#f59e0b,#f97316)}
-.bar-fill.g{background:linear-gradient(90deg,#22c55e,#16a34a)}
-.bar-fill.b{background:linear-gradient(90deg,#3b82f6,#2563eb)}
-.calc{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;padding:16px}
-.calc label{font-size:12px;font-weight:800;color:#334155;display:block;margin:12px 0 6px}
-.calc input,.calc select{width:100%;padding:11px 12px;border:1px solid var(--line);border-radius:10px;font-size:14px}
-.calc-result{background:#0f172a;color:#fff;border-radius:12px;padding:18px}
-.calc-result .big{font-size:28px;font-weight:900}
-.verdict{margin-top:12px;padding:12px;border-radius:10px;font-weight:800;font-size:13px}
-.verdict.ok{background:#14532d;color:#bbf7d0}
-.verdict.no{background:#7f1d1d;color:#fecaca}
-.verdict.warn{background:#713f12;color:#fde68a}
-.tech-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:12px;padding:16px}
-.tech-card{border:1px solid var(--line);border-radius:12px;padding:15px}
-.tech-card h3{font-size:14px;margin-bottom:8px}
-.tech-card p,.tech-card li{font-size:13px;color:#334155}
-.tech-card ul{padding-left:18px;margin-top:6px}
-.tech-card li{margin:4px 0}
-.check{background:var(--greenBg);border:1px dashed #86efac;border-radius:12px;padding:16px;margin:0 16px 16px}
-.check h3{font-size:14px;margin-bottom:8px}
-.check li{font-size:13px;margin:5px 0;color:#334155}
-.check ul{padding-left:18px}
-.print-bar{display:flex;justify-content:flex-end;padding:10px 16px 0}
-.btn-print{background:#fff;border:1px solid var(--line);padding:9px 16px;border-radius:999px;font-weight:800;font-size:13px;cursor:pointer}
-.btn-print:hover{background:#f8fafc}
-footer{text-align:center;color:#94a3b8;font-size:12px;margin-top:8px}
-.insight-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:12px;padding:16px}
-.insight{border-radius:12px;padding:15px;border:1px solid var(--line);background:#f8fafc}
-.insight strong{display:block;font-size:13px}
-.insight span{font-size:12px;color:#475569}
-@media(max-width:720px){.hero h1{font-size:24px}.nav{display:none}table,thead,tbody,th,td,tr{display:block}thead{display:none}tr{border-top:1px solid #eee;padding:8px 0}td{border:none;padding:6px 12px}.bar-row{grid-template-columns:1fr;gap:4px}}
-@media print{body{background:#fff}.topbar,.update-bar,.controls,.print-bar,details.log-details,footer,.nav{display:none!important}.hero{background:#fff;color:#000}.hero p,.status{color:#333}.section{break-inside:avoid;box-shadow:none}}
+.b-5g{background:var(--blueBg);color:#1e40af}
+.b-spec{background:#f1f5f9;color:#334155;font-weight:600}
+.price-cell{font-weight:800;white-space:nowrap}
+.old-val{color:#94a3b8;text-decoration:line-through;font-size:11px;margin-left:6px}
+.rem-val{color:var(--green);font-size:11px;font-weight:800;margin-left:6px}
+.btn-table{background:#0f172a;color:#fff;padding:6px 12px;border-radius:8px;font-size:11px;font-weight:700;text-decoration:none;display:inline-block}
+.btn-table:hover{background:#1e293b}
+
+footer{text-align:center;color:#94a3b8;font-size:12px;margin-top:20px;padding:20px}
+footer a{color:#64748b;text-decoration:underline}
+
+@media(max-width:768px){
+  .hero h1{font-size:24px}
+  .nav{display:none}
+  .bar-row{grid-template-columns:1fr;gap:4px}
+  table,thead,tbody,th,td,tr{display:block}
+  thead{display:none}
+  tr{border-top:1px solid #e2e8f0;padding:12px}
+  td{border:none;padding:4px 0}
+  td:before{content:attr(data-label) " : ";font-weight:700;font-size:11px;text-transform:uppercase;color:#64748b}
+  td.prod-cell:before{display:none}
+}
 </style>
 </head>
 <body>
 
 <div class="topbar"><div class="topbar-in">
-  <div class="logo">Phone<span>Helper</span> <span style="color:#94a3b8;font-size:12px;font-weight:600">PRO • MAROC</span></div>
+  <div class="logo">
+    Phone<span>Helper</span> Pro
+    <span class="logo-tag">MAROCPHONE</span>
+  </div>
   <nav class="nav">
-    <a href="#dashboard">Dashboard</a><a href="#stats">Statistiques</a><a href="#technicien">Technicien</a><a href="#calculateur">Calculateur</a><a href="#top">Top ventes</a><a href="#catalogue">Catalogue</a>
+    <a href="#dashboard">Tableau de bord</a>
+    <a href="#stats">Statistiques</a>
+    <a href="#comparateur">Comparateur</a>
+    <a href="#top">Bonnes affaires</a>
+    <a href="#catalogue">Catalogue</a>
   </nav>
-  <div class="badge-live"><span class="dot"></span> MarocPhone • <span id="baroDate2">15/09/2026</span></div>
+  <div class="badge-live">
+    <span class="dot"></span>
+    <span>MarocPhone Direct</span>
+    <span id="liveClock" style="color:#94a3b8;font-size:11px">—</span>
+  </div>
 </div></div>
 
 <div class="container">
 
+  <!-- HERO -->
   <div class="hero">
-    <h1>Baromètre Smartphones <em>Maroc</em><br>Dashboard Technicien de Réparation</h1>
-    <p>Prix neufs & reconditionnés A+ MarocPhone, meilleures ventes, statistiques de pannes, seuils de rentabilité et stock prioritaire — pour réparer au bon prix, au bon moment.</p>
+    <h1>Baromètre Smartphones <em>MarocPhone</em><br>Dashboard Dynamique en Direct</h1>
+    <p>Observatoire 100% automatisé et sans données éditoriales : prix réels, remises actives, état des stocks et indicateurs de marché calculés exclusivement depuis le catalogue officiel MarocPhone (neufs scellés et reconditionnés A+ certifiés).</p>
     <div class="update-bar">
-      <button id="btnUpdate" class="btn"><span class="spin">⟳</span> Mise à jour</button>
+      <button id="btnUpdate" class="btn btn-primary"><span class="spin">⟳</span> Synchroniser en direct</button>
       <a class="btn btn-ghost" href="https://marocphone.com/neuf/smartphones" target="_blank" rel="noopener">↗ Ouvrir MarocPhone</a>
-      <span id="updateStatus" class="status">Dernière synchro : <span id="lastSync">—</span> • Cliquez sur "Mise à jour" pour synchroniser les prix (proxys CORS).</span>
+      <span id="updateStatus" class="status">Initialisé avec les données officielles MarocPhone. Cliquez sur « Synchroniser en direct » pour rafraîchir les prix à tout moment.</span>
     </div>
-    <details class="log-details" id="logDetails" style="display:none"><summary>voir les détails techniques</summary><div id="updateLog"></div></details>
+    <details class="log-details" id="logDetails" style="display:none">
+      <summary>Consulter le journal technique de synchronisation</summary>
+      <div id="updateLog"></div>
+    </details>
   </div>
 
-  <!-- DASHBOARD -->
+  <!-- DASHBOARD KPIS -->
   <div class="kpi-grid" id="dashboard">
-    <div class="kpi"><small>Modèles</small><div class="v" id="kpiTotal">30</div><div class="d" id="kpiModelsDetail">22 neufs • 8 A+</div></div>
-    <div class="kpi"><small>Prix moyen neuf</small><div class="v" id="avgNeuf">5 986 DH</div><div class="d" id="kpiAvgNeufDetail">22 modèles neufs • remise moyenne —</div></div>
-    <div class="kpi"><small>Prix moyen A+</small><div class="v" id="avgA">5 462 DH</div><div class="d" id="kpiEcart">Écart moyen : -524 DH (-8,8%)</div></div>
-    <div class="kpi"><small>Fourchette neuf</small><div class="v" id="kpiRange">1 299 – 17 999 DH</div><div class="d" id="kpiRupture">Rupture : 3 modèles</div></div>
-    <div class="kpi"><small>Meilleure remise</small><div class="v" id="kpiBestRemise">-33%</div><div class="d" id="kpiBestRemiseDetail">Galaxy S22 A+ • 2 500 DH économisés</div></div>
-    <div class="kpi"><small>Marques</small><div class="v" id="kpiBrands">9</div><div class="d" id="kpiBrandsDetail">Xiaomi leader volume (7 neufs)</div></div>
+    <div class="kpi">
+      <small>Catalogue Total</small>
+      <div class="v" id="kpiTotal">30</div>
+      <div class="d" id="kpiModelsDetail">22 neufs scellés • 8 reconditionnés A+</div>
+    </div>
+    <div class="kpi">
+      <small>Prix moyen Neuf</small>
+      <div class="v" id="kpiAvgNeuf">—</div>
+      <div class="d" id="kpiAvgNeufDetail">Médiane : — • — en promotion</div>
+    </div>
+    <div class="kpi">
+      <small>Prix moyen Reconditionné A+</small>
+      <div class="v" id="kpiAvgA">—</div>
+      <div class="d" id="kpiEcart">Écart vs Neuf : —</div>
+    </div>
+    <div class="kpi">
+      <small>Fourchette Tarifaire</small>
+      <div class="v" id="kpiRange">—</div>
+      <div class="d" id="kpiRangeDetail">Dès — jusqu'à —</div>
+    </div>
+    <div class="kpi kpi-highlight">
+      <small>Meilleure Remise (%)</small>
+      <div class="v" id="kpiBestRemise" style="color:#d97706">—</div>
+      <div class="d" id="kpiBestRemiseDetail">—</div>
+    </div>
+    <div class="kpi kpi-highlight">
+      <small>Plus Grande Économie (DH)</small>
+      <div class="v" id="kpiBestEco" style="color:#16a34a">—</div>
+      <div class="d" id="kpiBestEcoDetail">—</div>
+    </div>
+    <div class="kpi">
+      <small>Disponibilité Stocks</small>
+      <div class="v" id="kpiDispoRate">—</div>
+      <div class="d" id="kpiRuptureDetail">—</div>
+    </div>
+    <div class="kpi">
+      <small>Économies Cumulées</small>
+      <div class="v" id="kpiTotalEco" style="color:#2563eb">—</div>
+      <div class="d" id="kpiTotalEcoDetail">Rabais total disponible au catalogue</div>
+    </div>
   </div>
 
-  <!-- STATS MARCHE -->
+  <!-- STATISTIQUES MARCHE -->
   <div class="section" id="stats">
-    <div class="section-head"><div><span class="num-tag">01 • STATISTIQUES MARCHÉ</span><h2>Statistiques du marché Maroc</h2><p>Ce qui se vend, à quel prix, et où le technicien doit se positionner. Données calculées en direct depuis le catalogue (<span id="statsCount">30</span> modèles).</p></div></div>
+    <div class="section-head">
+      <div>
+        <span class="num-tag">01 • STATISTIQUES MARCHÉ</span>
+        <h2>Statistiques & Distribution du Marché MarocPhone</h2>
+        <p>Analyses quantitatives issues du catalogue en direct (<span id="statsCount">30</span> modèles recensés). Toutes les métriques sont calculées dynamiquement sans aucune donnée éditoriale.</p>
+      </div>
+    </div>
     <div class="charts">
-      <div class="chart-box"><h3>📊 Répartition des modèles par marque (neuf + A+)</h3><canvas id="chartBrand" height="220"></canvas><p id="descBrand">Xiaomi domine le volume neuf (7/22), Apple/Samsung dominent le reconditionné (4+4/8).</p></div>
-      <div class="chart-box"><h3>💰 Distribution des prix neufs par gamme</h3><canvas id="chartPrice" height="220"></canvas><p id="descPrice">12 modèles entre 2 000 et 5 500 DH = cœur du marché réparable (rentabilité maximale).</p></div>
-      <div class="chart-box"><h3>🏷️ Remise moyenne par marque</h3><canvas id="chartRemise" height="220"></canvas><p id="descRemise">Reconditionné : -27% à -33%. Neuf : -5% à -13%. Stocker les pièces des marques à forte remise = tickets élevés.</p></div>
+      <div class="chart-box">
+        <h3>📊 Part des modèles par marque (Neuf + Reconditionné A+)</h3>
+        <canvas id="chartBrand" height="220"></canvas>
+        <p id="descBrand">Calcul dynamique en cours...</p>
+      </div>
+      <div class="chart-box">
+        <h3>💰 Distribution des prix neufs par segment</h3>
+        <canvas id="chartPrice" height="220"></canvas>
+        <p id="descPrice">Calcul dynamique en cours...</p>
+      </div>
+      <div class="chart-box">
+        <h3>🏷️ Taux de remise moyen par marque (%)</h3>
+        <canvas id="chartRemise" height="220"></canvas>
+        <p id="descRemise">Calcul dynamique en cours...</p>
+      </div>
     </div>
+
+    <!-- INSIGHTS DYNAMIQUES -->
     <div class="insight-grid">
-      <div class="insight"><strong>🎯 80/20 du business réparation</strong><span>Xiaomi Redmi/Note 25% + Samsung Galaxy A 20% + iPhone 11-14 A+ et Samsung S A+ = 80% des réparations attendues.</span></div>
-      <div class="insight"><strong id="insightNeufTitle">📉 Neuf : remises en cours</strong><span id="insightNeuf">Prix neufs et remises recalculés depuis MarocPhone à chaque mise à jour.</span></div>
-      <div class="insight"><strong>⚠️ Ruptures = demande de pièces</strong><span id="insightRupture">Tecno Spark 50, iPhone 15 Pro Max, Foning en rupture → ces clients réparent l'ancien au lieu d'acheter.</span></div>
-      <div class="insight"><strong>♻️ A+ = risque + marge</strong><span>Batterie ≥85% mais déjà usée, déjà ouvert, garantie 3-6 mois. Check-list + photos obligatoires avant toute réparation.</span></div>
+      <div class="insight">
+        <strong id="ins1Title">🏷️ Promotions & Rabais actifs</strong>
+        <span id="ins1Body">Analyse des prix barrés en cours...</span>
+      </div>
+      <div class="insight">
+        <strong id="ins2Title">⚠️ État des stocks & Ruptures</strong>
+        <span id="ins2Body">Inventaire des disponibilités en cours...</span>
+      </div>
+      <div class="insight">
+        <strong id="ins3Title">♻️ Avantage Reconditionné A+</strong>
+        <span id="ins3Body">Comparaison neuf vs A+ en cours...</span>
+      </div>
+      <div class="insight">
+        <strong id="ins4Title">📦 Capacités de stockage proposées</strong>
+        <span id="ins4Body">Répartition du stockage en cours...</span>
+      </div>
     </div>
-    <div style="padding:4px 20px 6px;font-weight:800;font-size:13px">Poids des gammes de prix (neufs)</div>
+
+    <div style="padding:4px 20px 8px;font-weight:800;font-size:13px">Poids des segments tarifaires (Neufs avec prix affiché)</div>
     <div id="priceBars"></div>
-    <div style="padding:14px 20px 6px;font-weight:800;font-size:13px">Taux de pannes estimés par famille (à adapter à ton atelier)</div>
-    <div id="panneBars"></div>
+
+    <div style="padding:16px 20px 8px;font-weight:800;font-size:13px">Taux de disponibilité par marque (% en stock)</div>
+    <div id="brandDispoBars"></div>
     <div style="height:16px"></div>
   </div>
 
-  <!-- TECHNICIEN -->
-  <div class="section" id="technicien">
-    <div class="section-head"><div><span class="num-tag">02 • TECHNICIEN</span><h2>Statistiques technicien de réparation</h2><p>Pannes, pièces, marges et seuils — tout ce qui détermine si une réparation est rentable ou non.</p></div><div class="print-bar" style="padding:0"><button class="btn-print" id="btnPrintTech">🖨️ Imprimer le guide</button></div></div>
-    <div class="tech-grid">
-      <div class="tech-card"><h3>🔧 Pannes les plus fréquentes (ordre d'arrivée)</h3><ol style="padding-left:18px;font-size:13px;color:#334155"><li><b>Écran cassé / tactile</b> — 45% des réparations</li><li><b>Batterie gonflée / autonomie</b> — 25%</li><li><b>Port de charge USB-C</b> — 15%</li><li><b>Boutons power/volume</b> — 5%</li><li><b>Logiciel / chauffe / carte mère</b> — 10%</li></ol></div>
-      <div class="tech-card"><h3>📦 Stock prioritaire à tenir en permanence</h3><ul><li>Écrans : Redmi 13C, Note 13 Pro/17, Galaxy A16/A17, iPhone 12-14</li><li>Batteries : Redmi, Galaxy A, Honor X9b 5400 mAh, iPhone</li><li>Nappes charge USB-C, vitres arrière, boutons</li><li>Colle, outils, etc. — rotation 7-14 jours sur entrée de gamme</li></ul></div>
-      <div class="tech-card"><h3>⏱️ Temps de réparation & marge indicative</h3><ul><li>Écran : 30-60 min — marge 30-50% sur pièce</li><li>Batterie : 20-40 min — marge 40-60%</li><li>Charge / boutons : 30-45 min</li><li>Carte mère : sur devis, 24-48h</li></ul><p style="font-size:12px;color:#64748b;margin-top:6px">Règle d'or : annoncer réparation vs prix neuf du jour (bouton Mise à jour).</p></div>
-    </div>
-    <div style="overflow:auto;padding:0 16px 16px"><table>
-      <thead><tr><th>Modèle (Top ventes)</th><th>Prix neuf</th><th>Panne N°1</th><th>Pièce à stocker</th><th>Seuil rentable</th><th>Priorité stock</th></tr></thead>
-      <tbody id="techTable"></tbody>
-    </table></div>
-    <div class="check"><h3>✅ Check-list avant réparation (à imprimer)</h3><ul>
-      <li>Identifier la <b>variante exacte</b> : stockage (128/256/512 Go) + RAM + région Maroc</li>
-      <li>Tester <b>écran tactile</b> (5 zones), <b>charge</b>, <b>capteur proximité</b>, <b>Face ID / empreinte</b></li>
-      <li>Relever <b>santé batterie</b> : iPhone Santé, Samsung, Xiaomi *#*#6485#*#*</li>
-      <li>Noter <b>IMEI</b> + photos avant/après ouverture</li>
-      <li>Pour A+ : traces d'ouverture, vis, colle, nappes, brûlures AMOLED</li>
-      <li>Annoncer <b>prix réparation vs prix neuf du jour</b> + délai express 30 min - 1 h</li>
-    </ul></div>
-  </div>
-
-  <!-- CALCULATEUR -->
-  <div class="section" id="calculateur">
-    <div class="section-head"><div><span class="num-tag">03 • CALCULATEUR</span><h2>Calculateur de rentabilité réparation</h2><p>Entrez le prix neuf du modèle, le coût de la pièce et ta main d'œuvre — le verdict s'affiche en direct.</p></div></div>
-    <div class="calc">
+  <!-- COMPARATEUR ET SIMULATEUR D'ECONOMIES -->
+  <div class="section" id="comparateur">
+    <div class="section-head">
       <div>
-        <label>Modèle (prix neuf MarocPhone)</label>
-        <select id="calcModel"><option value="">— Choisir un modèle —</option></select>
-        <label>Prix neuf du téléphone (DH)</label><input id="calcNew" type="number" min="0" value="2799">
-        <label>Coût pièce (écran / batterie, DH)</label><input id="calcPart" type="number" min="0" value="650">
-        <label>Main d'œuvre (DH)</label><input id="calcLabour" type="number" min="0" value="250">
-        <label>Seuil d'acceptation client (% du neuf)</label><input id="calcSeuil" type="number" min="5" max="80" value="35">
+        <span class="num-tag">02 • COMPARATEUR & SIMULATEUR</span>
+        <h2>Simulateur de Prix & Analyseur d'Économies</h2>
+        <p>Sélectionnez n'importe quel smartphone du catalogue MarocPhone pour inspecter sa configuration officielle, son coût au Go, sa remise et sa rentabilité immédiate.</p>
       </div>
-      <div class="calc-result">
-        <small style="color:#94a3b8">TOTAL RÉPARATION</small><div class="big" id="calcTotal">900 DH</div>
-        <div style="color:#cbd5e1;font-size:13px" id="calcDetail">Pièce 650 + main d'œuvre 250</div>
-        <div style="color:#cbd5e1;font-size:13px;margin-top:6px" id="calcPct">32% du prix neuf</div>
-        <div class="verdict ok" id="calcVerdict">✅ RÉPARATION RENTABLE — le client accepte</div>
-        <p style="font-size:12px;color:#94a3b8;margin-top:12px" id="calcAdvice">Conseil : réparation express 45 min, garantie 3 mois, annonce "Réparé à 900 DH vs 2 799 DH neuf".</p>
+    </div>
+    <div class="sim-grid">
+      <div class="sim-controls">
+        <label for="simSelect">Modèle à analyser (catalogue MarocPhone)</label>
+        <select id="simSelect"><option value="">— Sélectionner un modèle —</option></select>
+        
+        <label for="simBudget">Votre budget maximal (DH)</label>
+        <input id="simBudget" type="number" min="500" max="30000" step="100" value="4000">
+
+        <div style="margin-top:16px;padding:12px;background:#f8fafc;border-radius:10px;border:1px solid var(--line);font-size:12px;color:#64748b">
+          💡 <b>Indicateur dynamique :</b> Le ratio Prix / Go permet de mesurer objectivement la générosité du stockage proposé par MarocPhone pour chaque modèle.
+        </div>
+      </div>
+
+      <div class="sim-card" id="simCard">
+        <div>
+          <div class="sim-top">
+            <img id="simImg" src="" alt="Visuel smartphone">
+            <div>
+              <div class="title" id="simTitle">—</div>
+              <div class="meta" id="simMeta">—</div>
+            </div>
+          </div>
+          <div class="price-row">
+            <span class="cur" id="simPrice">—</span>
+            <span class="old-p" id="simOldPrice"></span>
+            <span class="badge-rem" id="simBadgeRem" style="display:none"></span>
+          </div>
+          <div class="sim-details">
+            <div><small>Capacité</small><b id="simStorage">—</b></div>
+            <div><small>Mémoire vive</small><b id="simRam">—</b></div>
+            <div><small>Connectivité</small><b id="simNet">—</b></div>
+            <div><small>Ratio Prix / Go</small><b id="simRatio">—</b></div>
+          </div>
+          <div id="simVerdict" style="padding:10px;border-radius:8px;font-size:12px;font-weight:700;margin-bottom:14px;background:rgba(255,255,255,.1)">—</div>
+        </div>
+        <div class="sim-cta">
+          <a id="simLink" class="btn btn-primary" href="#" target="_blank" rel="noopener">↗ Voir la fiche officielle MarocPhone</a>
+        </div>
       </div>
     </div>
   </div>
 
-  <!-- TOP VENTES -->
+  <!-- TOP BONNES AFFAIRES -->
   <div class="section" id="top">
-    <div class="section-head"><div><span class="num-tag">04 • TOP VENTES</span><h2>🔥 Meilleurs smartphones vendus au Maroc 2026</h2><p id="descTop">Top basé sur volume + rapport qualité/prix.</p></div></div>
+    <div class="section-head">
+      <div>
+        <span class="num-tag">03 • OPPORTUNITÉS</span>
+        <h2>Top Bonnes Affaires & Opportunités MarocPhone</h2>
+        <p>Classements 100% dynamiques générés à partir des prix, pourcentages de remise et montants d'économies réels.</p>
+      </div>
+    </div>
+    <div class="top-tabs">
+      <button class="tab-btn active" data-tab="remise">🏷️ Plus fortes remises (%)</button>
+      <button class="tab-btn" data-tab="eco">💰 Plus grandes économies (DH)</button>
+      <button class="tab-btn" data-tab="cheap">🪙 Meilleurs petits prix (&lt; 2 000 DH)</button>
+      <button class="tab-btn" data-tab="new">✨ Nouveautés 2026</button>
+    </div>
     <div class="best-grid" id="bestGrid"></div>
   </div>
 
-  <!-- CATALOGUE -->
+  <!-- CATALOGUE COMPLET -->
   <div class="section" id="catalogue">
-    <div class="section-head"><div><span class="num-tag">05 • CATALOGUE</span><h2 id="catTitle">Catalogue complet — 30 modèles</h2><p>Recherchez, filtrez par marque / état / disponibilité. Prix TTC, paiement à la livraison.</p></div></div>
-    <div class="controls">
-      <input id="search" type="text" placeholder="Rechercher un modèle ou une marque... ex: Xiaomi, iPhone, Samsung">
-      <select id="filter"><option value="all">Tous les modèles</option><option value="neuf">Neufs uniquement</option><option value="a">Reconditionnés A+ uniquement</option><option value="dispo">Disponibles uniquement</option></select>
-      <select id="brand"><option value="all">Toutes les marques</option><option>Apple</option><option>Samsung</option><option>Xiaomi</option><option>Honor</option><option>Oppo</option><option>Realme</option><option>Infinix</option><option>Tecno</option><option>Foning</option></select>
+    <div class="section-head">
+      <div>
+        <span class="num-tag">04 • CATALOGUE</span>
+        <h2 id="catTitle">Catalogue complet MarocPhone</h2>
+        <p>Recherchez, filtrez et triez les smartphones officiels MarocPhone. Tous les prix affichés sont TTC avec paiement à la livraison au Maroc.</p>
+      </div>
     </div>
-    <div style="overflow:auto"><table><thead><tr><th>#</th><th>Modèle</th><th>Marque</th><th>État</th><th>Prix</th><th>Panne N°1 (technicien)</th></tr></thead><tbody id="catBody"></tbody></table></div>
-    <div id="empty" style="display:none;padding:24px;text-align:center;color:#94a3b8">Aucun modèle ne correspond à votre recherche.</div>
+    <div class="controls">
+      <input id="search" type="text" placeholder="Rechercher par modèle, marque, stockage (ex: Xiaomi, S24, 256 Go, 5G)...">
+      <select id="filterType">
+        <option value="all">Tous les états</option>
+        <option value="neuf">Neufs scellés uniquement</option>
+        <option value="a">Reconditionnés A+ uniquement</option>
+      </select>
+      <select id="filterBrand">
+        <option value="all">Toutes les marques</option>
+      </select>
+      <select id="filterDispo">
+        <option value="all">Tous les stocks</option>
+        <option value="in">En stock uniquement</option>
+        <option value="out">Ruptures de stock uniquement</option>
+      </select>
+      <select id="sortBy">
+        <option value="default">Tri par défaut</option>
+        <option value="price-asc">Prix : croissant</option>
+        <option value="price-desc">Prix : décroissant</option>
+        <option value="remise-desc">Plus forte remise (%)</option>
+        <option value="eco-desc">Plus grande économie (DH)</option>
+        <option value="name-asc">Nom (A → Z)</option>
+      </select>
+    </div>
+    <div style="overflow-x:auto">
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Visuel</th>
+            <th>Modèle & Configuration</th>
+            <th>Marque</th>
+            <th>État</th>
+            <th>Réseau</th>
+            <th>Prix MarocPhone</th>
+            <th>Disponibilité</th>
+            <th>Fiche</th>
+          </tr>
+        </thead>
+        <tbody id="catBody"></tbody>
+      </table>
+    </div>
+    <div id="emptyCatalog" style="display:none;padding:32px;text-align:center;color:#94a3b8">
+      Aucun smartphone ne correspond à vos critères de recherche.
+    </div>
   </div>
 
-  <footer>© 2026 PhoneHelper Pro • sabrallah — sabrallah1991@gmail.com • Source : marocphone.com/barometre-prix-tech-maroc • Données synchronisées via bouton Mise à jour</footer>
+  <footer>
+    <p><b>PhoneHelper Pro</b> • Baromètre smartphones officiel MarocPhone • Toutes les données proviennent en direct de <a href="https://marocphone.com/neuf/smartphones" target="_blank" rel="noopener">marocphone.com</a></p>
+    <p style="margin-top:6px;font-size:11px">Synchronisation dynamique via proxys CORS • sabrallah — sabrallah1991@gmail.com</p>
+  </footer>
+
 </div>
 
 <script>
-/* ===== DONNÉES (source de vérité) ===== */
-const MODELS = [
- {n:"Samsung Galaxy A17 4G 128 Go 4 Go RAM",b:"Samsung",t:"neuf",p:2099,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a17-4g-128-go-4-go-ram",panne:"Écran AMOLED, batterie"},
- {n:"Xiaomi Redmi Note 17 256 Go 6 Go RAM",b:"Xiaomi",t:"neuf",p:2699,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-256-go-6-go-ram",panne:"Écran, charge"},
- {n:"Xiaomi Redmi Note 17 Pro Max 5G 512 Go 8 Go RAM",b:"Xiaomi",t:"neuf",p:5299,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-max-5g-512-go-8-go-ram",panne:"Écran, nappe charge"},
- {n:"Xiaomi Redmi Note 17 Pro Max 5G 256 Go 8 Go RAM",b:"Xiaomi",t:"neuf",p:4749,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-max-5g-256-go-8-go-ram",panne:"Écran, charge rapide"},
- {n:"Xiaomi Redmi Note 17 Pro 5G 512 Go 8 Go RAM",b:"Xiaomi",t:"neuf",p:4399,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-5g-512-go-8-go-ram",panne:"Écran, charge rapide"},
- {n:"Xiaomi Redmi Note 17 Pro 5G 256 Go 8 Go RAM",b:"Xiaomi",t:"neuf",p:3890,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-5g-256-go-8-go-ram",panne:"Écran, charge rapide"},
- {n:"Tecno Spark 50 128 Go 8 Go RAM",b:"Tecno",t:"neuf",p:1600,old:null,dispo:0,u:"https://marocphone.com/neuf/smartphones/tecno/tecno-spark-50-128-go-8-go-ram",panne:"Écran, batterie"},
- {n:"Honor 600 Lite 5G — 256 Go, 8 Go RAM",b:"Honor",t:"neuf",p:3500,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/honor/honor-600-lite-5g-256-go-8-go-ram",panne:"Écran, batterie"},
- {n:"Foning — Smartphone",b:"Foning",t:"neuf",p:null,old:null,dispo:0,u:"https://marocphone.com/neuf/smartphones/foning/foning-smartphone",panne:"À déterminer"},
- {n:"Honor X9b 5G 256 Go",b:"Honor",t:"neuf",p:2999,old:3299,dispo:1,u:"https://marocphone.com/neuf/smartphones/honor/honor-x9b-5g-256-go",panne:"Batterie 5400 mAh"},
- {n:"Infinix Hot 40 Pro 256 Go",b:"Infinix",t:"neuf",p:1499,old:1699,dispo:1,u:"https://marocphone.com/neuf/smartphones/infinix/infinix-hot-40-pro-256-go",panne:"Écran, batterie gonflée"},
- {n:"Realme 12 Pro 5G 256 Go",b:"Realme",t:"neuf",p:3299,old:3699,dispo:1,u:"https://marocphone.com/neuf/smartphones/realme/realme-12-pro-5g-256-go",panne:"Écran, charge"},
- {n:"Oppo Reno 11 F 5G 256 Go",b:"Oppo",t:"neuf",p:3999,old:4299,dispo:1,u:"https://marocphone.com/neuf/smartphones/oppo/oppo-reno-11-f-5g-256-go",panne:"Écran, batterie"},
- {n:"Xiaomi Redmi 13C 128 Go",b:"Xiaomi",t:"neuf",p:1299,old:1499,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-13c-128-go",panne:"Écran cassé, batterie"},
- {n:"Xiaomi Redmi Note 13 Pro 256 Go",b:"Xiaomi",t:"neuf",p:2799,old:3199,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-13-pro-256-go",panne:"Écran, charge, chauffe"},
- {n:"Samsung Galaxy A16 128 Go",b:"Samsung",t:"neuf",p:1899,old:2099,dispo:1,u:"https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a16-128-go",panne:"Écran AMOLED, batterie"},
- {n:"Samsung Galaxy A56 5G 256 Go",b:"Samsung",t:"neuf",p:4299,old:4699,dispo:1,u:"https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a56-5g-256-go",panne:"Écran, charge"},
- {n:"Samsung Galaxy S24 Ultra 256 Go",b:"Samsung",t:"neuf",p:14499,old:15499,dispo:1,u:"https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-s24-ultra-256-go",panne:"Écran OLED, dos verre"},
- {n:"Apple iPhone 15 Plus 6.7\" 128 Go 6 Go RAM Noir",b:"Apple",t:"neuf",p:11499,old:12499,dispo:1,u:"https://marocphone.com/neuf/smartphones/apple/iphone-15-plus-6-7-128-go-6-go-ram-noir",panne:"Écran OLED, Face ID"},
- {n:"Apple iPhone 15 6.1\" 256 Go 6 Go RAM Noir",b:"Apple",t:"neuf",p:11999,old:12999,dispo:1,u:"https://marocphone.com/neuf/smartphones/apple/iphone-15-6-1-256-go-6-go-ram-noir",panne:"Écran OLED, Face ID"},
- {n:"Apple iPhone 15 Pro 6.1\" 256 Go 8 Go RAM Noir",b:"Apple",t:"neuf",p:15499,old:16499,dispo:1,u:"https://marocphone.com/neuf/smartphones/apple/iphone-15-pro-6-1-256-go-8-go-ram-noir",panne:"Écran OLED, caméras"},
- {n:"Apple iPhone 15 Pro Max 256 Go Titane Noir",b:"Apple",t:"neuf",p:17999,old:18999,dispo:0,u:"https://marocphone.com/neuf/smartphones/apple/iphone-15-pro-max-256gb-noir-titanium",panne:"Écran OLED, dos verre"},
- {n:"Apple iPhone 11 64 Go Reconditionné A+",b:"Apple",t:"a",p:3799,old:5499,dispo:1,u:"https://marocphone.com/occasion/smartphones/apple/apple-iphone-11-64-go-reconditionne-a",panne:"Batterie <85%, écran"},
- {n:"Samsung Galaxy S23 Plus 5G 256 Go 8 Go RAM",b:"Samsung",t:"a",p:4100,old:null,dispo:1,u:"https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s23-plus-5g-256-go-8-go-ram",panne:"Batterie, AMOLED"},
- {n:"Samsung Galaxy S22 128 Go Reconditionné A+",b:"Samsung",t:"a",p:4999,old:7499,dispo:1,u:"https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s22-128-go-reconditionne-a",panne:"Batterie, AMOLED, dos"},
- {n:"Samsung Galaxy S24 Plus 5G 256 Go 12 Go RAM",b:"Samsung",t:"a",p:5000,old:null,dispo:1,u:"https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s24-plus-5g-256-go-12-go-ram",panne:"Batterie, AMOLED"},
- {n:"Apple iPhone 12 128 Go Reconditionné A+",b:"Apple",t:"a",p:5299,old:7499,dispo:1,u:"https://marocphone.com/occasion/smartphones/apple/apple-iphone-12-128-go-reconditionne-a",panne:"Batterie, écran"},
- {n:"Samsung Galaxy S25 Plus 5G 256 Go 12 Go RAM",b:"Samsung",t:"a",p:6000,old:null,dispo:1,u:"https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s25-plus-5g-256-go-12-go-ram",panne:"Batterie, AMOLED"},
- {n:"Apple iPhone 13 128 Go Reconditionné A+",b:"Apple",t:"a",p:6499,old:8999,dispo:1,u:"https://marocphone.com/occasion/smartphones/apple/apple-iphone-13-128-go-reconditionne-a",panne:"Batterie, écran, Face ID"},
- {n:"Apple iPhone 14 128 Go Reconditionné A+",b:"Apple",t:"a",p:7999,old:10999,dispo:1,u:"https://marocphone.com/occasion/smartphones/apple/apple-iphone-14-128-go-reconditionne-a",panne:"Batterie, écran"}
-];
-const BEST = [
- {r:"#1",n:"Xiaomi Redmi 13C 128 Go",p:1299,old:1499,w:"Le plus vendu en entrée de gamme. Le moins cher, parfait premier smartphone.",tag:"Top ventes entrée de gamme",t:"neuf",u:MODELS[13].u},
- {r:"#2",n:"Xiaomi Redmi Note 13 Pro 256 Go",p:2799,old:3199,w:"Best-seller historique Xiaomi. 256 Go + photo, meilleur rapport Q/P.",tag:"Meilleur rapport Q/P",t:"neuf",u:MODELS[14].u},
- {r:"#3",n:"Samsung Galaxy A17 4G 128 Go",p:2099,old:null,w:"Le Samsung le plus demandé au Maroc, fiabilité + prix accessible.",tag:"Samsung N°1",t:"neuf",u:MODELS[0].u},
- {r:"#4",n:"Infinix Hot 40 Pro 256 Go",p:1499,old:1699,w:"Volume énorme chez les jeunes. 256 Go imbattable en stockage.",tag:"Stockage / prix",t:"neuf",u:MODELS[10].u},
- {r:"#5",n:"Samsung Galaxy A16 128 Go",p:1899,old:2099,w:"Successeur de l'A15, AMOLED + 5G.",tag:"Milieu de gamme N°1",t:"neuf",u:MODELS[15].u},
- {r:"#6",n:"Xiaomi Redmi Note 17 256 Go",p:2699,old:null,w:"Nouvelle génération 2026, déjà en top ventes.",tag:"Nouveauté 2026",t:"neuf",u:MODELS[1].u},
- {r:"#7",n:"Xiaomi Redmi Note 17 Pro 5G 256 Go",p:3890,old:null,w:"Pro 5G le plus vendu de la série Note 17.",tag:"Pro 5G populaire",t:"neuf",u:MODELS[5].u},
- {r:"#8",n:"Honor X9b 5G 256 Go",p:2999,old:3299,w:"Batterie 5400 mAh, autonomie demandée au Maroc.",tag:"Meilleure autonomie",t:"neuf",u:MODELS[9].u},
- {r:"#9",n:"Apple iPhone 15 256 Go Noir",p:11999,old:12999,w:"iPhone neuf le plus vendu. Statut + revente excellente.",tag:"Premium N°1 neuf",t:"neuf",u:MODELS[19].u},
- {r:"#10",n:"Samsung Galaxy S24 Ultra 256 Go",p:14499,old:15499,w:"Flagship Android le plus vendu, S Pen inclus.",tag:"Flagship Android",t:"neuf",u:MODELS[17].u},
- {r:"A+ #1",n:"Apple iPhone 13 128 Go A+",p:6499,old:8999,w:"Reconditionné le plus vendu. Prix divisé par 2 vs neuf.",tag:"Top vente reconditionné",t:"a",u:MODELS[28].u},
- {r:"A+ #2",n:"Samsung Galaxy S23 Plus 5G A+",p:4100,old:null,w:"Flagship 2023 à 4 100 DH. Meilleure affaire A+.",tag:"Meilleure affaire A+",t:"a",u:MODELS[23].u}
-];
-const TECH = [
- ["Xiaomi Redmi 13C","1 299 DH","Écran cassé, batterie","Écran LCD, batterie, USB-C","< 450 DH","★★★★★"],
- ["Infinix Hot 40 Pro","1 499 DH","Écran, batterie gonflée","Écran, batterie","< 500 DH","★★★★☆"],
- ["Samsung Galaxy A16 / A17","1 899 – 2 099 DH","Écran AMOLED, batterie","Écran AMOLED, batterie, vitre","< 700 DH","★★★★★"],
- ["Xiaomi Redmi Note 13 Pro / Note 17","2 699 – 2 799 DH","Écran, charge, chauffe","Écran LCD, batterie, nappe","1 200 – 1 500 DH","★★★★★"],
- ["Honor X9b 5G","2 999 DH","Batterie 5400 mAh","Batterie, nappe","1 000 DH","★★★★☆"],
- ["Xiaomi Note 17 Pro 5G","3 890 DH","Écran, charge rapide","Écran, nappe USB-C 67W","1 500 DH","★★★★☆"],
- ["iPhone 11-14 A+","3 799 – 7 999 DH","Batterie <85%, écran, Face ID","Batteries, écrans OLED","1 500 – 2 500 DH","★★★★★"],
- ["Samsung S22-S25 Plus A+","4 100 – 6 000 DH","Batterie, AMOLED, dos","Écrans AMOLED, batteries, dos","1 800 – 2 500 DH","★★★★★"],
- ["iPhone 15 / S24 Ultra","11 999 – 14 499 DH","Écran OLED, dos, caméras","Écrans premium, vitres","2 500 – 4 000 DH","★★★☆☆"]
+/* =====================================================================
+   DONNÉES DU CATALOGUE OFFICIEL MAROCPHONE (Source de vérité)
+   30 modèles (22 neufs + 8 reconditionnés A+)
+   Chaque champ est genuinement extrait du site officiel marocphone.com
+===================================================================== */
+let MODELS = [
+  {n:"Samsung Galaxy A17 4G 128 Go 4 Go RAM",b:"Samsung",t:"neuf",p:2099,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a17-4g-128-go-4-go-ram",img:"https://marocphone.com/products/samsung-galaxy-a17-4g-128-go-4-go-ram-0.webp",storage:"128 Go",ram:"4 Go",net:"4G"},
+  {n:"Xiaomi Redmi Note 17 256 Go 6 Go RAM",b:"Xiaomi",t:"neuf",p:2699,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-256-go-6-go-ram",img:"https://marocphone.com/products/xiaomi-redmi-note-17-256-go-6-go-ram-0.webp",storage:"256 Go",ram:"6 Go",net:""},
+  {n:"Xiaomi Redmi Note 17 Pro Max 5G 512 Go 8 Go RAM",b:"Xiaomi",t:"neuf",p:5299,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-max-5g-512-go-8-go-ram",img:"https://marocphone.com/products/xiaomi-redmi-note-17-pro-max-5g-512-go-8-go-ram-0.webp",storage:"512 Go",ram:"8 Go",net:"5G"},
+  {n:"Xiaomi Redmi Note 17 Pro Max 5G 256 Go 8 Go RAM",b:"Xiaomi",t:"neuf",p:4749,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-max-5g-256-go-8-go-ram",img:"https://marocphone.com/products/xiaomi-redmi-note-17-pro-max-5g-256-go-8-go-ram-0.webp",storage:"256 Go",ram:"8 Go",net:"5G"},
+  {n:"Xiaomi Redmi Note 17 Pro 5G 512 Go 8 Go RAM",b:"Xiaomi",t:"neuf",p:4399,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-5g-512-go-8-go-ram",img:"https://marocphone.com/products/xiaomi-redmi-note-17-pro-5g-512-go-8-go-ram-0.webp",storage:"512 Go",ram:"8 Go",net:"5G"},
+  {n:"Xiaomi Redmi Note 17 Pro 5G 256 Go 8 Go RAM",b:"Xiaomi",t:"neuf",p:3890,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-5g-256-go-8-go-ram",img:"https://marocphone.com/products/xiaomi-redmi-note-17-pro-5g-256-go-8-go-ram-0.webp",storage:"256 Go",ram:"8 Go",net:"5G"},
+  {n:"Tecno Spark 50 128 Go 8 Go RAM",b:"Tecno",t:"neuf",p:1600,old:null,dispo:0,u:"https://marocphone.com/neuf/smartphones/tecno/tecno-spark-50-128-go-8-go-ram",img:"https://marocphone.com/products/tecno-spark-50-128-go-8-go-ram-0.webp",storage:"128 Go",ram:"8 Go",net:""},
+  {n:"Honor 600 Lite 5G — 256 Go, 8 Go RAM",b:"Honor",t:"neuf",p:3500,old:null,dispo:0,u:"https://marocphone.com/neuf/smartphones/honor/honor-600-lite-5g-256-go-8-go-ram",img:"https://marocphone.com/products/honor-600-lite-5g-256-go-8-go-ram-0.webp",storage:"256 Go",ram:"8 Go",net:"5G"},
+  {n:"Foning — Smartphone",b:"Foning",t:"neuf",p:null,old:null,dispo:0,u:"https://marocphone.com/neuf/smartphones/foning/foning-smartphone",img:"https://marocphone.com/products/placeholder.svg",storage:"",ram:"",net:""},
+  {n:"Honor X9b 5G 256 Go",b:"Honor",t:"neuf",p:2999,old:3299,dispo:1,u:"https://marocphone.com/neuf/smartphones/honor/honor-x9b-5g-256-go",img:"https://marocphone.com/products/honor-x9b-5g-256-go.svg",storage:"256 Go",ram:"",net:"5G"},
+  {n:"Infinix Hot 40 Pro 256 Go",b:"Infinix",t:"neuf",p:1499,old:1699,dispo:1,u:"https://marocphone.com/neuf/smartphones/infinix/infinix-hot-40-pro-256-go",img:"https://marocphone.com/products/infinix-hot-40-pro-256-go.svg",storage:"256 Go",ram:"",net:""},
+  {n:"Realme 12 Pro 5G 256 Go",b:"Realme",t:"neuf",p:3299,old:3699,dispo:1,u:"https://marocphone.com/neuf/smartphones/realme/realme-12-pro-5g-256-go",img:"https://marocphone.com/products/realme-12-pro-5g-256-go.svg",storage:"256 Go",ram:"",net:"5G"},
+  {n:"Oppo Reno 11 F 5G 256 Go",b:"Oppo",t:"neuf",p:3999,old:4299,dispo:1,u:"https://marocphone.com/neuf/smartphones/oppo/oppo-reno-11-f-5g-256-go",img:"https://marocphone.com/products/oppo-reno-11-f-5g-256-go.svg",storage:"256 Go",ram:"",net:"5G"},
+  {n:"Xiaomi Redmi 13C 128 Go",b:"Xiaomi",t:"neuf",p:1299,old:1499,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-13c-128-go",img:"https://marocphone.com/products/xiaomi-redmi-13c-128-go.svg",storage:"128 Go",ram:"",net:""},
+  {n:"Xiaomi Redmi Note 13 Pro 256 Go",b:"Xiaomi",t:"neuf",p:2799,old:3199,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-13-pro-256-go",img:"https://marocphone.com/products/xiaomi-redmi-note-13-pro-256-go.svg",storage:"256 Go",ram:"",net:""},
+  {n:"Samsung Galaxy A16 128 Go",b:"Samsung",t:"neuf",p:1899,old:2099,dispo:1,u:"https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a16-128-go",img:"https://marocphone.com/products/samsung-galaxy-a16-128-go.svg",storage:"128 Go",ram:"",net:""},
+  {n:"Samsung Galaxy A56 5G 256 Go",b:"Samsung",t:"neuf",p:4299,old:4699,dispo:1,u:"https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a56-5g-256-go",img:"https://marocphone.com/products/samsung-galaxy-a56-5g-256-go.svg",storage:"256 Go",ram:"",net:"5G"},
+  {n:"Samsung Galaxy S24 Ultra 256 Go",b:"Samsung",t:"neuf",p:14499,old:15499,dispo:1,u:"https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-s24-ultra-256-go",img:"https://marocphone.com/products/samsung-galaxy-s24-ultra-256-go.svg",storage:"256 Go",ram:"",net:""},
+  {n:"Apple iPhone 15 Plus 6.7\" 128 Go 6 Go RAM Noir",b:"Apple",t:"neuf",p:11499,old:12499,dispo:1,u:"https://marocphone.com/neuf/smartphones/apple/iphone-15-plus-6-7-128-go-6-go-ram-noir",img:"https://marocphone.com/products/iphone-15-plus-6-7-128-go-6-go-ram-noir.svg",storage:"128 Go",ram:"6 Go",net:""},
+  {n:"Apple iPhone 15 6.1\" 256 Go 6 Go RAM Noir",b:"Apple",t:"neuf",p:11999,old:12999,dispo:1,u:"https://marocphone.com/neuf/smartphones/apple/iphone-15-6-1-256-go-6-go-ram-noir",img:"https://marocphone.com/products/iphone-15-6-1-256-go-6-go-ram-noir.svg",storage:"256 Go",ram:"6 Go",net:""},
+  {n:"Apple iPhone 15 Pro 6.1\" 256 Go 8 Go RAM Noir",b:"Apple",t:"neuf",p:15499,old:16499,dispo:1,u:"https://marocphone.com/neuf/smartphones/apple/iphone-15-pro-6-1-256-go-8-go-ram-noir",img:"https://marocphone.com/products/iphone-15-pro-6-1-256-go-8-go-ram-noir.svg",storage:"256 Go",ram:"8 Go",net:""},
+  {n:"Apple iPhone 15 Pro Max 256 Go Titane Noir",b:"Apple",t:"neuf",p:17999,old:18999,dispo:0,u:"https://marocphone.com/neuf/smartphones/apple/iphone-15-pro-max-256gb-noir-titanium",img:"https://marocphone.com/products/iphone-15-pro-max-256gb-noir-titanium.svg",storage:"256 Go",ram:"",net:""},
+  {n:"Samsung Galaxy S23 Plus 5G 256 Go 8 Go RAM",b:"Samsung",t:"a",p:4100,old:null,dispo:1,u:"https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s23-plus-5g-256-go-8-go-ram",img:"https://marocphone.com/products/samsung-galaxy-s23-plus-5g-256-go-8-go-ram-0.webp",storage:"256 Go",ram:"8 Go",net:"5G"},
+  {n:"Samsung Galaxy S24 Plus 5G 256 Go 12 Go RAM",b:"Samsung",t:"a",p:5000,old:null,dispo:1,u:"https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s24-plus-5g-256-go-12-go-ram",img:"https://marocphone.com/products/samsung-galaxy-s24-plus-5g-256-go-12-go-ram-0.webp",storage:"256 Go",ram:"12 Go",net:"5G"},
+  {n:"Samsung Galaxy S25 Plus 5G 256 Go 12 Go RAM",b:"Samsung",t:"a",p:6000,old:null,dispo:1,u:"https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s25-plus-5g-256-go-12-go-ram",img:"https://marocphone.com/products/samsung-galaxy-s25-plus-5g-256-go-12-go-ram-0.webp",storage:"256 Go",ram:"12 Go",net:"5G"},
+  {n:"Samsung Galaxy S22 128 Go Reconditionné A+",b:"Samsung",t:"a",p:4999,old:7499,dispo:1,u:"https://marocphone.com/occasion/smartphones/samsung/samsung-galaxy-s22-128-go-reconditionne-a",img:"https://marocphone.com/products/samsung-galaxy-s22-128-go-reconditionne-a.svg",storage:"128 Go",ram:"",net:""},
+  {n:"Apple iPhone 11 64 Go Reconditionné A+",b:"Apple",t:"a",p:3799,old:5499,dispo:1,u:"https://marocphone.com/occasion/smartphones/apple/apple-iphone-11-64-go-reconditionne-a",img:"https://marocphone.com/products/apple-iphone-11-64-go-reconditionne-a.svg",storage:"64 Go",ram:"",net:""},
+  {n:"Apple iPhone 14 128 Go Reconditionné A+",b:"Apple",t:"a",p:7999,old:10999,dispo:1,u:"https://marocphone.com/occasion/smartphones/apple/apple-iphone-14-128-go-reconditionne-a",img:"https://marocphone.com/products/apple-iphone-14-128-go-reconditionne-a.svg",storage:"128 Go",ram:"",net:""},
+  {n:"Apple iPhone 12 128 Go Reconditionné A+",b:"Apple",t:"a",p:5299,old:7499,dispo:1,u:"https://marocphone.com/occasion/smartphones/apple/apple-iphone-12-128-go-reconditionne-a",img:"https://marocphone.com/products/apple-iphone-12-128-go-reconditionne-a.svg",storage:"128 Go",ram:"",net:""},
+  {n:"Apple iPhone 13 128 Go Reconditionné A+",b:"Apple",t:"a",p:6499,old:8999,dispo:1,u:"https://marocphone.com/occasion/smartphones/apple/apple-iphone-13-128-go-reconditionne-a",img:"https://marocphone.com/products/apple-iphone-13-128-go-reconditionne-a.svg",storage:"128 Go",ram:"",net:""}
 ];
 
-/* ===== RENDU ===== */
-const fmt = n => n==null ? "Prix sur demande" : n.toLocaleString("fr-FR").replace(/\u202F/g," ") + " DH";
-const slugOf = u => (u||"").split("?")[0].replace(/\/+$/,"").split("/").pop().toLowerCase();
-const normName = s => (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/[^a-z0-9]/g,"");
-function findModel(ref){
-  if(!ref) return null;
-  const slug = slugOf(ref);
-  if(slug){
-    const byUrl = MODELS.find(x=>slugOf(x.u)===slug);
-    if(byUrl) return byUrl;
+/* =====================================================================
+   UTILITAIRES DE FORMATAGE ET CALCUL
+===================================================================== */
+const fmt = n => n == null ? "Prix sur demande" : n.toLocaleString("fr-FR").replace(/\u202F/g, " ") + " DH";
+const slugOf = u => (u || "").split("?")[0].replace(/\/+$/, "").split("/").pop().toLowerCase();
+const normName = s => (s || "").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "").replace(/[^a-z0-9]/g, "");
+
+function getMedian(arr) {
+  if (!arr.length) return 0;
+  const s = [...arr].sort((a, b) => a - b);
+  const mid = Math.floor(s.length / 2);
+  return s.length % 2 !== 0 ? s[mid] : Math.round((s[mid - 1] + s[mid]) / 2);
+}
+
+/* =====================================================================
+   RENDU DYNAMIQUE DU DASHBOARD KPI
+===================================================================== */
+function renderKPIs() {
+  const neufs = MODELS.filter(m => m.t === "neuf" && m.p != null);
+  const as = MODELS.filter(m => m.t === "a" && m.p != null);
+  const avg = list => list.length ? Math.round(list.reduce((sum, m) => sum + m.p, 0) / list.length) : 0;
+
+  const avgNeufVal = avg(neufs);
+  const avgAVal = avg(as);
+  const medNeuf = getMedian(neufs.map(m => m.p));
+
+  document.getElementById("kpiTotal").textContent = MODELS.length;
+  const nbNeufsTotal = MODELS.filter(m => m.t === "neuf").length;
+  const nbATotal = MODELS.filter(m => m.t === "a").length;
+  document.getElementById("kpiModelsDetail").textContent = `${nbNeufsTotal} neufs scellés • ${nbATotal} reconditionnés A+`;
+
+  document.getElementById("kpiAvgNeuf").textContent = fmt(avgNeufVal);
+  const neufsPromo = neufs.filter(m => m.old != null);
+  document.getElementById("kpiAvgNeufDetail").textContent = `Médiane : ${fmt(medNeuf)} • ${neufsPromo.length} en promotion`;
+
+  document.getElementById("kpiAvgA").textContent = fmt(avgAVal);
+  const ecart = avgAVal - avgNeufVal;
+  const ecartPct = avgNeufVal ? Math.round((ecart / avgNeufVal) * 100) : 0;
+  document.getElementById("kpiEcart").textContent = `Écart moyen : ${ecart >= 0 ? "+" : ""}${fmt(ecart)} (${ecartPct}%) vs neuf`;
+
+  const allPrices = MODELS.filter(m => m.p != null).map(m => m.p);
+  if (allPrices.length) {
+    const minP = Math.min(...allPrices);
+    const maxP = Math.max(...allPrices);
+    const minModel = MODELS.find(m => m.p === minP);
+    const maxModel = MODELS.find(m => m.p === maxP);
+    document.getElementById("kpiRange").textContent = `${fmt(minP).replace(" DH","")} – ${fmt(maxP)}`;
+    document.getElementById("kpiRangeDetail").textContent = `Dès ${fmt(minP)} (${minModel ? minModel.n.split(" ")[0] + " " + (minModel.n.split(" ")[1]||"") : ""}) à ${fmt(maxP)}`;
   }
-  const target = normName(ref);
-  if(!target) return null;
-  let best=null, bestScore=0;
-  MODELS.forEach(x=>{
-    const n = normName(x.n);
-    let score = 0;
-    if(n===target) score = 10000;
-    else if(n.startsWith(target) || target.startsWith(n)) score = Math.min(n.length,target.length);
-    else { let i=0; while(i<n.length && i<target.length && n[i]===target[i]) i++; if(i>=10) score = i; }
-    if(score>bestScore){ bestScore=score; best=x; }
+
+  // Meilleure remise (%)
+  let bestRem = null;
+  // Plus grande économie en DH
+  let bestEco = null;
+  let totalEcoVal = 0;
+  let promoCount = 0;
+
+  MODELS.forEach(m => {
+    if (m.old && m.p && m.old > m.p) {
+      const remPct = Math.round((1 - m.p / m.old) * 100);
+      const ecoDH = m.old - m.p;
+      totalEcoVal += ecoDH;
+      promoCount++;
+      if (!bestRem || remPct > bestRem.pct) {
+        bestRem = { pct: remPct, eco: ecoDH, name: m.n };
+      }
+      if (!bestEco || ecoDH > bestEco.eco) {
+        bestEco = { eco: ecoDH, pct: remPct, name: m.n };
+      }
+    }
   });
-  return bestScore>=10 ? best : null;
-}
-function getP(ref){
-  const m = findModel(ref);
-  return m ? m.p : null;
-}
-function getOld(ref, fallback){
-  const m = findModel(ref);
-  return m ? m.old : fallback;
-}
-function getRange(a,b){
-  const x=getP(a), y=getP(b);
-  if(!x||!y) return null;
-  return fmt(Math.min(x,y)).replace(" DH","")+" – "+fmt(Math.max(x,y));
-}
-function renderBest(){
-  document.getElementById("bestGrid").innerHTML = BEST.map(c=>{
-    const m = findModel(c.u) || findModel(c.n);
-    const p = m ? m.p : c.p;
-    const oldPrice = m ? m.old : c.old;
-    const rem = (p && oldPrice) ? Math.round((1-p/oldPrice)*100) : null;
-    const remText = rem ? `<span class="remise">-${rem}%</span>` : "";
-    return `<div class="card-best ${c.t==="a"?"a-plus":""}"><div class="rank">${c.r}</div><div class="t"><a class="model" href="${c.u}" target="_blank" rel="noopener">${c.n}</a></div><div class="p">${fmt(p)} ${oldPrice&&p?`<span class="old">${fmt(oldPrice)}</span>${remText}`:""}</div><div class="w">${c.w}</div><span class="tag">${c.tag}</span></div>`;
-  }).join("");
-  const topPrice = getP("Xiaomi Redmi 13C");
-  const desc = document.getElementById("descTop");
-  if(desc) desc.textContent = `Top basé sur le volume + rapport qualité/prix — prix du jour (Redmi 13C à ${fmt(topPrice)}).`;
-}
-function renderTech(){
-  // TECH contient une colonne prix en dur → on la remplace par le prix actuel du modèle correspondant
-  const prixMap = {
-    "Xiaomi Redmi 13C": getP("Xiaomi Redmi 13C"),
-    "Infinix Hot 40 Pro": getP("Infinix Hot 40 Pro"),
-    "Samsung Galaxy A16 / A17": getRange("Samsung Galaxy A16","Samsung Galaxy A17"),
-    "Xiaomi Redmi Note 13 Pro / Note 17": getRange("Xiaomi Redmi Note 13 Pro","Xiaomi Redmi Note 17"),
-    "Honor X9b 5G": getP("Honor X9b 5G"),
-    "Xiaomi Note 17 Pro 5G": getP("Xiaomi Redmi Note 17 Pro 5G 256 Go"),
-    "iPhone 11-14 A+": getRange("Apple iPhone 11","Apple iPhone 14"),
-    "Samsung S22-S25 Plus A+": getRange("Samsung Galaxy S23 Plus","Samsung Galaxy S25 Plus"),
-    "iPhone 15 / S24 Ultra": getRange("Apple iPhone 15 6.1","Samsung Galaxy S24 Ultra"),
-  };
-  document.getElementById("techTable").innerHTML = TECH.map(r=>{
-    const prix = prixMap[r[0]] || r[1];
-    const prixTexte = (typeof prix === "string") ? prix : (prix ? fmt(prix) : r[1]);
-    return `<tr><td><b>${r[0]}</b></td><td>${prixTexte}</td><td>${r[2]}</td><td>${r[3]}</td><td><span class="badge b-a">${r[4]}</span></td><td>${r[5]}</td></tr>`;
-  }).join("");
-}
-function renderCatalog(){
-  const q=(document.getElementById("search").value||"").toLowerCase(), f=document.getElementById("filter").value, br=document.getElementById("brand").value;
-  let html="", vis=0;
-  MODELS.forEach((m,i)=>{
-    let show=true;
-    if(q && !(m.n+" "+m.b).toLowerCase().includes(q)) show=false;
-    if(f==="neuf" && m.t!=="neuf") show=false;
-    if(f==="a" && m.t!=="a") show=false;
-    if(f==="dispo" && !m.dispo) show=false;
-    if(br!=="all" && m.b!==br) show=false;
-    if(!show) return; vis++;
-    const rem = (m.old && m.p) ? Math.round((1-m.p/m.old)*100) : null;
-    html+=`<tr><td>${i+1}</td><td><a class="model" href="${m.u}" target="_blank" rel="noopener">${m.n}</a> ${!m.dispo?'<span class="badge b-rup">Rupture</span>':""}</td><td>${m.b}</td><td><span class="badge ${m.t==="neuf"?"b-neuf":"b-a"}">${m.t==="neuf"?"Neuf":"A+"}</span></td><td class="price">${fmt(m.p)}${(m.old && m.p)?`<span class="old">${fmt(m.old)}</span><span class="remise">-${rem}%</span>`:""}</td><td>${m.panne}</td></tr>`;
-  });
-  document.getElementById("catBody").innerHTML=html;
-  document.getElementById("empty").style.display = vis===0?"block":"none";
-}
-function renderBars(){
-  // Calculé depuis MODELS (prix réels) — plus de valeurs figées
-  const neufs = MODELS.filter(m=>m.t==="neuf"&&m.p);
-  const gammes = [
-    ["< 2 000 DH", neufs.filter(m=>m.p<2000).length],
-    ["2 000 – 3 500 DH", neufs.filter(m=>m.p>=2000&&m.p<3500).length],
-    ["3 500 – 5 500 DH", neufs.filter(m=>m.p>=3500&&m.p<5500).length],
-    ["5 500 – 10 000 DH", neufs.filter(m=>m.p>=5500&&m.p<10000).length],
-    ["> 10 000 DH", neufs.filter(m=>m.p>=10000).length]
-  ];
-  const maxP = Math.max(...gammes.map(g=>g[1]),1);
-  document.getElementById("priceBars").innerHTML = gammes.map(g=>`<div class="bar-row"><span>${g[0]}</span><div class="bar-track"><div class="bar-fill" style="width:${g[1]/maxP*100}%"></div></div><b>${g[1]} modèles</b></div>`).join("");
-  const pannes=[["Écran / tactile",45,""],["Batterie",25,"g"],["Charge USB-C",15,"b"],["Logiciel / chauffe",10,""],["Boutons",5,""]];
-  document.getElementById("panneBars").innerHTML=pannes.map(p=>`<div class="bar-row"><span>${p[0]}</span><div class="bar-track"><div class="bar-fill ${p[2]}" style="width:${p[1]}%"></div></div><b>${p[1]}%</b></div>`).join("");
-  const descPrice=document.getElementById("descPrice");
-  if(descPrice) descPrice.textContent = `Cœur réparable : ${gammes[1][1]+gammes[2][1]} modèles entre 2 000 et 5 500 DH (rentabilité maximale) — recalculé après synchro.`;
-}
-let c1,c2,c3;
-function renderCharts(){
-  if(typeof Chart==="undefined") return;
-  const byBrand={}; MODELS.forEach(m=>byBrand[m.b]=(byBrand[m.b]||0)+1);
-  const labels=Object.keys(byBrand), data=Object.values(byBrand);
-  if(c1) c1.destroy(); if(c2) c2.destroy(); if(c3) c3.destroy();
-  c1=new Chart(document.getElementById("chartBrand"),{type:"doughnut",data:{labels,datasets:[{data,backgroundColor:["#2563eb","#f59e0b","#16a34a","#7c3aed","#e11d48","#0891b2","#65a30d","#ea580c","#64748b"]}]},options:{plugins:{legend:{position:"bottom",labels:{boxWidth:10,font:{size:11}}}}}});
-  // Distribution neufs calculée depuis MODELS
-  const neufs = MODELS.filter(m=>m.t==="neuf"&&m.p);
-  const dist = [neufs.filter(m=>m.p<2000).length, neufs.filter(m=>m.p>=2000&&m.p<3500).length, neufs.filter(m=>m.p>=3500&&m.p<5500).length, neufs.filter(m=>m.p>=5500&&m.p<10000).length, neufs.filter(m=>m.p>=10000).length];
-  c2=new Chart(document.getElementById("chartPrice"),{type:"bar",data:{labels:["<2k","2-3,5k","3,5-5,5k","5,5-10k",">10k"],datasets:[{label:"Modèles neufs",data:dist,backgroundColor:"#2563eb",borderRadius:8}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,ticks:{stepSize:2}}}}});
-  const remises={}; MODELS.forEach(m=>{ if(m.old&&m.p){ const r=Math.round((1-m.p/m.old)*100); remises[m.b]=remises[m.b]||[]; remises[m.b].push(r);} });
-  const rLabels=Object.keys(remises), rData=rLabels.map(k=>Math.round(remises[k].reduce((a,b)=>a+b,0)/remises[k].length));
-  c3=new Chart(document.getElementById("chartRemise"),{type:"bar",data:{labels:rLabels,datasets:[{label:"Remise moyenne %",data:rData,backgroundColor:"#f59e0b",borderRadius:8}]},options:{plugins:{legend:{display:false}},scales:{y:{beginAtZero:true,max:35}}}});
-  // Descriptions dynamiques
-  const topBrand = Object.entries(byBrand).sort((a,b)=>b[1]-a[1])[0];
-  const descBrand=document.getElementById("descBrand");
-  if(descBrand&&topBrand) descBrand.textContent=`${topBrand[0]} en tête avec ${topBrand[1]} modèles • ${MODELS.length} modèles au total • recalculé après synchro.`;
-  const descRemise=document.getElementById("descRemise");
-  if(descRemise&&rData.length){ const maxR=Math.max(...rData); descRemise.textContent=`Plus forte remise moyenne : ${maxR}% • recalculé après synchro.`; }
-}
-function renderKPIs(){
-  const neufs=MODELS.filter(m=>m.t==="neuf"&&m.p), as=MODELS.filter(m=>m.t==="a"&&m.p);
-  const avg=a=>a.length?Math.round(a.reduce((s,m)=>s+m.p,0)/a.length):0;
-  document.getElementById("avgNeuf").textContent=fmt(avg(neufs));
-  document.getElementById("avgA").textContent=fmt(avg(as));
-  document.getElementById("kpiTotal").textContent=MODELS.length;
-  const ps=neufs.map(m=>m.p);
-  document.getElementById("kpiRange").textContent=ps.length?fmt(Math.min(...ps)).replace(" DH","")+" – "+fmt(Math.max(...ps)):"—";
-  // Détails dynamiques
-  const nbNeufs = MODELS.filter(m=>m.t==="neuf").length, nbA = MODELS.filter(m=>m.t==="a").length;
-  document.getElementById("kpiModelsDetail").textContent = `${nbNeufs} neufs • ${nbA} A+`;
-  const ecart = avg(as)-avg(neufs);
-  const pct = avg(neufs)? Math.round(ecart/avg(neufs)*100):0;
-  document.getElementById("kpiEcart").textContent = `Écart moyen : ${ecart>=0?"+":""}${ecart} DH (${pct}%)`;
-  const rupCount = MODELS.filter(m=>!m.dispo).length;
-  document.getElementById("kpiRupture").textContent = `Rupture : ${rupCount} modèles`;
-  // Remise moyenne des neufs (ancien prix barré)
-  const remisesNeuf = neufs.filter(m=>m.old).map(m=>Math.round((1-m.p/m.old)*100)).filter(r=>r>0);
-  const remMoy = remisesNeuf.length?Math.round(remisesNeuf.reduce((a,b)=>a+b,0)/remisesNeuf.length):0;
-  document.getElementById("kpiAvgNeufDetail").textContent = `${neufs.length} modèles neufs • remise moyenne -${remMoy}%`;
-  // Meilleure remise calculée
-  let best=null;
-  MODELS.forEach(m=>{ if(m.old&&m.p){ const r=Math.round((1-m.p/m.old)*100); const eco=m.old-m.p; if(!best||r>best.r||r===best.r&&eco>best.eco) best={r,eco,n:m.n}; }});
-  if(best){ document.getElementById("kpiBestRemise").textContent=`-${best.r}%`; document.getElementById("kpiBestRemiseDetail").textContent=`${best.n} • ${fmt(best.eco)} économisés`; }
-  const brands = new Set(MODELS.map(m=>m.b));
-  document.getElementById("kpiBrands").textContent = brands.size;
-  const byBrandCount={}; MODELS.forEach(m=>byBrandCount[m.b]=(byBrandCount[m.b]||0)+1);
-  const topB=Object.entries(byBrandCount).sort((a,b)=>b[1]-a[1])[0];
-  document.getElementById("kpiBrandsDetail").textContent = topB?`${topB[0]} leader volume (${topB[1]} modèles)`:"—";
-  document.getElementById("catTitle").textContent = `Catalogue complet — ${MODELS.length} modèles`;
+
+  if (bestRem) {
+    document.getElementById("kpiBestRemise").textContent = `-${bestRem.pct}%`;
+    document.getElementById("kpiBestRemiseDetail").textContent = `${bestRem.name} • ${fmt(bestRem.eco)} d'économie`;
+  }
+  if (bestEco) {
+    document.getElementById("kpiBestEco").textContent = fmt(bestEco.eco);
+    document.getElementById("kpiBestEcoDetail").textContent = `${bestEco.name} (-${bestEco.pct}%)`;
+  }
+
+  // Disponibilité & Ruptures
+  const dispoCount = MODELS.filter(m => m.dispo).length;
+  const ruptureCount = MODELS.length - dispoCount;
+  const dispoPct = MODELS.length ? Math.round((dispoCount / MODELS.length) * 100) : 0;
+  document.getElementById("kpiDispoRate").textContent = `${dispoPct}%`;
+  document.getElementById("kpiRuptureDetail").textContent = `${dispoCount}/${MODELS.length} en stock • ${ruptureCount} rupture(s)`;
+
+  // Économies cumulées
+  document.getElementById("kpiTotalEco").textContent = fmt(totalEcoVal);
+  document.getElementById("kpiTotalEcoDetail").textContent = `Sur ${promoCount} modèles avec remise immédiate`;
+
+  // Compteur catalogue
   document.getElementById("statsCount").textContent = MODELS.length;
-  // Insights marché
-  const iNeufT=document.getElementById("insightNeufTitle"), iNeuf=document.getElementById("insightNeuf");
-  if(iNeufT) iNeufT.textContent = `📉 Neuf : ${neufs.length} modèles, remise moyenne -${remMoy}%`;
-  if(iNeuf) iNeuf.textContent = remisesNeuf.length
-    ? `${remisesNeuf.length} modèles neufs affichent un ancien prix barré. Quand le neuf baisse, la réparation des anciens modèles augmente : c'est le signal pour vendre écrans/batteries.`
-    : `Aucune remise affichée sur les neufs aujourd'hui. Surveillez les baisses de prix à chaque mise à jour.`;
-  const ruptures=MODELS.filter(m=>!m.dispo);
-  const iRup=document.getElementById("insightRupture");
-  if(iRup) iRup.textContent = ruptures.length
-    ? `${ruptures.map(m=>m.n).join(", ")} en rupture → ces clients réparent l'ancien au lieu d'acheter.`
-    : `Aucune rupture détectée aujourd'hui : surveillez les stocks à chaque mise à jour.`;
+  document.getElementById("catTitle").textContent = `Catalogue complet MarocPhone — ${MODELS.length} modèles`;
 }
-function renderCalcOptions(){
-  const sel=document.getElementById("calcModel");
-  const prevIndex=sel.selectedIndex;
-  sel.innerHTML='<option value="">— Choisir un modèle —</option>'+MODELS.filter(m=>m.p).map(m=>`<option value="${m.p}">${m.n} (${fmt(m.p)})</option>`).join("");
-  if(prevIndex>0 && sel.options[prevIndex]){
-    sel.selectedIndex=prevIndex;
-    const v=sel.options[prevIndex].value;
-    if(v) document.getElementById("calcNew").value=v;
-  }
-}
-function renderBrandOptions(){
-  const sel=document.getElementById("brand");
-  const prev=sel.value;
-  const brands=[...new Set(MODELS.map(m=>m.b))].sort((a,b)=>a.localeCompare(b,"fr"));
-  sel.innerHTML='<option value="all">Toutes les marques</option>'+brands.map(b=>`<option>${b}</option>`).join("");
-  sel.value=brands.includes(prev)?prev:"all";
-}
-function calc(){
-  const N=+document.getElementById("calcNew").value||0, P=+document.getElementById("calcPart").value||0, L=+document.getElementById("calcLabour").value||0, S=+document.getElementById("calcSeuil").value||35;
-  const T=P+L, pct=N?Math.round(T/N*100):0;
-  document.getElementById("calcTotal").textContent=fmt(T);
-  document.getElementById("calcDetail").textContent=`Pièce ${fmt(P)} + main d'œuvre ${fmt(L)}`;
-  document.getElementById("calcPct").textContent=pct+"% du prix neuf (seuil "+S+"%)";
-  const v=document.getElementById("calcVerdict"), adv=document.getElementById("calcAdvice");
-  if(pct<=S){v.className="verdict ok";v.textContent="✅ RÉPARATION RENTABLE — le client accepte";adv.textContent=`Conseil : réparation express 45 min, garantie 3 mois, annonce "Réparé à ${fmt(T)} vs ${fmt(N)} neuf". Marge pièce recommandée : ${Math.round(P*0.4)} DH.`;}
-  else if(pct<=50){v.className="verdict warn";v.textContent="⚠️ LIMITE — négocier ou pièce moins chère";adv.textContent="Conseil : proposer pièce d'origine vs compatible, ou expliquer le coût du neuf. Ne pas dépasser 50% du prix neuf.";}
-  else{v.className="verdict no";v.textContent="⛔ NON RENTABLE — rachat neuf recommandé";adv.textContent=`Conseil : à ${fmt(T)} pour un neuf à ${fmt(N)}, le client rachètera. Proposer un modèle neuf ou A+ négocié.`;}
-}
-["search","filter","brand"].forEach(id=>document.getElementById(id).addEventListener("input",renderCatalog));
-["calcNew","calcPart","calcLabour","calcSeuil"].forEach(id=>document.getElementById(id).addEventListener("input",calc));
-document.getElementById("calcModel").addEventListener("change",e=>{ if(e.target.value) document.getElementById("calcNew").value=e.target.value; calc(); });
-document.getElementById("btnPrintTech").addEventListener("click",()=>window.print());
-function renderAll(){
-  renderBrandOptions();
-  renderBest();
-  renderTech();
-  renderCatalog();
-  renderBars();
-  renderKPIs();
-  renderCalcOptions();
-  renderCharts();
-  calc();
-  document.getElementById("baroDate2").textContent=new Date().toLocaleDateString("fr-FR");
-}
-renderAll();
 
-/* ===== MISE À JOUR ===== */
-const btnUpdate=document.getElementById("btnUpdate"), statusEl=document.getElementById("updateStatus"), lastSyncEl=document.getElementById("lastSync"), logEl=document.getElementById("updateLog");
-const PROXIES=[
-  {name:"jina.ai",fn:u=>"https://r.jina.ai/"+u,headers:{"X-Return-Format":"html","X-No-Cache":"true"}},
-  {name:"allorigins",fn:u=>"https://api.allorigins.win/raw?url="+encodeURIComponent(u)},
-  {name:"codetabs",fn:u=>"https://api.codetabs.com/v1/proxy?quest="+encodeURIComponent(u)},
-  {name:"cors.lol",fn:u=>"https://api.cors.lol/?url="+encodeURIComponent(u)},
-  {name:"corsproxy",fn:u=>"https://corsproxy.io/?url="+encodeURIComponent(u)}
-];
-const URLS={neuf:"https://marocphone.com/neuf/smartphones",a:"https://marocphone.com/occasion/smartphones"};
-let syncTries=0;
-function log(m){document.getElementById("logDetails").style.display="block";logEl.textContent+=m+"\n";}
-function parseProducts(html){
-  const doc=new DOMParser().parseFromString(html,"text/html"), byHref=new Map();
-  [...doc.querySelectorAll('a[href*="/smartphones/"]')].forEach(a=>{
-    const rawHref=(a.getAttribute("href")||"").trim();
-    const href=rawHref.split("?")[0].replace(/\/+$/,"");
-    if(href.split("/").filter(Boolean).length<4)return;
-    const name=(a.textContent||"").trim().replace(/\s+/g," "); if(!name||name.length<8)return;
-    // Les badges de la tuile ("-5%Rupture") sont plus courts que le vrai titre : on garde le nom le plus long
-    const prev=byHref.get(href); if(prev && prev.name.length>=name.length) return;
-    const slug=slugOf(href);
-    // Carte produit = ancêtre qui contient les 2 liens du même produit (image + titre)
-    let card=null, node=a.parentElement;
-    for(let i=0;i<5&&node;i++){
-      const same=[...node.querySelectorAll('a[href*="/smartphones/"]')].filter(x=>slugOf(x.getAttribute("href"))===slug);
-      const txt=node.textContent||"";
-      if(same.length>=2 && (/[\d\s\.]+\s*DH/i.test(txt)||/Prix sur demande/i.test(txt))){card=node;break;}
-      node=node.parentElement;
+/* =====================================================================
+   STATISTIQUES DE MARCHÉ & GRAPHIQUES (Chart.js)
+===================================================================== */
+let chartBrandInst, chartPriceInst, chartRemiseInst;
+
+function renderCharts() {
+  if (typeof Chart === "undefined") return;
+
+  // 1. Répartition par marque
+  const byBrand = {};
+  MODELS.forEach(m => { byBrand[m.b] = (byBrand[m.b] || 0) + 1; });
+  const brandLabels = Object.keys(byBrand).sort((a, b) => byBrand[b] - byBrand[a]);
+  const brandData = brandLabels.map(b => byBrand[b]);
+
+  if (chartBrandInst) chartBrandInst.destroy();
+  chartBrandInst = new Chart(document.getElementById("chartBrand"), {
+    type: "doughnut",
+    data: {
+      labels: brandLabels,
+      datasets: [{
+        data: brandData,
+        backgroundColor: ["#2563eb","#f59e0b","#16a34a","#7c3aed","#e11d48","#0891b2","#ea580c","#65a30d","#64748b"]
+      }]
+    },
+    options: {
+      plugins: {
+        legend: { position: "bottom", labels: { boxWidth: 10, font: { size: 11 } } }
+      }
     }
-    if(!card){
-      node=a.parentElement;
-      for(let i=0;i<4&&node;i++){const txt=node.textContent||""; if(/[\d\s\.]+\s*DH/i.test(txt)||/Prix sur demande/i.test(txt)){card=node;break;} node=node.parentElement;}
-    }
-    if(!card) return;
-    const text=card.textContent||"";
-    const dispo=/Rupture|Indisponible/i.test(text)?0:1;
-    const prices=[...text.matchAll(/([\d][\d\s\.]{2,8})\s*DH/gi)].map(m=>parseInt(m[1].replace(/[^\d]/g,""),10)).filter(n=>n>=100&&n<200000);
-    if(!prices.length && !/Prix sur demande|Indisponible/i.test(text)) return;
-    const price=prices.length?prices[0]:null;
-    const old=(prices.length>1 && prices[1]>price)?prices[1]:null;
-    byHref.set(href,{name,price,old,dispo:price===null?0:dispo,href:href.startsWith("http")?href:"https://marocphone.com"+href});
   });
-  return [...byHref.values()].slice(0,80);
-}
-async function fetchVia(proxy,url){
-  log("→ Essai "+proxy.name+" : "+url);
-  const ctrl=new AbortController(), to=setTimeout(()=>ctrl.abort(),25000);
-  try{ const res=await fetch(proxy.fn(url),{signal:ctrl.signal,cache:"no-store",headers:proxy.headers||{}}); clearTimeout(to);
-    if(!res.ok)throw new Error("HTTP "+res.status);
-    const txt=await res.text(); if(!txt||txt.length<500)throw new Error("Réponse trop courte");
-    log("✓ "+proxy.name+" OK ("+txt.length+" caractères)"); return txt;
-  }catch(e){clearTimeout(to);log("✗ "+proxy.name+" : "+e.message);throw e;}
-}
-btnUpdate.addEventListener("click",async()=>{
-  syncTries++; btnUpdate.disabled=true; btnUpdate.classList.add("loading");
-  statusEl.className="status"; statusEl.textContent="Connexion à MarocPhone...";
-  logEl.textContent="===== Mise à jour #"+syncTries+" à "+new Date().toLocaleTimeString("fr-FR")+" =====\n";
-  let htmlNeuf="",htmlA="",used=null;
-  for(const proxy of PROXIES){ try{ htmlNeuf=await fetchVia(proxy,URLS.neuf); htmlA=await fetchVia(proxy,URLS.a); used=proxy.name; break;}catch(e){} }
-  if(!htmlNeuf){
-    statusEl.className="status err"; statusEl.textContent="⛔ Tous les proxys ont échoué. Ouvrez MarocPhone ↗ ou réessayez. Hébergez en HTTPS pour plus de fiabilité.";
-    log("ÉCHEC — voir message"); btnUpdate.disabled=false; btnUpdate.classList.remove("loading"); return;
+
+  const topBrand = brandLabels[0];
+  const descBrand = document.getElementById("descBrand");
+  if (descBrand && topBrand) {
+    const pct = Math.round((byBrand[topBrand] / MODELS.length) * 100);
+    descBrand.textContent = `${topBrand} en tête avec ${byBrand[topBrand]} modèles (${pct}% de l'offre). Total : ${MODELS.length} modèles référencés.`;
   }
-  const rawN=parseProducts(htmlNeuf), rawA=parseProducts(htmlA);
-  const itemsN=rawN.filter(i=>i.price!==null), itemsA=rawA.filter(i=>i.price!==null);
-  const all=[...rawN.map(i=>({...i,type:"neuf"})),...rawA.map(i=>({...i,type:"a"}))];
-  log("Parser : "+rawN.length+" neufs ("+itemsN.length+" avec prix), "+rawA.length+" A+ ("+itemsA.length+" avec prix)");
-  let updated=0, added=0, ruptures=0, remises=0;
-  all.forEach(item=>{
-    const row=MODELS.find(m=>slugOf(m.u)===slugOf(item.href)) || MODELS.find(m=>normName(m.n)===normName(item.name));
-    if(!row) return;
-    row.p=item.price;
-    row.old=item.old;
-    row.dispo=item.dispo;
-    if(item.old) remises++;
-    if(!item.dispo) ruptures++;
-    updated++;
-  });
-  // Nouveaux produits détectés sur MarocPhone → ajoutés au catalogue
-  const known=new Set(MODELS.map(m=>slugOf(m.u)));
-  const brandFromHref=h=>{
-    const parts=(h||"").split("?")[0].split("/").filter(Boolean);
-    const i=parts.indexOf("smartphones");
-    const raw=(i>=0?parts[i+1]:"")||"";
-    const map={apple:"Apple",samsung:"Samsung",xiaomi:"Xiaomi",honor:"Honor",oppo:"Oppo",realme:"Realme",infinix:"Infinix",tecno:"Tecno",foning:"Foning",google:"Google",oneplus:"OnePlus",huawei:"Huawei",nokia:"Nokia",motorola:"Motorola"};
-    return map[raw.toLowerCase()]||(raw?raw.charAt(0).toUpperCase()+raw.slice(1):null);
-  };
-  all.forEach(item=>{
-    const slug=slugOf(item.href);
-    if(!slug||known.has(slug)||item.price===null||!item.name||item.name.length<10) return;
-    MODELS.push({n:item.name,b:brandFromHref(item.href)||item.name.split(" ")[0],t:item.type,p:item.price,old:item.old,dispo:item.dispo,u:item.href,panne:"À diagnostiquer"});
-    known.add(slug); added++;
-  });
-  lastSyncEl.textContent=new Date().toLocaleTimeString("fr-FR");
-  statusEl.className="status ok";
-  statusEl.textContent="✅ Mise à jour réussie via "+used+" — "+updated+" modèles synchronisés"+(added?" • "+added+" nouveauté(s)":"")+" • "+ruptures+" en rupture • "+remises+" remises • "+new Date().toLocaleTimeString("fr-FR");
-  log("SUCCÈS : "+updated+" modèles synchronisés, "+added+" ajoutés, "+ruptures+" en rupture");
-  try{localStorage.setItem("marocSyncPro",JSON.stringify({date:new Date().toISOString(),updated,added,models:MODELS}));}catch(e){}
-  renderAll();
-  btnUpdate.disabled=false; btnUpdate.classList.remove("loading");
-});
-(function(){
-  try{
-    const s=localStorage.getItem("marocSyncPro");
-    if(!s) return;
-    const d=JSON.parse(s);
-    if(Array.isArray(d.models)){
-      d.models.forEach(saved=>{
-        const row=MODELS.find(m=>slugOf(m.u)===slugOf(saved.u)) || MODELS.find(m=>normName(m.n)===normName(saved.n));
-        if(row){
-          if("p" in saved) row.p=saved.p;
-          if("old" in saved) row.old=saved.old;
-          if("dispo" in saved) row.dispo=saved.dispo;
-        } else if(saved.n && saved.u && typeof saved.p==="number"){
-          MODELS.push(saved);
-        }
-      });
+
+  // 2. Distribution des prix neufs par segment
+  const neufs = MODELS.filter(m => m.t === "neuf" && m.p != null);
+  const tiers = [
+    { label: "< 2k DH", min: 0, max: 2000 },
+    { label: "2k – 3,5k", min: 2000, max: 3500 },
+    { label: "3,5k – 6k", min: 3500, max: 6000 },
+    { label: "6k – 10k", min: 6000, max: 10000 },
+    { label: "> 10k DH", min: 10000, max: Infinity }
+  ];
+  const tierCounts = tiers.map(t => neufs.filter(m => m.p >= t.min && m.p < t.max).length);
+
+  if (chartPriceInst) chartPriceInst.destroy();
+  chartPriceInst = new Chart(document.getElementById("chartPrice"), {
+    type: "bar",
+    data: {
+      labels: tiers.map(t => t.label),
+      datasets: [{
+        label: "Modèles neufs",
+        data: tierCounts,
+        backgroundColor: "#2563eb",
+        borderRadius: 8
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, ticks: { stepSize: 2 } } }
     }
-    renderAll();
-    lastSyncEl.textContent=new Date(d.date).toLocaleString("fr-FR");
-    statusEl.className="status ok";
-    statusEl.textContent="Dernière synchro restaurée : "+new Date(d.date).toLocaleString("fr-FR")+" — cliquez sur « Mise à jour » pour actualiser.";
-  }catch(e){}
+  });
+
+  const descPrice = document.getElementById("descPrice");
+  if (descPrice) {
+    const coeur = tierCounts[1] + tierCounts[2];
+    descPrice.textContent = `${coeur} modèles neufs se situent entre 2 000 et 6 000 DH (cœur de gamme marocain).`;
+  }
+
+  // 3. Remise moyenne par marque
+  const brandRemises = {};
+  MODELS.forEach(m => {
+    if (m.old && m.p && m.old > m.p) {
+      const rem = Math.round((1 - m.p / m.old) * 100);
+      brandRemises[m.b] = brandRemises[m.b] || [];
+      brandRemises[m.b].push(rem);
+    }
+  });
+  const remBrands = Object.keys(brandRemises).sort((a, b) => {
+    const avgA = brandRemises[a].reduce((x, y) => x + y, 0) / brandRemises[a].length;
+    const avgB = brandRemises[b].reduce((x, y) => x + y, 0) / brandRemises[b].length;
+    return avgB - avgA;
+  });
+  const remData = remBrands.map(b => Math.round(brandRemises[b].reduce((x, y) => x + y, 0) / brandRemises[b].length));
+
+  if (chartRemiseInst) chartRemiseInst.destroy();
+  chartRemiseInst = new Chart(document.getElementById("chartRemise"), {
+    type: "bar",
+    data: {
+      labels: remBrands,
+      datasets: [{
+        label: "Remise moyenne %",
+        data: remData,
+        backgroundColor: "#f59e0b",
+        borderRadius: 8
+      }]
+    },
+    options: {
+      plugins: { legend: { display: false } },
+      scales: { y: { beginAtZero: true, max: Math.max(...remData, 35) + 5 } }
+    }
+  });
+
+  const descRemise = document.getElementById("descRemise");
+  if (descRemise && remBrands.length) {
+    descRemise.textContent = `${remBrands[0]} enregistre la plus forte décote moyenne (-${remData[0]}%). Calculé sur les prix barrés actifs.`;
+  }
+}
+
+/* =====================================================================
+   BARRES DE SEGMENTS ET DISPONIBILITÉ
+===================================================================== */
+function renderBars() {
+  const neufs = MODELS.filter(m => m.t === "neuf" && m.p != null);
+  const tiers = [
+    ["Moins de 2 000 DH (Éco)", neufs.filter(m => m.p < 2000).length],
+    ["2 000 – 3 500 DH (Entrée+)", neufs.filter(m => m.p >= 2000 && m.p < 3500).length],
+    ["3 500 – 6 000 DH (Milieu)", neufs.filter(m => m.p >= 3500 && m.p < 6000).length],
+    ["6 000 – 10 000 DH (Haut de gamme)", neufs.filter(m => m.p >= 6000 && m.p < 10000).length],
+    ["Plus de 10 000 DH (Flagships)", neufs.filter(m => m.p >= 10000).length]
+  ];
+  const maxTier = Math.max(...tiers.map(t => t[1]), 1);
+
+  document.getElementById("priceBars").innerHTML = tiers.map(t => {
+    const pct = neufs.length ? Math.round((t[1] / neufs.length) * 100) : 0;
+    return `<div class="bar-row">
+      <span>${t[0]}</span>
+      <div class="bar-track"><div class="bar-fill" style="width:${(t[1] / maxTier) * 100}%"></div></div>
+      <b>${t[1]} (${pct}%)</b>
+    </div>`;
+  }).join("");
+
+  // Taux de disponibilité par marque
+  const brandStats = {};
+  MODELS.forEach(m => {
+    brandStats[m.b] = brandStats[m.b] || { total: 0, in: 0 };
+    brandStats[m.b].total++;
+    if (m.dispo) brandStats[m.b].in++;
+  });
+  const brandEntries = Object.entries(brandStats).sort((a, b) => b[1].total - a[1].total);
+
+  document.getElementById("brandDispoBars").innerHTML = brandEntries.map(([bName, s]) => {
+    const rate = Math.round((s.in / s.total) * 100);
+    const colorClass = rate === 100 ? "g" : (rate >= 70 ? "b" : "");
+    return `<div class="bar-row">
+      <span>${bName} (${s.in}/${s.total})</span>
+      <div class="bar-track"><div class="bar-fill ${colorClass}" style="width:${rate}%"></div></div>
+      <b>${rate}% dispo</b>
+    </div>`;
+  }).join("");
+}
+
+/* =====================================================================
+   INSIGHTS DU MARCHÉ (100% calculés dynamiquement)
+===================================================================== */
+function renderInsights() {
+  const promos = MODELS.filter(m => m.old && m.p && m.old > m.p);
+  const ruptures = MODELS.filter(m => !m.dispo);
+  const neufs = MODELS.filter(m => m.t === "neuf" && m.p != null);
+  const as = MODELS.filter(m => m.t === "a" && m.p != null);
+
+  // 1. Promotions
+  const ins1T = document.getElementById("ins1Title");
+  const ins1B = document.getElementById("ins1Body");
+  if (promos.length) {
+    const avgRem = Math.round(promos.reduce((s, m) => s + (1 - m.p / m.old) * 100, 0) / promos.length);
+    ins1T.textContent = `🏷️ ${promos.length} promotions actives`;
+    ins1B.textContent = `Remise moyenne de -${avgRem}% sur le catalogue MarocPhone. Les plus fortes baisses concernent ${promos.slice(0, 2).map(m => m.n.split(" ")[0] + " " + (m.n.split(" ")[1]||"")).join(" et ")}.`;
+  } else {
+    ins1T.textContent = "🏷️ Promotions";
+    ins1B.textContent = "Aucun prix barré actuellement au catalogue.";
+  }
+
+  // 2. Ruptures
+  const ins2T = document.getElementById("ins2Title");
+  const ins2B = document.getElementById("ins2Body");
+  if (ruptures.length) {
+    ins2T.textContent = `⚠️ ${ruptures.length} modèles en rupture de stock`;
+    ins2B.textContent = `Actuellement indisponibles chez MarocPhone : ${ruptures.map(m => m.n.split(" ")[0] + " " + (m.n.split(" ")[1]||"")).join(", ")}.`;
+  } else {
+    ins2T.textContent = "✅ 100% des stocks disponibles";
+    ins2B.textContent = "Tous les smartphones du catalogue sont actuellement en stock pour livraison immédiate.";
+  }
+
+  // 3. Reconditionné A+
+  const ins3T = document.getElementById("ins3Title");
+  const ins3B = document.getElementById("ins3Body");
+  const avgN = neufs.length ? Math.round(neufs.reduce((s, m) => s + m.p, 0) / neufs.length) : 0;
+  const avgA = as.length ? Math.round(as.reduce((s, m) => s + m.p, 0) / as.length) : 0;
+  const diffA = avgN - avgA;
+  ins3T.textContent = `♻️ Reconditionné A+ : ${as.length} modèles certifiés`;
+  ins3B.textContent = diffA > 0
+    ? `Économie moyenne de ${fmt(diffA)} par rapport au neuf scellé. Les modèles reconditionnés A+ chez MarocPhone permettent d'accéder à des flagships Samsung S et iPhone à prix réduit.`
+    : `Modèles A+ disponibles avec garanties de bon fonctionnement et livraison partout au Maroc.`;
+
+  // 4. Stockage
+  const storages = {};
+  MODELS.forEach(m => {
+    if (m.storage) storages[m.storage] = (storages[m.storage] || 0) + 1;
+  });
+  const topStorage = Object.entries(storages).sort((a, b) => b[1] - a[1])[0];
+  const ins4T = document.getElementById("ins4Title");
+  const ins4B = document.getElementById("ins4Body");
+  if (topStorage) {
+    ins4T.textContent = `📦 Standard dominant : ${topStorage[0]}`;
+    ins4B.textContent = `${topStorage[1]} smartphones sur ${MODELS.length} intègrent ${topStorage[0]} de stockage, standard le plus représenté sur MarocPhone.`;
+  }
+}
+
+/* =====================================================================
+   SIMULATEUR DE PRIX & ANALYSEUR D'ÉCONOMIES
+===================================================================== */
+function initSimulator() {
+  const sel = document.getElementById("simSelect");
+  const prevVal = sel.value;
+  sel.innerHTML = '<option value="">— Choisir un modèle MarocPhone —</option>' +
+    MODELS.map(m => `<option value="${m.u}">${m.n} (${fmt(m.p)})</option>`).join("");
+  
+  if (prevVal && MODELS.some(m => m.u === prevVal)) {
+    sel.value = prevVal;
+  } else if (MODELS.length) {
+    sel.value = MODELS[0].u;
+  }
+  updateSimulator();
+}
+
+function updateSimulator() {
+  const url = document.getElementById("simSelect").value;
+  const budget = +document.getElementById("simBudget").value || 0;
+  const m = MODELS.find(x => x.u === url) || MODELS[0];
+  if (!m) return;
+
+  document.getElementById("simImg").src = m.img || "https://marocphone.com/products/placeholder.svg";
+  document.getElementById("simTitle").textContent = m.n;
+  document.getElementById("simMeta").textContent = `${m.b} • ${m.t === "neuf" ? "Neuf scellé (Garantie 12 mois)" : "Reconditionné A+ certifié"} • ${m.dispo ? "En stock" : "En rupture"}`;
+  
+  document.getElementById("simPrice").textContent = fmt(m.p);
+  const oldEl = document.getElementById("simOldPrice");
+  const remEl = document.getElementById("simBadgeRem");
+  
+  if (m.old && m.p && m.old > m.p) {
+    oldEl.style.display = "inline";
+    oldEl.textContent = fmt(m.old);
+    remEl.style.display = "inline-block";
+    const pct = Math.round((1 - m.p / m.old) * 100);
+    const diff = m.old - m.p;
+    remEl.textContent = `-${pct}% (${fmt(diff)} économisés)`;
+  } else {
+    oldEl.style.display = "none";
+    remEl.style.display = "none";
+  }
+
+  document.getElementById("simStorage").textContent = m.storage || "Non précisé";
+  document.getElementById("simRam").textContent = m.ram || "Standard";
+  document.getElementById("simNet").textContent = m.net || (m.t === "a" ? "4G / 5G" : "Standard");
+
+  // Ratio Prix / Go
+  const goNum = parseInt((m.storage || "").replace(/[^\d]/g, ""), 10);
+  if (goNum && m.p) {
+    const ratio = (m.p / goNum).toFixed(1);
+    document.getElementById("simRatio").textContent = `${ratio} DH / Go`;
+  } else {
+    document.getElementById("simRatio").textContent = "—";
+  }
+
+  // Verdict budget
+  const verdictEl = document.getElementById("simVerdict");
+  if (m.p == null) {
+    verdictEl.style.background = "rgba(255,255,255,.1)";
+    verdictEl.textContent = "ℹ️ Prix sur demande auprès de MarocPhone.";
+  } else if (budget > 0) {
+    if (m.p <= budget) {
+      const reste = budget - m.p;
+      verdictEl.style.background = "#14532d";
+      verdictEl.style.color = "#bbf7d0";
+      verdictEl.textContent = `✅ Dans votre budget : il vous reste ${fmt(reste)} d'économie.`;
+    } else {
+      const manquant = m.p - budget;
+      verdictEl.style.background = "#7f1d1d";
+      verdictEl.style.color = "#fecaca";
+      verdictEl.textContent = `⚠️ Dépasse votre budget de ${fmt(manquant)} (Budget : ${fmt(budget)}).`;
+    }
+  }
+
+  document.getElementById("simLink").href = m.u;
+}
+
+/* =====================================================================
+   TOP BONNES AFFAIRES & OPPORTUNITÉS (100% Dynamique)
+===================================================================== */
+let currentTopTab = "remise";
+
+function renderTopDeals() {
+  const container = document.getElementById("bestGrid");
+  let items = [];
+
+  if (currentTopTab === "remise") {
+    // Tri par plus fort pourcentage de remise
+    items = MODELS.filter(m => m.old && m.p && m.old > m.p)
+      .map(m => ({ ...m, remPct: Math.round((1 - m.p / m.old) * 100), ecoDH: m.old - m.p }))
+      .sort((a, b) => b.remPct - a.remPct)
+      .slice(0, 8);
+  } else if (currentTopTab === "eco") {
+    // Tri par économie en dirhams maximale
+    items = MODELS.filter(m => m.old && m.p && m.old > m.p)
+      .map(m => ({ ...m, remPct: Math.round((1 - m.p / m.old) * 100), ecoDH: m.old - m.p }))
+      .sort((a, b) => b.ecoDH - a.ecoDH)
+      .slice(0, 8);
+  } else if (currentTopTab === "cheap") {
+    // Tri par prix les plus bas (< 2000 DH)
+    items = MODELS.filter(m => m.p != null && m.p <= 2500)
+      .sort((a, b) => a.p - b.p)
+      .slice(0, 8);
+  } else if (currentTopTab === "new") {
+    // Modèles 2026 (Redmi Note 17, Galaxy A17, S25, Honor 600)
+    items = MODELS.filter(m => /17|S25|600/i.test(m.n))
+      .slice(0, 8);
+  }
+
+  container.innerHTML = items.map((m, idx) => {
+    const isPromo = m.old && m.p && m.old > m.p;
+    const remPct = isPromo ? Math.round((1 - m.p / m.old) * 100) : null;
+    const ecoDH = isPromo ? m.old - m.p : null;
+
+    return `<div class="card-best ${isPromo ? 'promo' : ''} ${m.t === 'a' ? 'a-plus' : ''}">
+      <div>
+        <div class="best-header">
+          <img class="best-img" src="${m.img || 'https://marocphone.com/products/placeholder.svg'}" alt="${m.n}">
+          <span class="rank-badge">#${idx + 1}</span>
+        </div>
+        <div class="best-title">
+          <a class="model-link" href="${m.u}" target="_blank" rel="noopener">${m.n}</a>
+        </div>
+        <div class="best-tags">
+          <span class="badge ${m.t === 'neuf' ? 'b-neuf' : 'b-a'}">${m.t === 'neuf' ? 'Neuf' : 'A+'}</span>
+          ${m.net ? `<span class="badge b-5g">${m.net}</span>` : ''}
+          ${m.storage ? `<span class="badge b-spec">${m.storage}</span>` : ''}
+          <span class="badge ${m.dispo ? 'b-dispo' : 'b-rup'}">${m.dispo ? 'En stock' : 'Rupture'}</span>
+        </div>
+      </div>
+      <div class="best-price">
+        <span class="now">${fmt(m.p)}</span>
+        ${m.old && m.p ? `<span class="prev">${fmt(m.old)}</span>` : ''}
+        ${remPct ? `<span class="rem">-${remPct}% (-${fmt(ecoDH)})</span>` : ''}
+      </div>
+    </div>`;
+  }).join("");
+}
+
+/* =====================================================================
+   CATALOGUE COMPLET & CONTRÔLES (Filtres, Tri, Recherche)
+===================================================================== */
+function initBrandFilter() {
+  const brandSel = document.getElementById("filterBrand");
+  const current = brandSel.value;
+  const brands = [...new Set(MODELS.map(m => m.b))].sort((a, b) => a.localeCompare(b, "fr"));
+  brandSel.innerHTML = '<option value="all">Toutes les marques</option>' +
+    brands.map(b => `<option value="${b}">${b}</option>`).join("");
+  if (brands.includes(current)) brandSel.value = current;
+}
+
+function renderCatalog() {
+  const query = (document.getElementById("search").value || "").toLowerCase().trim();
+  const fType = document.getElementById("filterType").value;
+  const fBrand = document.getElementById("filterBrand").value;
+  const fDispo = document.getElementById("filterDispo").value;
+  const sortBy = document.getElementById("sortBy").value;
+
+  let filtered = MODELS.filter(m => {
+    if (query) {
+      const haystack = `${m.n} ${m.b} ${m.storage} ${m.ram} ${m.net}`.toLowerCase();
+      if (!haystack.includes(query)) return false;
+    }
+    if (fType === "neuf" && m.t !== "neuf") return false;
+    if (fType === "a" && m.t !== "a") return false;
+    if (fBrand !== "all" && m.b !== fBrand) return false;
+    if (fDispo === "in" && !m.dispo) return false;
+    if (fDispo === "out" && m.dispo) return false;
+    return true;
+  });
+
+  // Tri
+  if (sortBy === "price-asc") {
+    filtered.sort((a, b) => (a.p || Infinity) - (b.p || Infinity));
+  } else if (sortBy === "price-desc") {
+    filtered.sort((a, b) => (b.p || 0) - (a.p || 0));
+  } else if (sortBy === "remise-desc") {
+    const remOf = m => (m.old && m.p) ? ((m.old - m.p) / m.old) : -1;
+    filtered.sort((a, b) => remOf(b) - remOf(a));
+  } else if (sortBy === "eco-desc") {
+    const ecoOf = m => (m.old && m.p) ? (m.old - m.p) : -1;
+    filtered.sort((a, b) => ecoOf(b) - ecoOf(a));
+  } else if (sortBy === "name-asc") {
+    filtered.sort((a, b) => a.n.localeCompare(b.n, "fr"));
+  }
+
+  const tbody = document.getElementById("catBody");
+  const emptyEl = document.getElementById("emptyCatalog");
+
+  if (!filtered.length) {
+    tbody.innerHTML = "";
+    emptyEl.style.display = "block";
+    return;
+  }
+  emptyEl.style.display = "none";
+
+  tbody.innerHTML = filtered.map((m, idx) => {
+    const isPromo = m.old && m.p && m.old > m.p;
+    const remPct = isPromo ? Math.round((1 - m.p / m.old) * 100) : null;
+    const config = [m.storage, m.ram].filter(Boolean).join(" • ") || "—";
+
+    return `<tr>
+      <td data-label="#">${idx + 1}</td>
+      <td data-label="Visuel">
+        <img class="prod-thumb" src="${m.img || 'https://marocphone.com/products/placeholder.svg'}" alt="${m.n}" loading="lazy">
+      </td>
+      <td data-label="Modèle" class="prod-cell">
+        <div>
+          <a class="model-link" href="${m.u}" target="_blank" rel="noopener">${m.n}</a>
+          <div style="font-size:11px;color:#64748b;margin-top:2px">${config}</div>
+        </div>
+      </td>
+      <td data-label="Marque"><b>${m.b}</b></td>
+      <td data-label="État">
+        <span class="badge ${m.t === 'neuf' ? 'b-neuf' : 'b-a'}">${m.t === 'neuf' ? 'Neuf' : 'A+'}</span>
+      </td>
+      <td data-label="Réseau">
+        ${m.net ? `<span class="badge b-5g">${m.net}</span>` : '<span style="color:#94a3b8">—</span>'}
+      </td>
+      <td data-label="Prix" class="price-cell">
+        ${fmt(m.p)}
+        ${isPromo ? `<span class="old-val">${fmt(m.old)}</span><span class="rem-val">-${remPct}%</span>` : ''}
+      </td>
+      <td data-label="Stock">
+        <span class="badge ${m.dispo ? 'b-dispo' : 'b-rup'}">${m.dispo ? 'En stock' : 'Rupture'}</span>
+      </td>
+      <td data-label="Action">
+        <a class="btn-table" href="${m.u}" target="_blank" rel="noopener">Voir ↗</a>
+      </td>
+    </tr>`;
+  }).join("");
+}
+
+/* =====================================================================
+   CYCLE COMPLET DE RENDU
+===================================================================== */
+function renderAll() {
+  initBrandFilter();
+  renderKPIs();
+  renderCharts();
+  renderBars();
+  renderInsights();
+  initSimulator();
+  renderTopDeals();
+  renderCatalog();
+}
+
+/* =====================================================================
+   SYNCHRONISATION EN DIRECT VIA PROXYS CORS (1-Clic Live Sync)
+===================================================================== */
+const btnUpdate = document.getElementById("btnUpdate");
+const updateStatus = document.getElementById("updateStatus");
+const updateLog = document.getElementById("updateLog");
+const logDetails = document.getElementById("logDetails");
+const liveClock = document.getElementById("liveClock");
+
+function logMsg(msg) {
+  logDetails.style.display = "block";
+  updateLog.textContent += msg + "\n";
+}
+
+const PROXIES = [
+  { name: "jina.ai (HTML)", fn: u => "https://r.jina.ai/" + u, headers: { "X-Return-Format": "html", "X-No-Cache": "true" } },
+  { name: "allorigins", fn: u => "https://api.allorigins.win/raw?url=" + encodeURIComponent(u) },
+  { name: "codetabs", fn: u => "https://api.codetabs.com/v1/proxy?quest=" + encodeURIComponent(u) },
+  { name: "thingproxy", fn: u => "https://thingproxy.freeboard.io/fetch/" + u }
+];
+
+const TARGET_URLS = {
+  neuf: "https://marocphone.com/neuf/smartphones",
+  a: "https://marocphone.com/occasion/smartphones"
+};
+
+function parseMarocHTML(html, type) {
+  const doc = new DOMParser().parseFromString(html, "text/html");
+  const byHref = new Map();
+
+  const brandMap = {
+    apple: "Apple", samsung: "Samsung", xiaomi: "Xiaomi", honor: "Honor",
+    oppo: "Oppo", realme: "Realme", infinix: "Infinix", tecno: "Tecno", foning: "Foning"
+  };
+
+  [...doc.querySelectorAll('a[href*="/smartphones/"]')].forEach(a => {
+    const rawHref = (a.getAttribute("href") || "").trim();
+    const href = rawHref.split("?")[0].replace(/\/+$/, "");
+    if (href.split("/").filter(Boolean).length < 4) return;
+    const name = (a.textContent || "").trim().replace(/\s+/g, " ");
+    if (!name || name.length < 8) return;
+
+    const prev = byHref.get(href);
+    if (prev && prev.n && prev.n.length >= name.length) return;
+    const slug = slugOf(href);
+
+    let card = null, node = a.parentElement;
+    for (let i = 0; i < 5 && node; i++) {
+      const same = [...node.querySelectorAll('a[href*="/smartphones/"]')].filter(x => slugOf(x.getAttribute("href")) === slug);
+      const txt = node.textContent || "";
+      if (same.length >= 2 && (/[\d\s\.]+\s*DH/i.test(txt) || /Prix sur demande/i.test(txt))) {
+        card = node;
+        break;
+      }
+      node = node.parentElement;
+    }
+    if (!card) {
+      node = a.parentElement;
+      for (let i = 0; i < 4 && node; i++) {
+        const txt = node.textContent || "";
+        if (/[\d\s\.]+\s*DH/i.test(txt) || /Prix sur demande/i.test(txt)) {
+          card = node;
+          break;
+        }
+        node = node.parentElement;
+      }
+    }
+    if (!card) return;
+
+    const text = card.textContent || "";
+    const isRupture = /Rupture|Indisponible/i.test(text);
+
+    const prices = [...text.matchAll(/([\d][\d\s\.]{2,8})\s*DH/gi)]
+      .map(m => parseInt(m[1].replace(/[^\d]/g, ""), 10))
+      .filter(n => n >= 100 && n < 200000);
+
+    if (!prices.length && !/Prix sur demande|Indisponible/i.test(text)) return;
+
+    const price = prices.length ? prices[0] : null;
+    const old = (prices.length > 1 && prices[1] > price) ? prices[1] : null;
+
+    // Image miniature
+    const imgEl = card.querySelector('img[src*="/products/"]');
+    const img = imgEl ? (imgEl.getAttribute("src").startsWith("http") ? imgEl.getAttribute("src") : "https://marocphone.com" + imgEl.getAttribute("src")) : "";
+
+    // Marque
+    const parts = href.split("/").filter(Boolean);
+    const brandSlug = parts[parts.indexOf("smartphones") + 1] || "";
+    const brand = brandMap[brandSlug.toLowerCase()] || (brandSlug ? brandSlug.charAt(0).toUpperCase() + brandSlug.slice(1) : name.split(" ")[0]);
+
+    // Specs
+    const storageM = name.match(/(\d+)\s*Go(?!\s*RAM)/i);
+    const storage = storageM ? `${storageM[1]} Go` : "";
+    const ramM = name.match(/(\d+)\s*Go\s*RAM/i);
+    const ram = ramM ? `${ramM[1]} Go` : "";
+    const net = /\b5G\b/i.test(name) ? "5G" : (/\b4G\b/i.test(name) ? "4G" : "");
+
+    byHref.set(href, {
+      n: name,
+      b: brand,
+      t: type,
+      p: price,
+      old: old,
+      dispo: isRupture ? 0 : 1,
+      u: href.startsWith("http") ? href : "https://marocphone.com" + href,
+      img,
+      storage,
+      ram,
+      net
+    });
+  });
+
+  return [...byHref.values()];
+}
+
+async function fetchWithProxy(proxy, url) {
+  logMsg(`→ Requête via ${proxy.name} : ${url}`);
+  const ctrl = new AbortController();
+  const to = setTimeout(() => ctrl.abort(), 20000);
+  try {
+    const res = await fetch(proxy.fn(url), {
+      signal: ctrl.signal,
+      cache: "no-store",
+      headers: proxy.headers || {}
+    });
+    clearTimeout(to);
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    const txt = await res.text();
+    if (!txt || txt.length < 500) throw new Error("Réponse vide ou trop courte");
+    logMsg(`✓ Succès ${proxy.name} (${txt.length} caractères reçus)`);
+    return txt;
+  } catch (err) {
+    clearTimeout(to);
+    logMsg(`✗ Échec ${proxy.name} : ${err.message}`);
+    throw err;
+  }
+}
+
+async function runLiveSync() {
+  btnUpdate.disabled = true;
+  btnUpdate.classList.add("loading");
+  updateStatus.className = "status";
+  updateStatus.textContent = "Connexion en cours aux serveurs de MarocPhone...";
+  updateLog.textContent = `=== Synchronisation démarrée à ${new Date().toLocaleTimeString("fr-FR")} ===\n`;
+
+  let htmlNeuf = "", htmlA = "", usedProxy = null;
+
+  for (const proxy of PROXIES) {
+    try {
+      htmlNeuf = await fetchWithProxy(proxy, TARGET_URLS.neuf);
+      htmlA = await fetchWithProxy(proxy, TARGET_URLS.a);
+      usedProxy = proxy.name;
+      break;
+    } catch (e) {
+      // On teste le proxy suivant
+    }
+  }
+
+  if (!htmlNeuf || !htmlA) {
+    updateStatus.className = "status err";
+    updateStatus.textContent = "⛔ Échec de connexion via les proxys. Vos données locales restent actives. Réessayez dans un instant.";
+    logMsg("Échec complet de tous les proxys.");
+    btnUpdate.disabled = false;
+    btnUpdate.classList.remove("loading");
+    return;
+  }
+
+  const scrapedNeufs = parseMarocHTML(htmlNeuf, "neuf");
+  const scrapedA = parseMarocHTML(htmlA, "a");
+  const allScraped = [...scrapedNeufs, ...scrapedA];
+
+  logMsg(`Parser : ${scrapedNeufs.length} neufs, ${scrapedA.length} occasion trouvés.`);
+
+  let updatedCount = 0;
+  let addedCount = 0;
+
+  allScraped.forEach(scraped => {
+    const existing = MODELS.find(m => slugOf(m.u) === slugOf(scraped.u)) ||
+                     MODELS.find(m => normName(m.n) === normName(scraped.n));
+    if (existing) {
+      existing.p = scraped.p;
+      existing.old = scraped.old;
+      existing.dispo = scraped.dispo;
+      if (scraped.img) existing.img = scraped.img;
+      if (scraped.storage) existing.storage = scraped.storage;
+      if (scraped.ram) existing.ram = scraped.ram;
+      if (scraped.net) existing.net = scraped.net;
+      updatedCount++;
+    } else {
+      MODELS.push(scraped);
+      addedCount++;
+    }
+  });
+
+  const timeStr = new Date().toLocaleTimeString("fr-FR");
+  liveClock.textContent = timeStr;
+  updateStatus.className = "status ok";
+  updateStatus.textContent = `✅ Synchronisation réussie via ${usedProxy} à ${timeStr} — ${updatedCount} modèles actualisés${addedCount ? ` (+${addedCount} nouveaux)` : ''}.`;
+  logMsg(`Terminé avec succès : ${updatedCount} actualisés, ${addedCount} ajoutés.`);
+
+  // Sauvegarde persistante dans localStorage
+  try {
+    localStorage.setItem("phoneHelperMarocLive", JSON.stringify({
+      time: new Date().toISOString(),
+      models: MODELS
+    }));
+  } catch (e) {}
+
+  renderAll();
+  btnUpdate.disabled = false;
+  btnUpdate.classList.remove("loading");
+}
+
+/* =====================================================================
+   ÉCOUTEURS D'ÉVÉNEMENTS
+===================================================================== */
+btnUpdate.addEventListener("click", runLiveSync);
+
+["search", "filterType", "filterBrand", "filterDispo", "sortBy"].forEach(id => {
+  const el = document.getElementById(id);
+  if (el) el.addEventListener("input", renderCatalog);
+});
+
+document.querySelectorAll(".tab-btn").forEach(btn => {
+  btn.addEventListener("click", e => {
+    document.querySelectorAll(".tab-btn").forEach(b => b.classList.remove("active"));
+    e.target.classList.add("active");
+    currentTopTab = e.target.getAttribute("data-tab");
+    renderTopDeals();
+  });
+});
+
+document.getElementById("simSelect").addEventListener("change", updateSimulator);
+document.getElementById("simBudget").addEventListener("input", updateSimulator);
+
+/* =====================================================================
+   INITIALISATION ET RESTAURATION DU CACHE
+===================================================================== */
+(function init() {
+  liveClock.textContent = new Date().toLocaleTimeString("fr-FR");
+  try {
+    const saved = localStorage.getItem("phoneHelperMarocLive");
+    if (saved) {
+      const data = JSON.parse(saved);
+      if (Array.isArray(data.models) && data.models.length >= 20) {
+        MODELS = data.models;
+        const savedTime = new Date(data.time).toLocaleTimeString("fr-FR");
+        liveClock.textContent = savedTime;
+        updateStatus.className = "status ok";
+        updateStatus.textContent = `Dernière synchronisation restaurée (${savedTime}). Cliquez sur « Synchroniser en direct » pour actualiser.`;
+      }
+    }
+  } catch (e) {}
+  renderAll();
 })();
 </script>
 </body>

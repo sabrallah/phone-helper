@@ -1,35 +1,36 @@
-# 📱 PhoneHelper Pro — Baromètre smartphones Maroc
+# 📱 PhoneHelper Pro — Baromètre Smartphones MarocPhone
 
-Dashboard HTML autonome consacré aux smartphones neufs et reconditionnés A+ de [MarocPhone](https://marocphone.com/neuf/smartphones).
+Dashboard dynamique officiel consacré aux smartphones neufs scellés et reconditionnés A+ certifiés de [MarocPhone](https://marocphone.com/neuf/smartphones).
 
-## 📄 Contenu
+> **Objectif 100% Dynamique** : Toutes les métriques affichées sont calculées en direct et sourcées exclusivement depuis MarocPhone. Aucune donnée éditoriale, spéculative ou statique (guides techniciens ou estimations de pannes fictives supprimés).
 
-- **Catalogue complet** : 30 modèles (22 neufs + 8 reconditionnés A+) avec prix, anciens prix, remises, disponibilité et liens produits
-- **Dashboard KPI** : prix moyens neuf/A+, fourchette, meilleure remise, ruptures, marques
-- **📈 Statistiques marché** : 3 graphiques Chart.js (marques, distribution des prix, remises) + barres de gammes et taux de pannes
-- **🔥 Top ventes Maroc 2026** : 10 neufs + 2 reconditionnés A+
-- **🛠️ Guide technicien** : stock prioritaire, pannes fréquentes, seuils de rentabilité, check-list imprimable
-- **🧮 Calculateur de rentabilité** : verdict immédiat selon le prix neuf, la pièce et la main d'œuvre
+## 📄 Fonctionnalités
 
-## ⟳ Mise à jour en 1 clic
+- **Catalogue complet & interactif** : 30 smartphones (22 neufs + 8 reconditionnés A+) avec visuels produits officiels, stockage (Go), RAM, réseau 4G/5G, prix TTC, anciens prix barrés, remises (DH et %), disponibilité en stock et liens directs vers les fiches MarocPhone.
+- **Tableau de bord KPI (8 indicateurs)** : volume du catalogue, prix moyen et médian neuf, prix moyen reconditionné A+, écart moyen neuf vs A+, fourchette tarifaire, meilleure remise %, plus grande économie en DH, taux de disponibilité en stock et économies cumulées au catalogue.
+- **📈 Statistiques & distribution du marché** : 3 graphiques Chart.js (répartition par marque, distribution des prix neufs par segment, taux de remise moyen par marque) + barres de répartition des gammes et taux de disponibilité par marque.
+- **🏷️ Insights quantitatifs en temps réel** : promotions actives, état des ruptures de stock nominatives, comparatif de décote Neuf vs Reconditionné A+ et capacités de stockage dominantes.
+- **🧮 Simulateur de prix & analyseur d'économies** : analyse individuelle de chaque smartphone, ratio Prix / Go, test d'adéquation au budget et vérification de disponibilité.
+- **🔥 Top Bonnes Affaires & Opportunités** : classements dynamiques par plus forte remise (%), plus grande économie (DH), petits prix (< 2 000 DH) et nouveautés 2026.
+- **🔍 Recherche, filtres & tri instantanés** : par mot-clé, par état (neuf / A+), par marque, par disponibilité (en stock / rupture) et par critères de prix ou d'économie.
 
-Le bouton **Mise à jour** importe les données de MarocPhone via des proxys CORS (Jina Reader + secours) et actualise **toute la page** :
+## ⟳ Synchronisation en direct (1 clic)
 
-- prix actuels, anciens prix barrés et statut rupture / prix sur demande ;
-- nouveaux produits éventuels ajoutés au catalogue ;
-- KPIs, insights, barres, graphiques, Top ventes, tableau technicien, calculateur et catalogue.
+Le bouton **Synchroniser en direct** interroge en temps réel les pages officielles de MarocPhone via des proxys CORS haute disponibilité (Jina Reader en priorité, avec formats HTML/DOMParser) et actualise **l'intégralité du dashboard** :
 
-La dernière synchronisation est conservée dans le `localStorage` du navigateur.
+- prix actuels, anciens prix barrés et statuts de disponibilité (en stock / rupture de stock) ;
+- détection et intégration automatique de nouveaux smartphones ajoutés au catalogue ;
+- recalcul instantané de tous les KPIs, graphiques, barres, classements et simulateur.
+
+La dernière synchronisation est automatiquement mise en cache dans le `localStorage` du navigateur pour une restauration instantanée au chargement.
 
 ## 🚀 Déploiement
 
-Le repo est déployé automatiquement sur **GitHub Pages** via GitHub Actions (`.github/workflows/pages.yml`).
-Chaque push sur `main` déclenche un nouveau déploiement.
+Le projet est hébergé et déployé automatiquement sur **GitHub Pages** via GitHub Actions (`.github/workflows/pages.yml`).
+Chaque commit poussé sur la branche `main` déclenche le déploiement.
 
 URL publique : https://sabrallah.github.io/phone-helper/
 
-> Le fichier principal est `index.html` à la racine du repo.
-
 ## ©
 
-sabrallah — sabrallah1991@gmail.com
+sabrallah — sabrallah1991@gmail.com • Données : marocphone.com
