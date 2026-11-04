@@ -13,7 +13,7 @@ Dashboard HTML autonome consacré aux smartphones neufs et reconditionnés A+ de
 
 ## ⟳ Mise à jour en 1 clic
 
-Le bouton **Mise à jour** importe les données de MarocPhone via 6 proxys CORS et actualise **toute la page** :
+Le bouton **Mise à jour** importe les données de MarocPhone via des proxys CORS (Jina Reader + secours) et actualise **toute la page** :
 
 - prix actuels, anciens prix barrés et statut rupture / prix sur demande ;
 - nouveaux produits éventuels ajoutés au catalogue ;

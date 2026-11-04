@@ -140,7 +140,7 @@ footer{text-align:center;color:#94a3b8;font-size:12px;margin-top:8px}
     <div class="update-bar">
       <button id="btnUpdate" class="btn"><span class="spin">⟳</span> Mise à jour</button>
       <a class="btn btn-ghost" href="https://marocphone.com/neuf/smartphones" target="_blank" rel="noopener">↗ Ouvrir MarocPhone</a>
-      <span id="updateStatus" class="status">Dernière synchro : <span id="lastSync">—</span> • Cliquez sur "Mise à jour" pour synchroniser les prix (6 proxys CORS).</span>
+      <span id="updateStatus" class="status">Dernière synchro : <span id="lastSync">—</span> • Cliquez sur "Mise à jour" pour synchroniser les prix (proxys CORS).</span>
     </div>
     <details class="log-details" id="logDetails" style="display:none"><summary>voir les détails techniques</summary><div id="updateLog"></div></details>
   </div>
@@ -516,7 +516,13 @@ renderAll();
 
 /* ===== MISE À JOUR ===== */
 const btnUpdate=document.getElementById("btnUpdate"), statusEl=document.getElementById("updateStatus"), lastSyncEl=document.getElementById("lastSync"), logEl=document.getElementById("updateLog");
-const PROXIES=[{name:"allorigins",fn:u=>"https://api.allorigins.win/raw?url="+encodeURIComponent(u)},{name:"corsproxy",fn:u=>"https://corsproxy.io/?url="+encodeURIComponent(u)},{name:"codetabs",fn:u=>"https://api.codetabs.com/v1/proxy?quest="+encodeURIComponent(u)},{name:"cors.lol",fn:u=>"https://api.cors.lol/?url="+encodeURIComponent(u)},{name:"proxy.cors.sh",fn:u=>"https://proxy.cors.sh/"+u},{name:"cors-anywhere",fn:u=>"https://cors-anywhere.herokuapp.com/"+u}];
+const PROXIES=[
+  {name:"jina.ai",fn:u=>"https://r.jina.ai/"+u,headers:{"X-Return-Format":"html","X-No-Cache":"true"}},
+  {name:"allorigins",fn:u=>"https://api.allorigins.win/raw?url="+encodeURIComponent(u)},
+  {name:"codetabs",fn:u=>"https://api.codetabs.com/v1/proxy?quest="+encodeURIComponent(u)},
+  {name:"cors.lol",fn:u=>"https://api.cors.lol/?url="+encodeURIComponent(u)},
+  {name:"corsproxy",fn:u=>"https://corsproxy.io/?url="+encodeURIComponent(u)}
+];
 const URLS={neuf:"https://marocphone.com/neuf/smartphones",a:"https://marocphone.com/occasion/smartphones"};
 let syncTries=0;
 function log(m){document.getElementById("logDetails").style.display="block";logEl.textContent+=m+"\n";}
@@ -525,8 +531,10 @@ function parseProducts(html){
   [...doc.querySelectorAll('a[href*="/smartphones/"]')].forEach(a=>{
     const rawHref=(a.getAttribute("href")||"").trim();
     const href=rawHref.split("?")[0].replace(/\/+$/,"");
-    if(href.split("/").filter(Boolean).length<4||byHref.has(href))return;
+    if(href.split("/").filter(Boolean).length<4)return;
     const name=(a.textContent||"").trim().replace(/\s+/g," "); if(!name||name.length<8)return;
+    // Les badges de la tuile ("-5%Rupture") sont plus courts que le vrai titre : on garde le nom le plus long
+    const prev=byHref.get(href); if(prev && prev.name.length>=name.length) return;
     const slug=slugOf(href);
     // Carte produit = ancêtre qui contient les 2 liens du même produit (image + titre)
     let card=null, node=a.parentElement;
@@ -553,8 +561,8 @@ function parseProducts(html){
 }
 async function fetchVia(proxy,url){
   log("→ Essai "+proxy.name+" : "+url);
-  const ctrl=new AbortController(), to=setTimeout(()=>ctrl.abort(),12000);
-  try{ const res=await fetch(proxy.fn(url),{signal:ctrl.signal,cache:"no-store"}); clearTimeout(to);
+  const ctrl=new AbortController(), to=setTimeout(()=>ctrl.abort(),25000);
+  try{ const res=await fetch(proxy.fn(url),{signal:ctrl.signal,cache:"no-store",headers:proxy.headers||{}}); clearTimeout(to);
     if(!res.ok)throw new Error("HTTP "+res.status);
     const txt=await res.text(); if(!txt||txt.length<500)throw new Error("Réponse trop courte");
     log("✓ "+proxy.name+" OK ("+txt.length+" caractères)"); return txt;
