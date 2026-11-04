@@ -3,8 +3,8 @@
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PhoneHelper Pro — Baromètre Smartphones MarocPhone | Top Ventes & Pannes</title>
-<meta name="description" content="Dashboard officiel des smartphones MarocPhone. Top ventes, pannes les plus connues, seuils de rentabilité, prix et stocks 100% dynamiques.">
+<title>PhoneHelper Pro — Baromètre du Marché Smartphone au Maroc | Top Ventes & Pannes</title>
+<meta name="description" content="Dashboard professionnel des smartphones au Maroc. Top ventes, pannes les plus connues, seuils de rentabilité, prix et stocks 100% dynamiques.">
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
@@ -220,7 +220,7 @@ a{color:inherit;text-decoration:none}
 }
 .update-bar{
   display:flex;
-  gap:12px;
+  gap:14px;
   align-items:center;
   flex-wrap:wrap;
   margin-top:24px;
@@ -230,7 +230,7 @@ a{color:inherit;text-decoration:none}
 .btn{
   border:none;
   cursor:pointer;
-  padding:11px 22px;
+  padding:11px 24px;
   border-radius:var(--radius-pill);
   font-weight:800;
   font-size:13px;
@@ -592,9 +592,10 @@ details.log-details summary{
 .bs-card.rank-3 .bs-rank-pill{background:#c2410c}
 .bs-title{
   font-weight:800;
-  font-size:14px;
+  font-size:14.5px;
   margin:12px 0 6px;
   line-height:1.35;
+  color:var(--text-main);
 }
 .bs-badge-row{
   display:flex;
@@ -634,6 +635,7 @@ details.log-details summary{
 .bs-price{
   font-size:18px;
   font-weight:900;
+  color:var(--text-main);
 }
 
 /* SECTION PANNES & REPARATION */
@@ -874,13 +876,9 @@ tr:hover td{background:#fafafa}
   padding:3px;
   flex-shrink:0;
 }
-a.model-link{
+.model-name{
   font-weight:800;
   color:var(--text-main);
-}
-a.model-link:hover{
-  color:var(--blue);
-  text-decoration:underline;
 }
 
 /* BADGES */
@@ -902,20 +900,6 @@ a.model-link:hover{
 .price-bold{font-weight:900;white-space:nowrap}
 .old-stroke{color:var(--text-light);text-decoration:line-through;font-size:11px;margin-left:6px}
 .rem-pill{color:var(--green-dark);font-size:11px;font-weight:800;margin-left:6px}
-.btn-action{
-  background:var(--bg-dark);
-  color:#ffffff;
-  padding:7px 14px;
-  border-radius:var(--radius-sm);
-  font-size:11.5px;
-  font-weight:800;
-  display:inline-block;
-  transition:all 0.15s ease;
-}
-.btn-action:hover{
-  background:var(--blue);
-  transform:translateY(-1px);
-}
 
 /* GRID VIEW */
 .catalog-cards-grid{
@@ -956,10 +940,6 @@ footer{
   margin-top:24px;
   padding:24px 20px;
 }
-footer a{
-  color:var(--text-muted);
-  text-decoration:underline;
-}
 
 @media(max-width:900px){
   .calc-box{grid-template-columns:1fr}
@@ -982,7 +962,7 @@ footer a{
   <div class="topbar-in">
     <div class="logo">
       Phone<span>Helper</span> Pro
-      <span class="logo-badge">MAROCPHONE DIRECT</span>
+      <span class="logo-badge">BAROMÈTRE DIRECT</span>
     </div>
     <nav class="nav-links">
       <a href="#dashboard">Dashboard</a>
@@ -1003,12 +983,11 @@ footer a{
 
   <!-- HERO -->
   <section class="hero">
-    <div class="hero-pill">⚡ Données officielles MarocPhone en direct</div>
-    <h1>Baromètre Smartphones <em>MarocPhone</em><br>Top Ventes, Pannes Fréquentes & Baromètre Prix</h1>
-    <p>Observatoire 100% dynamique : meilleures ventes au Maroc, pannes les plus connues et composants sensibles calculés d'après les technologies embarquées, seuils de rentabilité réparation et prix réels synchronisés en direct depuis MarocPhone.</p>
+    <div class="hero-pill">⚡ Données du marché en direct</div>
+    <h1>Baromètre Smartphones <em>au Maroc</em><br>Top Ventes, Pannes Fréquentes & Analyse des Prix</h1>
+    <p>Observatoire 100% dynamique : meilleures ventes au Maroc, pannes les plus connues et composants sensibles calculés d'après les technologies embarquées, seuils de rentabilité réparation et prix réels synchronisés en direct.</p>
     <div class="update-bar">
       <button id="btnUpdate" class="btn btn-primary"><span class="spin">⟳</span> Synchroniser en direct</button>
-      <a class="btn btn-ghost" href="https://marocphone.com/neuf/smartphones" target="_blank" rel="noopener">↗ Ouvrir MarocPhone</a>
       <span id="updateStatus" class="status-pill">Catalogue synchronisé. Cliquez sur « Synchroniser en direct » pour rafraîchir les prix à tout moment.</span>
     </div>
     <details class="log-details" id="logDetails" style="display:none">
@@ -1111,8 +1090,8 @@ footer a{
     <div class="section-header">
       <div>
         <span class="section-tag">01 • ANALYSES MARCHÉ</span>
-        <h2>Statistiques & Distribution du Marché MarocPhone</h2>
-        <p>Analyses quantitatives issues du catalogue en direct (<span id="statsCount">30</span> smartphones analysés). Données 100% dynamiques issues de MarocPhone.</p>
+        <h2>Statistiques & Distribution du Marché Maroc</h2>
+        <p>Analyses quantitatives issues du catalogue en direct (<span id="statsCount">30</span> smartphones analysés). Données 100% dynamiques en temps réel.</p>
       </div>
     </div>
 
@@ -1159,7 +1138,7 @@ footer a{
     <div class="bar-title">Poids des segments tarifaires (Neufs avec prix affiché)</div>
     <div id="priceBars"></div>
 
-    <div class="bar-title" style="margin-top:14px">Taux de disponibilité par marque (% en stock chez MarocPhone)</div>
+    <div class="bar-title" style="margin-top:14px">Taux de disponibilité par marque (% en stock)</div>
     <div id="brandDispoBars"></div>
     <div style="height:18px"></div>
   </section>
@@ -1169,8 +1148,8 @@ footer a{
     <div class="section-header">
       <div>
         <span class="section-tag">02 • PALMARÈS VOLUME</span>
-        <h2>🔥 Smartphones les Plus Vendus au Maroc (Top Ventes 2026)</h2>
-        <p>Classement dynamique basé sur les volumes du marché marocain, l'accessibilité tarifaire et la demande observée sur MarocPhone. Les prix, remises et indices s'actualisent en direct.</p>
+        <h2>🔥 Smartphones les Plus Vendus (Top Ventes au Maroc)</h2>
+        <p>Classement dynamique basé sur les volumes du marché marocain, l'accessibilité tarifaire et la demande observée en direct. Les prix, remises et indices s'actualisent en temps réel.</p>
       </div>
     </div>
 
@@ -1183,7 +1162,7 @@ footer a{
       <div>
         <span class="section-tag">03 • DIAGNOSTIC ATELIER</span>
         <h2>🛠️ Pannes les Plus Connues & Seuils de Rentabilité</h2>
-        <p>Statistiques dynamiques des pannes calculées d'après les technologies embarquées (OLED, AMOLED, LCD, usure batterie A+, charge rapide) et seuils d'intervention ajustés au prix du jour MarocPhone.</p>
+        <p>Statistiques dynamiques des pannes calculées d'après les technologies embarquées (OLED, AMOLED, LCD, usure batterie A+, charge rapide) et seuils d'intervention ajustés au prix du jour.</p>
       </div>
       <div>
         <button class="btn btn-ghost" style="color:var(--text-main);border-color:var(--line)" onclick="window.print()">🖨️ Imprimer la check-list atelier</button>
@@ -1215,13 +1194,13 @@ footer a{
 
     <div class="tech-table-wrap">
       <div style="font-weight:800;font-size:14px;margin-bottom:12px;color:var(--text-main)">
-        Diagnostic & Seuil de rentabilité par modèle (Seuil d'acceptation client = 35% du prix neuf MarocPhone du jour)
+        Diagnostic & Seuil de rentabilité par modèle (Seuil d'acceptation client = 35% du prix neuf du jour)
       </div>
       <table>
         <thead>
           <tr>
             <th>Modèle</th>
-            <th>Prix MarocPhone du jour</th>
+            <th>Prix du marché (du jour)</th>
             <th>Panne N°1 la plus connue</th>
             <th>Pièce prioritaire à stocker</th>
             <th>Seuil réparation rentable</th>
@@ -1239,16 +1218,16 @@ footer a{
       <div>
         <span class="section-tag">04 • CALCULATEUR RENTABILITÉ</span>
         <h2>🧮 Calculateur de Rentabilité Réparation</h2>
-        <p>Choisissez un smartphone MarocPhone, saisissez le coût de la pièce et de votre main d'œuvre — le verdict de rentabilité pour le client se calcule instantanément d'après le prix du jour.</p>
+        <p>Choisissez un smartphone, saisissez le coût de la pièce et de votre main d'œuvre — le verdict de rentabilité pour le client se calcule instantanément d'après le prix du jour.</p>
       </div>
     </div>
 
     <div class="calc-box">
       <div class="calc-inputs">
-        <label for="calcModelSel">Modèle du catalogue MarocPhone</label>
+        <label for="calcModelSel">Modèle du catalogue</label>
         <select id="calcModelSel"><option value="">— Sélectionner un smartphone —</option></select>
         
-        <label for="calcNewPrice">Prix du téléphone chez MarocPhone (DH)</label>
+        <label for="calcNewPrice">Prix d'achat neuf du téléphone (DH)</label>
         <input id="calcNewPrice" type="number" min="0" value="2699">
 
         <label for="calcPartCost">Coût de la pièce détachée (écran, batterie, connecteur, DH)</label>
@@ -1273,14 +1252,8 @@ footer a{
           </div>
           
           <p style="font-size:12.5px;color:#94a3b8;line-height:1.5" id="calcAdviceText">
-            Conseil atelier : réparation express 45 min garantie 3 mois. Argument décisif : « Réparé à 850 DH vs 2 699 DH neuf chez MarocPhone ».
+            Conseil atelier : réparation express 45 min garantie 3 mois. Argument décisif : « Réparé à 850 DH vs 2 699 DH neuf ».
           </p>
-        </div>
-
-        <div style="margin-top:16px;padding-top:14px;border-top:1px solid rgba(255,255,255,0.1)">
-          <a id="calcShopLink" class="btn btn-primary" style="width:100%;justify-content:center" href="#" target="_blank" rel="noopener">
-            ↗ Vérifier le prix en direct sur MarocPhone
-          </a>
         </div>
       </div>
     </div>
@@ -1290,9 +1263,9 @@ footer a{
   <section class="section" id="catalogue">
     <div class="section-header">
       <div>
-        <span class="section-tag">05 • CATALOGUE OFFICIEL</span>
-        <h2 id="catTitle">Catalogue complet MarocPhone</h2>
-        <p>Recherchez, filtrez et triez les smartphones officiels MarocPhone. Chaque fiche inclut le prix, le statut de stock, la configuration et la panne la plus connue.</p>
+        <span class="section-tag">05 • CATALOGUE DES MODÈLES</span>
+        <h2 id="catTitle">Catalogue complet des smartphones</h2>
+        <p>Recherchez, filtrez et triez les smartphones du catalogue. Chaque modèle inclut le prix en direct, le statut de stock, la configuration et la panne la plus connue.</p>
       </div>
     </div>
 
@@ -1339,10 +1312,9 @@ footer a{
             <th>Modèle & Configuration</th>
             <th>Marque</th>
             <th>État</th>
-            <th>Prix MarocPhone</th>
+            <th>Prix TTC</th>
             <th>Panne la plus connue</th>
-            <th>Stock</th>
-            <th>Fiche</th>
+            <th>Disponibilité</th>
           </tr>
         </thead>
         <tbody id="catBody"></tbody>
@@ -1361,18 +1333,19 @@ footer a{
 
   <!-- FOOTER -->
   <footer>
-    <p><b>PhoneHelper Pro</b> • Baromètre officiel smartphones MarocPhone • Données sourcées en direct depuis <a href="https://marocphone.com/neuf/smartphones" target="_blank" rel="noopener">marocphone.com</a></p>
-    <p style="margin-top:6px;font-size:11px">Synchronisation dynamique en direct • sabrallah — sabrallah1991@gmail.com</p>
+    <p><b>PhoneHelper Pro</b> • Baromètre & Observatoire des smartphones au Maroc</p>
+    <p style="margin-top:6px;font-size:11px">Données actualisées en direct • sabrallah — sabrallah1991@gmail.com</p>
   </footer>
 
 </main>
 
 <script>
 /* =====================================================================
-   DONNÉES DU CATALOGUE OFFICIEL MAROCPHONE (Source de vérité)
+   DONNÉES DU CATALOGUE OFFICIEL (Source de vérité)
    30 modèles (22 neufs + 8 reconditionnés A+)
-   Chaque champ est genuinement extrait du site officiel marocphone.com
 ===================================================================== */
+const PLACEHOLDER_IMG = "data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' width='100' height='100' viewBox='0 0 100 100'><rect width='100' height='100' rx='12' fill='%231e293b'/><text x='50' y='58' font-size='32' text-anchor='middle' fill='%2394a3b8'>📱</text></svg>";
+
 let MODELS = [
   {n:"Samsung Galaxy A17 4G 128 Go 4 Go RAM",b:"Samsung",t:"neuf",p:2099,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/samsung/samsung-galaxy-a17-4g-128-go-4-go-ram",img:"https://marocphone.com/products/samsung-galaxy-a17-4g-128-go-4-go-ram-0.webp",storage:"128 Go",ram:"4 Go",net:"4G"},
   {n:"Xiaomi Redmi Note 17 256 Go 6 Go RAM",b:"Xiaomi",t:"neuf",p:2699,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-256-go-6-go-ram",img:"https://marocphone.com/products/xiaomi-redmi-note-17-256-go-6-go-ram-0.webp",storage:"256 Go",ram:"6 Go",net:""},
@@ -1382,7 +1355,7 @@ let MODELS = [
   {n:"Xiaomi Redmi Note 17 Pro 5G 256 Go 8 Go RAM",b:"Xiaomi",t:"neuf",p:3890,old:null,dispo:1,u:"https://marocphone.com/neuf/smartphones/xiaomi/xiaomi-redmi-note-17-pro-5g-256-go-8-go-ram",img:"https://marocphone.com/products/xiaomi-redmi-note-17-pro-5g-256-go-8-go-ram-0.webp",storage:"256 Go",ram:"8 Go",net:"5G"},
   {n:"Tecno Spark 50 128 Go 8 Go RAM",b:"Tecno",t:"neuf",p:1600,old:null,dispo:0,u:"https://marocphone.com/neuf/smartphones/tecno/tecno-spark-50-128-go-8-go-ram",img:"https://marocphone.com/products/tecno-spark-50-128-go-8-go-ram-0.webp",storage:"128 Go",ram:"8 Go",net:""},
   {n:"Honor 600 Lite 5G — 256 Go, 8 Go RAM",b:"Honor",t:"neuf",p:3500,old:null,dispo:0,u:"https://marocphone.com/neuf/smartphones/honor/honor-600-lite-5g-256-go-8-go-ram",img:"https://marocphone.com/products/honor-600-lite-5g-256-go-8-go-ram-0.webp",storage:"256 Go",ram:"8 Go",net:"5G"},
-  {n:"Foning — Smartphone",b:"Foning",t:"neuf",p:null,old:null,dispo:0,u:"https://marocphone.com/neuf/smartphones/foning/foning-smartphone",img:"https://marocphone.com/products/placeholder.svg",storage:"",ram:"",net:""},
+  {n:"Foning — Smartphone",b:"Foning",t:"neuf",p:null,old:null,dispo:0,u:"https://marocphone.com/neuf/smartphones/foning/foning-smartphone",img:PLACEHOLDER_IMG,storage:"",ram:"",net:""},
   {n:"Honor X9b 5G 256 Go",b:"Honor",t:"neuf",p:2999,old:3299,dispo:1,u:"https://marocphone.com/neuf/smartphones/honor/honor-x9b-5g-256-go",img:"https://marocphone.com/products/honor-x9b-5g-256-go.svg",storage:"256 Go",ram:"",net:"5G"},
   {n:"Infinix Hot 40 Pro 256 Go",b:"Infinix",t:"neuf",p:1499,old:1699,dispo:1,u:"https://marocphone.com/neuf/smartphones/infinix/infinix-hot-40-pro-256-go",img:"https://marocphone.com/products/infinix-hot-40-pro-256-go.svg",storage:"256 Go",ram:"",net:""},
   {n:"Realme 12 Pro 5G 256 Go",b:"Realme",t:"neuf",p:3299,old:3699,dispo:1,u:"https://marocphone.com/neuf/smartphones/realme/realme-12-pro-5g-256-go",img:"https://marocphone.com/products/realme-12-pro-5g-256-go.svg",storage:"256 Go",ram:"",net:"5G"},
@@ -1450,7 +1423,7 @@ function getBreakdownData(m) {
     reparabilite = "★★★★☆";
   }
 
-  // Seuil rentable dynamique = 35% du prix neuf MarocPhone du jour
+  // Seuil rentable dynamique = 35% du prix neuf du jour
   const seuilRentable = m.p ? Math.round(m.p * 0.35) : null;
 
   return { panne, piece, reparabilite, seuilRentable, techType };
@@ -1551,7 +1524,7 @@ function renderKPIs() {
   document.getElementById("kpiTotalEcoDetail").textContent = `Sur ${promoCount} smartphones remisés`;
 
   document.getElementById("statsCount").textContent = MODELS.length;
-  document.getElementById("catTitle").textContent = `Catalogue complet MarocPhone — ${MODELS.length} modèles`;
+  document.getElementById("catTitle").textContent = `Catalogue complet — ${MODELS.length} modèles`;
 }
 
 /* =====================================================================
@@ -1594,7 +1567,7 @@ function renderCharts() {
   const descBrand = document.getElementById("descBrand");
   if (descBrand && topBrand) {
     const pct = Math.round((byBrand[topBrand] / MODELS.length) * 100);
-    descBrand.textContent = `${topBrand} en tête avec ${byBrand[topBrand]} modèles (${pct}% de l'offre MarocPhone).`;
+    descBrand.textContent = `${topBrand} en tête avec ${byBrand[topBrand]} modèles (${pct}% de l'offre du catalogue).`;
   }
 
   // Chart 2: Distribution des prix neufs par segment
@@ -1740,7 +1713,7 @@ function renderInsights() {
   if (promos.length) {
     const avgRem = Math.round(promos.reduce((s, m) => s + (1 - m.p / m.old) * 100, 0) / promos.length);
     ins1T.textContent = `🏷️ ${promos.length} promotions actives`;
-    ins1B.textContent = `Remise moyenne de -${avgRem}% constatée sur les prix barrés MarocPhone. Plus fortes décotes sur ${promos.slice(0, 2).map(m => m.n.split(" ")[0] + " " + (m.n.split(" ")[1]||"")).join(" et ")}.`;
+    ins1B.textContent = `Remise moyenne de -${avgRem}% constatée sur les prix barrés en promotion. Plus fortes décotes sur ${promos.slice(0, 2).map(m => m.n.split(" ")[0] + " " + (m.n.split(" ")[1]||"")).join(" et ")}.`;
   } else {
     ins1T.textContent = "🏷️ Promotions";
     ins1B.textContent = "Aucun prix barré actuellement sur le catalogue.";
@@ -1751,7 +1724,7 @@ function renderInsights() {
   const ins2B = document.getElementById("ins2Body");
   if (ruptures.length) {
     ins2T.textContent = `⚠️ ${ruptures.length} modèles en rupture de stock`;
-    ins2B.textContent = `Indisponibles actuellement chez MarocPhone : ${ruptures.map(m => m.n.split(" ")[0] + " " + (m.n.split(" ")[1]||"")).join(", ")}.`;
+    ins2B.textContent = `Indisponibles actuellement en stock : ${ruptures.map(m => m.n.split(" ")[0] + " " + (m.n.split(" ")[1]||"")).join(", ")}.`;
   } else {
     ins2T.textContent = "✅ 100% des stocks disponibles";
     ins2B.textContent = "Tous les smartphones du catalogue sont actuellement en stock pour livraison immédiate.";
@@ -1778,7 +1751,7 @@ function renderInsights() {
   const ins4B = document.getElementById("ins4Body");
   if (topStorage) {
     ins4T.textContent = `📦 Standard dominant : ${topStorage[0]}`;
-    ins4B.textContent = `${topStorage[1]} smartphones sur ${MODELS.length} intègrent ${topStorage[0]} de stockage au catalogue MarocPhone.`;
+    ins4B.textContent = `${topStorage[1]} smartphones sur ${MODELS.length} intègrent ${topStorage[0]} de stockage au catalogue.`;
   }
 }
 
@@ -1789,11 +1762,6 @@ function renderInsights() {
 function renderTopVentes() {
   const container = document.getElementById("bestSellersGrid");
 
-  // Critères de best-sellers observés au Maroc :
-  // 1. Entrée de gamme volume (<2 500 DH) : Redmi 13C, Galaxy A17, Galaxy A16, Infinix Hot 40 Pro
-  // 2. Cœur de marché (2 500 - 4 000 DH) : Note 13 Pro, Note 17, Honor X9b
-  // 3. Reconditionné le plus vendu : iPhone 13 A+, Galaxy S23 Plus A+
-  // 4. Flagships les plus demandés : iPhone 15, Galaxy S24 Ultra
   const bestSellersSlugs = [
     { slug: "xiaomi-redmi-13c-128-go", tag: "N°1 Entrée de gamme", demand: 98, role: "Le smartphone le plus vendu en volume au Maroc" },
     { slug: "samsung-galaxy-a17-4g-128-go-4-go-ram", tag: "N°1 Ventes Samsung", demand: 96, role: "Successeur du best-seller A15/A16, plébiscité" },
@@ -1823,13 +1791,11 @@ function renderTopVentes() {
     return `<div class="bs-card ${rankClass}">
       <div>
         <div class="bs-top">
-          <img class="bs-thumb" src="${m.img || 'https://marocphone.com/products/placeholder.svg'}" alt="${m.n}" onerror="this.onerror=null;this.src='https://marocphone.com/products/placeholder.svg'">
+          <img class="bs-thumb" src="${m.img || PLACEHOLDER_IMG}" alt="${m.n}" onerror="this.onerror=null;this.src=PLACEHOLDER_IMG">
           <span class="bs-rank-pill">🔥 #${idx + 1} Top Ventes</span>
         </div>
 
-        <div class="bs-title">
-          <a class="model-link" href="${m.u}" target="_blank" rel="noopener">${m.n}</a>
-        </div>
+        <div class="bs-title">${m.n}</div>
 
         <div class="bs-badge-row">
           <span class="badge ${m.t === 'neuf' ? 'b-neuf' : 'b-a'}">${m.t === 'neuf' ? 'Neuf scellé' : 'Reconditionné A+'}</span>
@@ -1860,7 +1826,9 @@ function renderTopVentes() {
           <div class="bs-price">${fmt(m.p)}</div>
           ${isPromo ? `<div style="font-size:11.5px"><span class="old-stroke" style="margin-left:0">${fmt(m.old)}</span> <span class="rem-pill">-${remPct}%</span></div>` : ''}
         </div>
-        <a class="btn-action" href="${m.u}" target="_blank" rel="noopener">Commander ↗</a>
+        <div>
+          <span class="badge ${m.dispo ? 'b-dispo' : 'b-rup'}">${m.dispo ? 'Disponible' : 'Rupture'}</span>
+        </div>
       </div>
     </div>`;
   }).join("");
@@ -1872,7 +1840,6 @@ function renderTopVentes() {
 function renderPannesAndTech() {
   const tbody = document.getElementById("techTableBody");
   
-  // Modèles phares représentatifs du parc marocain
   const techModels = MODELS.filter(m => m.p != null).slice(0, 16);
 
   tbody.innerHTML = techModels.map(m => {
@@ -1880,9 +1847,9 @@ function renderPannesAndTech() {
     return `<tr>
       <td>
         <div class="prod-meta-cell">
-          <img class="prod-thumb" src="${m.img || 'https://marocphone.com/products/placeholder.svg'}" alt="${m.n}" onerror="this.onerror=null;this.src='https://marocphone.com/products/placeholder.svg'" loading="lazy">
+          <img class="prod-thumb" src="${m.img || PLACEHOLDER_IMG}" alt="${m.n}" onerror="this.onerror=null;this.src=PLACEHOLDER_IMG" loading="lazy">
           <div>
-            <a class="model-link" href="${m.u}" target="_blank" rel="noopener">${m.n}</a>
+            <div class="model-name">${m.n}</div>
             <div style="font-size:11px;color:var(--text-muted)">${diag.techType} • ${m.b}</div>
           </div>
         </div>
@@ -1895,7 +1862,6 @@ function renderPannesAndTech() {
     </tr>`;
   }).join("");
 
-  // Mise à jour des % dynamiques d'après le catalogue
   const total = MODELS.length;
   const amoledOledCount = MODELS.filter(m => /amoled|oled|note|iphone 1[2-5]|galaxy s/i.test(m.n)).length;
   const recondCount = MODELS.filter(m => m.t === "a").length;
@@ -1919,7 +1885,7 @@ function initCalc() {
   const sel = document.getElementById("calcModelSel");
   const prevVal = sel.value;
   sel.innerHTML = '<option value="">— Sélectionner un smartphone —</option>' +
-    MODELS.filter(m => m.p != null).map(m => `<option value="${m.p}" data-url="${m.u}">${m.n} (${fmt(m.p)})</option>`).join("");
+    MODELS.filter(m => m.p != null).map(m => `<option value="${m.p}">${m.n} (${fmt(m.p)})</option>`).join("");
   
   if (prevVal) sel.value = prevVal;
   updateCalc();
@@ -1944,14 +1910,14 @@ function updateCalc() {
   if (ratio <= maxRatio) {
     verdictBox.className = "calc-verdict-box ok";
     verdictBox.textContent = `✅ RÉPARATION TRÈS RENTABLE — Le client accepte (${ratio}% vs ${maxRatio}% max)`;
-    adviceText.textContent = `Conseil atelier : réparation express recommandée. Marge brute pièce recommandée : ${Math.round(partCost * 0.35)} DH. Annoncer au client : « Réparé à ${fmt(totalBill)} vs ${fmt(newPrice)} neuf chez MarocPhone ».`;
+    adviceText.textContent = `Conseil atelier : réparation express recommandée. Marge brute pièce recommandée : ${Math.round(partCost * 0.35)} DH. Annoncer au client : « Réparé à ${fmt(totalBill)} vs ${fmt(newPrice)} neuf ».`;
   } else if (ratio <= 50) {
     verdictBox.className = "calc-verdict-box warn";
     verdictBox.textContent = `⚠️ ZONE LIMITE (${ratio}%) — Négocier ou proposer pièce compatible`;
     adviceText.textContent = `Conseil atelier : proposer une pièce compatible de grade A ou ajuster la main d'œuvre pour repasser sous ${maxRatio}%. Éviter de dépasser 50% du prix d'achat.`;
   } else {
     verdictBox.className = "calc-verdict-box no";
-    verdictBox.textContent = `⛔ NON RENTABLE (${ratio}%) — Rachat conseillé chez MarocPhone`;
+    verdictBox.textContent = `⛔ NON RENTABLE (${ratio}%) — Rachat neuf conseillé`;
     adviceText.textContent = `Conseil atelier : le coût de réparation (${fmt(totalBill)}) est trop proche du neuf (${fmt(newPrice)}). Conseiller au client un rachat neuf ou un reconditionné A+ négocié.`;
   }
 }
@@ -2051,12 +2017,12 @@ function renderCatalog() {
       return `<tr>
         <td><b>${idx + 1}</b></td>
         <td>
-          <img class="prod-thumb" src="${m.img || 'https://marocphone.com/products/placeholder.svg'}" alt="${m.n}" onerror="this.onerror=null;this.src='https://marocphone.com/products/placeholder.svg'" loading="lazy">
+          <img class="prod-thumb" src="${m.img || PLACEHOLDER_IMG}" alt="${m.n}" onerror="this.onerror=null;this.src=PLACEHOLDER_IMG" loading="lazy">
         </td>
         <td>
           <div class="prod-meta-cell">
             <div>
-              <a class="model-link" href="${m.u}" target="_blank" rel="noopener">${m.n}</a>
+              <div class="model-name">${m.n}</div>
               <div style="font-size:11.5px;color:var(--text-muted);margin-top:2px">${config}</div>
             </div>
           </div>
@@ -2072,7 +2038,6 @@ function renderCatalog() {
           <div style="font-size:10.5px;color:var(--text-muted);margin-top:2px">Seuil : &lt; ${fmt(diag.seuilRentable)}</div>
         </td>
         <td><span class="badge ${m.dispo ? 'b-dispo' : 'b-rup'}">${m.dispo ? 'En stock' : 'Rupture'}</span></td>
-        <td><a class="btn-action" href="${m.u}" target="_blank" rel="noopener">Fiche ↗</a></td>
       </tr>`;
     }).join("");
   } else {
@@ -2086,12 +2051,12 @@ function renderCatalog() {
 
       return `<div class="cat-item-card">
         <div>
-          <img class="cat-item-img" src="${m.img || 'https://marocphone.com/products/placeholder.svg'}" alt="${m.n}" onerror="this.onerror=null;this.src='https://marocphone.com/products/placeholder.svg'" loading="lazy">
+          <img class="cat-item-img" src="${m.img || PLACEHOLDER_IMG}" alt="${m.n}" onerror="this.onerror=null;this.src=PLACEHOLDER_IMG" loading="lazy">
           <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:6px">
             <span class="badge ${m.t === 'neuf' ? 'b-neuf' : 'b-a'}">${m.t === 'neuf' ? 'Neuf' : 'A+'}</span>
             <span class="badge ${m.dispo ? 'b-dispo' : 'b-rup'}">${m.dispo ? 'En stock' : 'Rupture'}</span>
           </div>
-          <a class="model-link" style="display:block;margin:6px 0;font-size:13.5px" href="${m.u}" target="_blank" rel="noopener">${m.n}</a>
+          <div class="model-name" style="margin:6px 0;font-size:13.5px">${m.n}</div>
           <div style="font-size:11.5px;color:var(--text-muted)">${m.b} • ${config} ${m.net ? `• ${m.net}` : ''}</div>
           <div style="margin-top:8px">
             <span class="badge b-panne" style="white-space:normal;font-size:10.5px">🔧 ${diag.panne.split("&")[0]}</span>
@@ -2102,7 +2067,7 @@ function renderCatalog() {
             <div class="price-bold" style="font-size:16px">${fmt(m.p)}</div>
             ${isPromo ? `<div><span class="old-stroke" style="margin-left:0">${fmt(m.old)}</span> <span class="rem-pill">-${remPct}%</span></div>` : ''}
           </div>
-          <a class="btn-action" href="${m.u}" target="_blank" rel="noopener">Fiche ↗</a>
+          <span class="badge ${m.dispo ? 'b-dispo' : 'b-rup'}">${m.dispo ? 'Disponible' : 'Rupture'}</span>
         </div>
       </div>`;
     }).join("");
@@ -2115,7 +2080,7 @@ function renderCatalog() {
 function renderAll() {
   renderBrandPills();
   renderKPIs();
-  renderCharts();
+  try { renderCharts(); } catch(e) { console.warn("Chart render:", e); }
   renderBars();
   renderInsights();
   renderTopVentes();
@@ -2263,7 +2228,7 @@ async function runLiveSync() {
   btnUpdate.disabled = true;
   btnUpdate.classList.add("loading");
   updateStatus.className = "status-pill";
-  updateStatus.textContent = "Connexion en cours aux serveurs MarocPhone...";
+  updateStatus.textContent = "Connexion en cours pour la synchronisation du catalogue...";
   updateLog.textContent = `=== Synchronisation démarrée à ${new Date().toLocaleTimeString("fr-FR")} ===\n`;
 
   let htmlNeuf = "", htmlA = "", usedProxy = null;
@@ -2316,11 +2281,11 @@ async function runLiveSync() {
   const timeStr = new Date().toLocaleTimeString("fr-FR");
   liveClock.textContent = `Actualisé à ${timeStr}`;
   updateStatus.className = "status-pill ok";
-  updateStatus.textContent = `✅ Synchronisé via ${usedProxy} à ${timeStr} — ${updatedCount} modèles actualisés${addedCount ? ` (+${addedCount} nouveaux)` : ''}.`;
+  updateStatus.textContent = `✅ Synchronisation réussie à ${timeStr} — ${updatedCount} modèles actualisés${addedCount ? ` (+${addedCount} nouveaux)` : ''}.`;
   logMsg(`Terminé avec succès : ${updatedCount} actualisés, ${addedCount} ajoutés.`);
 
   try {
-    localStorage.setItem("phoneHelperMarocLive", JSON.stringify({
+    localStorage.setItem("phoneHelperDataLive", JSON.stringify({
       time: new Date().toISOString(),
       models: MODELS
     }));
@@ -2345,9 +2310,6 @@ btnUpdate.addEventListener("click", runLiveSync);
 document.getElementById("calcModelSel").addEventListener("change", e => {
   if (e.target.value) {
     document.getElementById("calcNewPrice").value = e.target.value;
-    const selectedOpt = e.target.options[e.target.selectedIndex];
-    const url = selectedOpt ? selectedOpt.getAttribute("data-url") : "#";
-    document.getElementById("calcShopLink").href = url;
     updateCalc();
   }
 });
@@ -2377,7 +2339,7 @@ document.getElementById("btnViewGrid").addEventListener("click", () => {
 (function init() {
   liveClock.textContent = `Actualisé à ${new Date().toLocaleTimeString("fr-FR")}`;
   try {
-    const saved = localStorage.getItem("phoneHelperMarocLive");
+    const saved = localStorage.getItem("phoneHelperDataLive") || localStorage.getItem("phoneHelperMarocLive");
     if (saved) {
       const data = JSON.parse(saved);
       if (Array.isArray(data.models) && data.models.length >= 20) {
